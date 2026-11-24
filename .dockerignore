@@ -1,0 +1,12 @@
+.env*
+.git
+.omx
+.playwright-mcp
+.pytest*
+.ruff_cache
+.superpowers
+.tmp
+**/__pycache__
+backend/.venv
+frontend/node_modules
+frontend/dist

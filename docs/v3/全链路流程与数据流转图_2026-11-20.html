@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="虚拟人生成系统的架构、数据血缘、人生图生成、LLM 直接修订、历史暴露、问卷读取及验收流程图。">
+<link rel="icon" href="data:,">
+<title>虚拟人生成系统全链路流程图 | 2026.11</title>
+<style>
+:root{color-scheme:light;--ink:#211d17;--muted:#5a5344;--paper:#f2ecdd;--surface:#faf6ea;--line:rgba(33,29,23,.18);--green:#3d6b4f;--green-soft:#e6eee5;--teal:#41696b;--teal-soft:#e8efeb;--amber:#8a6d2f;--amber-soft:#f5eedc;--red:#b5382c;--red-soft:#f5e8e4;--slate:#3b4848;--slate-soft:#ebe8df;--blue:#2b4c7e;--blue-soft:#e9edf3;font-family:"Noto Sans SC","Source Han Sans SC","Microsoft YaHei",sans-serif;font-synthesis:none;text-rendering:optimizeLegibility}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--paper);background-image:repeating-linear-gradient(0deg,rgba(33,29,23,.035) 0 1px,transparent 1px 28px);color:var(--ink);font-size:15px;line-height:1.7}
+a{color:#1c6558;text-underline-offset:3px}
+a:hover{color:#113f36}
+.top{position:sticky;top:0;z-index:10;background:rgba(33,29,23,.97);border-bottom:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px);color:#e9e1cd}
+.top-inner{max-width:1260px;margin:auto;padding:12px 22px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-family:Georgia,"Noto Serif SC",serif;font-weight:700;white-space:nowrap}
+.brand small{font:12px/1.2 "Microsoft YaHei",sans-serif;color:#d1ad61;margin-left:8px}
+nav{display:flex;gap:5px;overflow:auto;white-space:nowrap;scrollbar-width:thin}
+nav a{color:#e9e1cd;text-decoration:none;font-size:12px;padding:6px 8px;border-radius:3px}
+nav a:hover,nav a:focus-visible{background:rgba(255,255,255,.12);color:#fff}
+main{max-width:1220px;margin:auto;padding:0 22px 64px}
+.hero{padding:50px 0 30px;border-bottom:1px solid var(--line)}
+h1,h2,h3{font-family:Georgia,"Noto Serif SC","Songti SC",serif;line-height:1.25}
+h1{font-size:38px;margin:10px 0 12px}
+.hero p{max-width:900px;font-size:17px;color:#423d34;margin:0}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px 24px;margin-top:22px;font-size:12px;color:var(--muted)}
+.section-head{display:flex;align-items:baseline;gap:12px;margin:0 0 18px;padding-bottom:10px;border-bottom:1px solid var(--ink)}
+h2{font-size:24px;margin:0}
+.section-head p{margin:0 0 0 auto;color:var(--muted);font-size:12px;text-align:right}
+section{padding:34px 0;border-bottom:1px solid var(--line);scroll-margin-top:80px}
+.intro{max-width:920px;color:#49443b;margin:0 0 16px}
+figure{margin:0}
+.diagram-scroll{max-width:100%;overflow-x:auto;border:1px solid var(--line);background:rgba(250,246,234,.82);padding:12px;scrollbar-width:thin}
+.diagram-scroll:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+svg{display:block;width:100%;height:auto;min-width:920px}
+svg .box{fill:#fbf8ef;stroke:#8d887d;stroke-width:1.4}
+svg .head{font-weight:700;font-size:15px;fill:var(--ink)}
+svg .label{font-size:12px;fill:#403b32}
+svg .small{font-size:10.5px;fill:#5a5344}
+svg .mono{font:11px "IBM Plex Mono",Consolas,monospace;fill:#3b4848}
+svg .stage{font:10px "IBM Plex Mono",Consolas,monospace;fill:#626056}
+svg .green{fill:var(--green-soft);stroke:var(--green)}
+svg .blue{fill:var(--blue-soft);stroke:var(--blue)}
+svg .teal{fill:var(--teal-soft);stroke:var(--teal)}
+svg .amber{fill:var(--amber-soft);stroke:var(--amber)}
+svg .red{fill:var(--red-soft);stroke:var(--red)}
+svg .dark{fill:#e7e3d7;stroke:var(--slate)}
+svg .edge{fill:none;stroke:#476763;stroke-width:2}
+svg .edge-dash{fill:none;stroke:#8a6d2f;stroke-width:1.8;stroke-dasharray:6 5}
+svg .edge-red{fill:none;stroke:#b5382c;stroke-width:1.8}
+svg .edge-label{font-size:10px;fill:#5a5344}
+figcaption{padding:10px 2px 4px;font-size:13px;color:#413d34}
+details{border-top:1px solid var(--line);margin-top:6px;padding:7px 2px 0}
+summary{cursor:pointer;color:var(--green);font-size:13px;font-weight:700}
+details p,details ol,details ul{font-size:13px;color:#49443b;margin:8px 0 2px;padding-left:22px}
+.contract{width:100%;border-collapse:collapse;margin-top:14px;background:rgba(255,255,255,.82);font-size:13px}
+.contract caption{text-align:left;font-weight:700;padding:10px;background:#eef2ef}
+.contract th,.contract td{border-bottom:1px solid var(--line);padding:9px 10px;text-align:left;vertical-align:top}
+.contract thead th{background:#e9e4d6}
+.contract th:first-child{white-space:nowrap}
+.notice{margin:16px 0 0;padding:12px 14px;border-left:3px solid var(--red);background:var(--red-soft);font-size:13px}
+.decision-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border:1px solid var(--line);background:rgba(250,246,234,.82)}
+.decision-grid>div{padding:14px 16px;border-right:1px solid var(--line)}
+.decision-grid>div:last-child{border-right:0}
+.decision-grid h3{font-size:15px;margin:0 0 6px}
+.decision-grid p{font-size:13px;color:#49443b;margin:0}
+.diagram-steps{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin:0;padding:14px;background:var(--surface);border:1px solid var(--line)}
+.diagram-steps li{position:relative;padding:13px;border:1px solid var(--line);border-top:3px solid var(--green);background:#fffdf5;overflow-wrap:anywhere}
+.diagram-steps li+li::before{content:"→";position:absolute;inset-inline-start:-21px;top:38%;color:var(--green)}
+.diagram-steps b,.diagram-steps span{display:block}
+.diagram-steps span{font-size:13px;color:var(--muted);margin-top:4px}
+.parallel-flow li+li::before{content:none}
+.outcomes{margin:0 0 20px;padding:0 14px 12px 36px;background:var(--surface);border:1px solid var(--line);border-top:0;color:var(--muted);font-size:13px}
+.table-wrap{overflow-x:auto}
+.table-wrap table{min-width:540px}
+.scroll-hint{display:none}
+footer{padding:24px 0;color:var(--muted);font-size:12px}
+@media(max-width:760px){
+ .top-inner{align-items:flex-start;flex-direction:column;gap:8px;padding:10px 14px}
+ nav{width:100%;margin-left:-4px}
+ main{padding:0 16px 42px}
+ .hero{padding-top:32px}
+ h1{font-size:30px}
+ .hero p{font-size:15px}
+ .section-head{flex-wrap:wrap;gap:6px 10px}
+ .section-head p{flex-basis:100%;text-align:left;margin:0}
+ .decision-grid{grid-template-columns:1fr}
+ .decision-grid>div{border-right:0;border-bottom:1px solid var(--line)}
+ .decision-grid>div:last-child{border-bottom:0}
+ .diagram-steps{grid-template-columns:1fr;gap:20px}
+ .diagram-steps li+li::before{content:"↓";inset-inline-start:50%;top:-23px}
+ .scroll-hint{display:block;padding:5px 0;color:var(--muted);font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.top{position:static}nav,.scroll-hint{display:none}main{padding:0}section{break-inside:avoid}.diagram-scroll,.table-wrap{overflow:visible}svg,.table-wrap table{min-width:0}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">虚拟人生成系统 <small>全链路图解 · 2026.11</small></div>
+    <nav aria-label="流程图目录">
+      <a href="#overview">总架构</a><a href="#lineage">数据流</a><a href="#generation">人生生成</a><a href="#llm-workflow">LLM 工作流</a><a href="#graph">事件图</a><a href="#time">时间与回放</a><a href="#lifecycle">生命周期</a><a href="#revision">LLM 修订</a><a href="#history">历史暴露</a><a href="#cognition">认知与记忆</a><a href="#survey">研究问卷</a><a href="#archive-chat">档案对话</a><a href="#validation">验收</a><a href="#operations">运行方式</a>
+    </nav>
+  </div>
+</header>
+<main>
+<header class="hero">
+  <h1>虚拟人生成系统全链路图解</h1>
+  <p>从用户选项和人口证据开始，经过 LLM 编排、骨架确认、细节填充、独立审查与档案发布，最终为研究问卷和数字人对话提供固定版本的人物视角。</p>
+  <div class="hero-meta"><a href="../../虚拟人系统设计图卷.html">返回设计图卷</a><a href="LLM人生生成与数字人问答设计.md">LLM 设计</a><a href="全链路设计复核与统一契约.md">全链路统一契约</a><a href="骨架生成DSL与仿真平台选型报告_2026-11-20.html">选型与概念验证</a></div>
+  <p class="scroll-hint">宽图可左右滑动。图下方可以展开文字版。</p>
+</header>
+
+<section id="overview">
+  <div class="section-head"><h2>总体架构</h2><p>契约、运行数据和人物输出分层</p></div>
+  <p class="intro">技术平台执行有版本的规则和风险过程。项目保存人生事件图与证据血缘。LLM 在有权限的子分支直接修订合成记录，自动重算和校验后再发布。</p>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="总架构图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 390" role="img" aria-labelledby="overview-title overview-desc">
+        <title id="overview-title">虚拟人生成系统的总架构</title>
+        <desc id="overview-desc">上层控制面锁定字典、人口框、参数、规则、LLM 与问卷版本。中层数据面将来源整理为世界版本和参数包，经抽样和仿真形成 LifeGraph 事件账本。LLM 编辑子分支，项目依赖引擎重算并校验。下层发布固定快照供问卷服务使用，验收和监控反馈到新版本，不改写旧答卷。</desc>
+        <defs><marker id="arrow-overview" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker><marker id="arrow-overview-red" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#b5382c"/></marker></defs>
+        <rect class="box dark" x="20" y="22" width="1080" height="74" rx="5"/>
+        <text class="stage" x="40" y="44">CONTROL PLANE</text><text class="head" x="40" y="68">版本控制与研究契约</text>
+        <rect class="box" x="260" y="37" width="155" height="43" rx="4"/><text class="label" x="337" y="55" text-anchor="middle">维度与事件字典</text><text class="small" x="337" y="71" text-anchor="middle">schema_version</text>
+        <rect class="box" x="430" y="37" width="155" height="43" rx="4"/><text class="label" x="507" y="55" text-anchor="middle">PopulationFrame</text><text class="small" x="507" y="71" text-anchor="middle">总体、边界、用途</text>
+        <rect class="box" x="600" y="37" width="155" height="43" rx="4"/><text class="label" x="677" y="55" text-anchor="middle">规则与参数包</text><text class="small" x="677" y="71" text-anchor="middle">分母、估计、不确定性</text>
+        <rect class="box" x="770" y="37" width="145" height="43" rx="4"/><text class="label" x="842" y="55" text-anchor="middle">LLM 写入契约</text><text class="small" x="842" y="71" text-anchor="middle">可写对象与边界</text>
+        <rect class="box" x="930" y="37" width="150" height="43" rx="4"/><text class="label" x="1005" y="55" text-anchor="middle">问卷与验收</text><text class="small" x="1005" y="71" text-anchor="middle">用途分级与冻结集</text>
+        <rect class="box blue" x="20" y="118" width="1080" height="188" rx="5"/>
+        <text class="stage" x="40" y="141">DATA PLANE</text><text class="head" x="40" y="165">来源、运行和人物世界</text>
+        <rect class="box" x="40" y="186" width="145" height="76" rx="4"/><text class="head" x="112" y="209" text-anchor="middle">来源注册</text><text class="small" x="112" y="229" text-anchor="middle">统计 · 调查 · 法规</text><text class="small" x="112" y="246" text-anchor="middle">许可 · 版次 · 范围</text>
+        <rect class="box teal" x="211" y="186" width="145" height="76" rx="4"/><text class="head" x="283" y="209" text-anchor="middle">世界资料</text><text class="small" x="283" y="229" text-anchor="middle">历史节点 · 地方规则</text><text class="small" x="283" y="246" text-anchor="middle">world_version</text>
+        <rect class="box green" x="382" y="186" width="145" height="76" rx="4"/><text class="head" x="454" y="209" text-anchor="middle">样本与初始状态</text><text class="small" x="454" y="229" text-anchor="middle">birth · alive · archive</text><text class="small" x="454" y="246" text-anchor="middle">抽样及权重策略</text>
+        <rect class="box amber" x="553" y="186" width="160" height="76" rx="4"/><text class="head" x="633" y="209" text-anchor="middle">仿真适配器</text><text class="small" x="633" y="229" text-anchor="middle">候选风险 · 时序推进</text><text class="small" x="633" y="246" text-anchor="middle">case / time 专项</text>
+        <rect class="box red" x="739" y="186" width="160" height="76" rx="4"/><text class="head" x="819" y="209" text-anchor="middle">LifeGraph 账本</text><text class="small" x="819" y="229" text-anchor="middle">事件 · 关系 · 状态增量</text><text class="small" x="819" y="246" text-anchor="middle">父子修订 · 分支</text>
+        <rect class="box" x="925" y="186" width="155" height="76" rx="4"/><text class="head" x="1002" y="209" text-anchor="middle">重算与校验</text><text class="small" x="1002" y="229" text-anchor="middle">依赖闭包 · 约束</text><text class="small" x="1002" y="246" text-anchor="middle">通过后签发</text>
+        <path class="edge" marker-end="url(#arrow-overview)" d="M185 224H205"/><path class="edge" marker-end="url(#arrow-overview)" d="M112 262V286H454V268"/><path class="edge" marker-end="url(#arrow-overview)" d="M283 262V277H633V268"/><path class="edge" marker-end="url(#arrow-overview)" d="M527 224H547"/><path class="edge" marker-end="url(#arrow-overview)" d="M713 224H733"/><path class="edge" marker-end="url(#arrow-overview)" d="M899 224H919"/>
+        <path class="edge-dash" marker-end="url(#arrow-overview)" d="M819 168V182"/><text class="edge-label" x="819" y="161" text-anchor="middle">LLM 直接修订新分支</text>
+        <rect class="box green" x="20" y="326" width="1080" height="48" rx="5"/>
+        <text class="stage" x="40" y="346">SERVING &amp; EVALUATION</text><text class="label" x="270" y="357">固定发布与视角快照</text><text class="label" x="510" y="357">授权检索与问卷作答</text><text class="label" x="760" y="357">V0–V4 分用途验收</text><text class="label" x="995" y="357">新版本回归</text>
+        <path d="M1002 262V320" fill="none" stroke="#476763" stroke-width="2" marker-end="url(#arrow-overview)"/><path d="M850 326V314H460V268" fill="none" stroke="#b5382c" stroke-width="1.7" stroke-dasharray="6 5" marker-end="url(#arrow-overview-red)"/>
+      </svg>
+    </div>
+    <figcaption>控制面锁定“用什么规则、数据和权限”；数据面产生并修订人物图；服务面只读取已发布版本，并按用途评测。</figcaption>
+  </figure>
+    <details><summary>总架构图文本说明</summary><ol><li>来源注册生成可复查的世界资料、总体参数和人口样本。</li><li>仿真适配器生成初始事件图，LLM 在有权限的子分支直接修订。</li><li>领域依赖服务重算受影响事件和共享人物状态，校验通过才更新默认发布指针。</li><li>问卷服务固定图修订和人物视角快照。新模型、新数据或新题目需形成新的验收与发布版。</li></ol></details>
+</section>
+
+<section id="lineage">
+  <div class="section-head"><h2>数据血缘与版本链</h2><p>从源材料到一次问卷回答</p></div>
+  <p class="intro">同一份事实在不同阶段改变口径与用途。每次转换都要保留输入版次、资格和分母，最终答案需要能回到实际读取的人生图版本。</p>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="数据血缘图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 365" role="img" aria-labelledby="lineage-title lineage-desc">
+        <title id="lineage-title">数据血缘与图发布链</title>
+        <desc id="lineage-desc">来源和版次经过授权与口径映射形成统一的证据主张，再形成总体抽样框、校准参数包与运行清单。运行产物形成图修订，发布后生成以查询和归档截止时点为键的快照，问卷回答保存人物视角、题目版本和模型调用，后续评测能回到原图和输入来源。</desc>
+        <defs><marker id="arrow-lineage" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker></defs>
+        <rect class="box teal" x="20" y="30" width="150" height="78" rx="4"/><text class="head" x="95" y="55" text-anchor="middle">来源 Artifact</text><text class="mono" x="95" y="75" text-anchor="middle">source_id@version</text><text class="small" x="95" y="94" text-anchor="middle">许可 · 统计期 · 粒度</text>
+        <rect class="box" x="200" y="30" width="160" height="78" rx="4"/><text class="head" x="280" y="55" text-anchor="middle">映射与证据 Claim</text><text class="mono" x="280" y="75" text-anchor="middle">mapping_version</text><text class="small" x="280" y="94" text-anchor="middle">原码 · 口径 · 断言</text>
+        <rect class="box amber" x="390" y="30" width="160" height="78" rx="4"/><text class="head" x="470" y="55" text-anchor="middle">抽样与参数</text><text class="mono" x="470" y="75" text-anchor="middle">frame_id@version</text><text class="small" x="470" y="94" text-anchor="middle">分母 · 权重 · 风险集</text>
+        <rect class="box" x="580" y="30" width="150" height="78" rx="4"/><text class="head" x="655" y="55" text-anchor="middle">运行清单</text><text class="mono" x="655" y="75" text-anchor="middle">run_id</text><text class="small" x="655" y="94" text-anchor="middle">模型 · 提示 · 随机配置</text>
+        <rect class="box red" x="760" y="30" width="155" height="78" rx="4"/><text class="head" x="837" y="55" text-anchor="middle">人生图修订</text><text class="mono" x="837" y="75" text-anchor="middle">graph_revision_id</text><text class="small" x="837" y="94" text-anchor="middle">父版 · 分支 · event_id</text>
+        <rect class="box green" x="945" y="30" width="155" height="78" rx="4"/><text class="head" x="1022" y="55" text-anchor="middle">发布与读取</text><text class="mono" x="1022" y="75" text-anchor="middle">release_id</text><text class="small" x="1022" y="94" text-anchor="middle">snapshot_id · 权限视角</text>
+        <path class="edge" marker-end="url(#arrow-lineage)" d="M170 69H194"/><path class="edge" marker-end="url(#arrow-lineage)" d="M360 69H384"/><path class="edge" marker-end="url(#arrow-lineage)" d="M550 69H574"/><path class="edge" marker-end="url(#arrow-lineage)" d="M730 69H754"/><path class="edge" marker-end="url(#arrow-lineage)" d="M915 69H939"/>
+        <path class="edge" marker-end="url(#arrow-lineage)" d="M1022 108V135"/>
+        <rect class="box teal" x="771" y="141" width="329" height="66" rx="4"/><text class="head" x="935" y="166" text-anchor="middle">问卷答卷 SurveyResponse</text><text class="small" x="935" y="188" text-anchor="middle">snapshot_id · survey_id 和版次 · 作答 run_id</text>
+        <path class="edge" marker-end="url(#arrow-lineage)" d="M771 174H737"/>
+        <rect class="box amber" x="415" y="141" width="316" height="66" rx="4"/><text class="head" x="573" y="166" text-anchor="middle">验收记录与用途声明</text><text class="small" x="573" y="188" text-anchor="middle">证据范围 · 各项结果 · 对应发布</text>
+        <rect class="box dark" x="20" y="230" width="1080" height="110" rx="4"/>
+        <text class="head" x="42" y="256">各类标识记录什么</text>
+        <text class="mono" x="48" y="281">frame_id</text><text class="label" x="150" y="281">抽样框和入口</text><text class="mono" x="400" y="281">parameter_set_id</text><text class="label" x="565" y="281">估计器、风险集、分母和不确定性</text>
+        <text class="mono" x="48" y="312">graph_revision_id</text><text class="label" x="205" y="312">图父版、变更和派生范围</text><text class="mono" x="500" y="312">snapshot_id</text><text class="label" x="615" y="312">有效时点、归档截止与角色权限</text>
+      </svg>
+    </div>
+    <figcaption>证据版本、运行版本、图版本、发布版本和问卷调用版本各有身份，不能共用一个含义不明的“版本号”。</figcaption>
+  </figure>
+    <details><summary>数据血缘图文本说明</summary><p>来源 Artifact 标识可定位的材料和版次。Mapping/Claim 表达变量映射和支持或反驳的断言。PopulationFrame 和参数包定义抽样资格与估计口径。run_id 固定执行环境。graph_revision_id 固定人生图。release_id 固定已通过的发布集合。snapshot_id 固定查询时点、档案截止和角色投影。SurveyResponse 不改写人生图，只保存回答和其依据。</p></details>
+</section>
+
+<section id="generation">
+  <div class="section-head"><h2>人口抽样到人生图</h2><p>模拟入口与实际事件分开</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="人生图生成流程图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 545" role="img" aria-labelledby="generation-title generation-desc">
+        <title id="generation-title">人口抽样到人生图生成和发布流程</title>
+        <desc id="generation-desc">任务先锁定目标总体与研究用途，然后选择出生队列、参照日存活人口、特定时期死者或机制探索的入口，完成条件抽样与证据绑定。程序初始化状态、环境与竞争风险。LLM 可补节点细节并直接编辑合成图。未采用候选仍是候选，不进入实际事件账本。依赖重算和校验通过后发布图修订；不可解冲突保留草稿和诊断。</desc>
+        <defs><marker id="arrow-gen" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker><marker id="arrow-gen-red" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#b5382c"/></marker></defs>
+        <rect class="box dark" x="352" y="20" width="416" height="56" rx="5"/><text class="head" x="560" y="44" text-anchor="middle">1 · 固定研究契约</text><text class="small" x="560" y="62" text-anchor="middle">frame · purpose · reference_date · cutoff · version manifest</text>
+        <path class="edge" d="M560 76V90M163 90H967"/>
+        <path class="edge" marker-end="url(#arrow-gen)" d="M163 90V103"/><path class="edge" marker-end="url(#arrow-gen)" d="M441 90V103"/><path class="edge" marker-end="url(#arrow-gen)" d="M709 90V103"/><path class="edge" marker-end="url(#arrow-gen)" d="M967 90V103"/>
+        <rect class="box blue" x="44" y="107" width="238" height="86" rx="5"/><text class="head" x="163" y="132" text-anchor="middle">出生队列</text><text class="label" x="163" y="153" text-anchor="middle">从出生开始推进</text><text class="small" x="163" y="174" text-anchor="middle">早逝、迁移与删失由过程产生</text>
+        <rect class="box teal" x="322" y="107" width="238" height="86" rx="5"/><text class="head" x="441" y="132" text-anchor="middle">存活截面</text><text class="label" x="441" y="153" text-anchor="middle">条件化或锚定已知状态前史</text><text class="small" x="441" y="174" text-anchor="middle">存活概率、筛选、权重独立记账</text>
+        <rect class="box amber" x="600" y="107" width="218" height="86" rx="5"/><text class="head" x="709" y="132" text-anchor="middle">死者档案</text><text class="label" x="709" y="153" text-anchor="middle">按死亡范围建立独立总体</text><text class="small" x="709" y="174" text-anchor="middle">登记时点和覆盖率需核实</text>
+        <rect class="box red" x="858" y="107" width="218" height="86" rx="5"/><text class="head" x="967" y="132" text-anchor="middle">机制/稀有情景</text><text class="label" x="967" y="153" text-anchor="middle">指定组合或路径边界</text><text class="small" x="967" y="174" text-anchor="middle">无入样概率时只作情景覆盖</text>
+        <path class="edge" d="M163 193V222H967V193M441 193V222M709 193V222"/><path class="edge" marker-end="url(#arrow-gen)" d="M560 222V245"/>
+        <rect class="box" x="336" y="248" width="448" height="72" rx="5"/><text class="head" x="560" y="276" text-anchor="middle">2 · 样本与世界条件联合初始化</text><text class="label" x="560" y="298" text-anchor="middle">person / household / relation · world_version · 参数包 · 抽样权重</text>
+        <path class="edge" marker-end="url(#arrow-gen)" d="M560 320V340"/>
+        <rect class="box amber" x="336" y="343" width="448" height="58" rx="5"/><text class="head" x="560" y="368" text-anchor="middle">3 · 推进风险、日常与共享事件</text><text class="small" x="560" y="389" text-anchor="middle">生成 candidate_id · 检查触发条件 · 采用时分配 event_id</text>
+        <path class="edge" marker-end="url(#arrow-gen)" d="M560 401V419H258V432"/>
+        <path class="edge" marker-end="url(#arrow-gen)" d="M784 370H925V429"/>
+        <text class="small" x="847" y="359" text-anchor="middle">初始图直接校验</text>
+        <rect class="box red" x="56" y="435" width="350" height="76" rx="5"/><text class="stage" x="74" y="457">4 · LLM EDIT</text><text class="head" x="231" y="481" text-anchor="middle">直接细化或纠偏子分支</text><text class="small" x="231" y="500" text-anchor="middle">新增 · 拆分 · 修改 · 合并 · 撤销</text>
+        <path class="edge" marker-end="url(#arrow-gen)" d="M406 473H438"/>
+        <rect class="box amber" x="444" y="435" width="304" height="76" rx="5"/><text class="stage" x="462" y="457">5 · DEPENDENCY</text><text class="head" x="596" y="481" text-anchor="middle">重算影响闭包</text><text class="small" x="596" y="500" text-anchor="middle">后继事件 · 关系 · 状态</text>
+        <path class="edge" marker-end="url(#arrow-gen)" d="M748 473H779"/>
+        <rect class="box teal" x="785" y="435" width="280" height="76" rx="5"/><text class="stage" x="802" y="457">6 · VALIDATE / PUBLISH</text><text class="head" x="925" y="481" text-anchor="middle">校验通过后发布</text><text class="small" x="925" y="500" text-anchor="middle">旧图与问卷快照可回放</text>
+        <path class="edge-red" marker-end="url(#arrow-gen-red)" d="M925 511V529H232V515"/><text class="small" x="578" y="541" text-anchor="middle">冲突或硬约束失败：留存诊断，在子分支继续直接纠偏</text>
+      </svg>
+    </div>
+    <figcaption>人口入口选择决定分母和条件。情景覆盖可表达极端或稀少路径，但不能自动解释成其在人群中所占的比例。</figcaption>
+  </figure>
+    <details><summary>生成流程的关键判别</summary><ol><li>目标总体和研究用途先于抽样器与语言模型。</li><li>存活截面入口不能把从出生无条件生成后筛人当作等价实现，除非条件分布、存活率和抽样权重验证通过。</li><li>LLM 编辑可以直接应用到新子分支，但默认读取使用通过自动校验的已发布修订。</li></ol></details>
+</section>
+
+<section id="llm-workflow">
+  <div class="section-head"><h2>LLM 人生生成工作流</h2><p>骨架确认是用户断点；之后的细节任务绑定所选图修订</p></div>
+  <p class="intro">LLM 负责理解用户选项、规划工具调用、生成细节与角色表达。仿真器负责候选风险和时序推进，来源工具负责提供可查材料，独立校验器负责判断能否发布。</p>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="LLM 人生生成及用户确认工作流，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 520" role="img" aria-labelledby="llm-work-title llm-work-desc">
+        <title id="llm-work-title">从用户生成选项到数字人入库的 LLM 工作流</title>
+        <desc id="llm-work-desc">用户配置总体、入口、时点和范围。编排 LLM 调用抽样、历史和参数工具，生成受控 DSL 后交给仿真适配器产生图草稿。在骨架断点用户手工编辑或用自然语言要求 LLM 直接修订新子分支。用户明确选择 graph_revision_id 与生成范围后，细节生成任务按事件分片并记录 detail_revision_id。独立审查区分局部修复与需要回骨架确认的实质改动。全部通过后原子建立 release_id，准备结构索引，语义索引可后台构建。</desc>
+        <defs>
+          <marker id="arrow-llm" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker>
+          <marker id="arrow-llm-red" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#b5382c"/></marker>
+        </defs>
+        <text class="stage" x="28" y="24">A · CREATE AND CONFIRM SKELETON</text>
+        <rect class="box dark" x="20" y="42" width="170" height="76" rx="5"/><text class="head" x="105" y="68" text-anchor="middle">用户生成选项</text><text class="small" x="105" y="91" text-anchor="middle">总体 · 地区 · 时点</text><text class="small" x="105" y="108" text-anchor="middle">入口 · 用途 · 偏好</text>
+        <rect class="box blue" x="220" y="42" width="190" height="76" rx="5"/><text class="head" x="315" y="68" text-anchor="middle">编排 LLM</text><text class="small" x="315" y="91" text-anchor="middle">整理规格与工具计划</text><text class="small" x="315" y="108" text-anchor="middle">绑定模型/提示版次</text>
+        <rect class="box teal" x="440" y="42" width="210" height="76" rx="5"/><text class="head" x="545" y="68" text-anchor="middle">证据工具 + 受控 DSL</text><text class="small" x="545" y="91" text-anchor="middle">抽样框 · 历史 · 参数</text><text class="small" x="545" y="108" text-anchor="middle">校验模式 · 禁止任意代码</text>
+        <rect class="box amber" x="680" y="42" width="190" height="76" rx="5"/><text class="head" x="775" y="68" text-anchor="middle">仿真适配器</text><text class="small" x="775" y="91" text-anchor="middle">推进风险和共享事件</text><text class="small" x="775" y="108" text-anchor="middle">产生图草稿及诊断</text>
+        <rect class="box red" x="900" y="42" width="200" height="76" rx="5"/><text class="head" x="1000" y="68" text-anchor="middle">骨架工作修订</text><text class="mono" x="1000" y="91" text-anchor="middle">graph_revision_id</text><text class="small" x="1000" y="108" text-anchor="middle">自动保存，可恢复/比较</text>
+        <path class="edge" marker-end="url(#arrow-llm)" d="M190 80H214"/><path class="edge" marker-end="url(#arrow-llm)" d="M410 80H434"/><path class="edge" marker-end="url(#arrow-llm)" d="M650 80H674"/><path class="edge" marker-end="url(#arrow-llm)" d="M870 80H894"/>
+        <path class="edge-dash" d="M545 118V142H775V118"/><text class="edge-label" x="660" y="139" text-anchor="middle">LLM 通过注册表调用工具</text>
+        <rect class="box green" x="760" y="164" width="168" height="66" rx="5"/><text class="head" x="844" y="189" text-anchor="middle">用户手动编辑</text><text class="small" x="844" y="211" text-anchor="middle">节点 · 时间 · 关系</text>
+        <rect class="box blue" x="944" y="164" width="156" height="66" rx="5"/><text class="head" x="1022" y="189" text-anchor="middle">自然语言建议</text><text class="small" x="1022" y="211" text-anchor="middle">LLM 直接改子分支</text>
+        <path class="edge" marker-end="url(#arrow-llm)" d="M1000 118V150H844V158"/><path class="edge" marker-end="url(#arrow-llm)" d="M1000 150H1022V158"/>
+        <rect class="box amber" x="493" y="164" width="242" height="66" rx="5"/><text class="head" x="614" y="189" text-anchor="middle">依赖重算与硬约束校验</text><text class="small" x="614" y="211" text-anchor="middle">影响闭包 · 多人事务 · 原版留存</text>
+        <path class="edge" marker-end="url(#arrow-llm)" d="M760 197H741"/><path class="edge" marker-end="url(#arrow-llm)" d="M944 215C880 259 558 257 520 235"/>
+        <rect class="box red" x="220" y="164" width="242" height="66" rx="5"/><text class="head" x="341" y="189" text-anchor="middle">用户骨架断点</text><text class="small" x="341" y="211" text-anchor="middle">明确确认图修订与范围</text>
+        <path class="edge" marker-end="url(#arrow-llm)" d="M493 197H468"/><path class="edge" marker-end="url(#arrow-llm)" d="M220 197H200V80H214"/>
+        <text class="small" x="20" y="258">每次手改或 LLM 改写都即时落在子分支并触发重算；切换分支或停止可从已保存修订恢复。</text>
+        <text class="stage" x="28" y="298">B · GENERATE DETAILS, REVIEW, AND PUBLISH</text>
+        <rect class="box dark" x="20" y="318" width="194" height="77" rx="5"/><text class="head" x="117" y="343" text-anchor="middle">确认并固定输入</text><text class="mono" x="117" y="365" text-anchor="middle">graph_revision_id</text><text class="small" x="117" y="385" text-anchor="middle">generation_scope</text>
+        <rect class="box blue" x="244" y="318" width="210" height="77" rx="5"/><text class="head" x="349" y="343" text-anchor="middle">血肉 LLM 分片填充</text><text class="small" x="349" y="365" text-anchor="middle">事件 · 阶段 · 人物关系</text><text class="mono" x="349" y="385" text-anchor="middle">detail_revision_id</text>
+        <rect class="box amber" x="484" y="318" width="210" height="77" rx="5"/><text class="head" x="589" y="343" text-anchor="middle">独立全链路审查</text><text class="small" x="589" y="365" text-anchor="middle">事实锚点 · 跨片 · 权限</text><text class="small" x="589" y="385" text-anchor="middle">结构 · 证据 · 自洽</text>
+        <rect class="box teal" x="724" y="318" width="166" height="77" rx="5"/><text class="head" x="807" y="343" text-anchor="middle">局部修复</text><text class="small" x="807" y="365" text-anchor="middle">修细节再审</text><text class="small" x="807" y="385" text-anchor="middle">不改已确认骨架</text>
+        <rect class="box green" x="920" y="318" width="180" height="77" rx="5"/><text class="head" x="1010" y="343" text-anchor="middle">发布并入档案库</text><text class="mono" x="1010" y="365" text-anchor="middle">release_id</text><text class="small" x="1010" y="385" text-anchor="middle">结构索引就绪可选人</text>
+        <path class="edge" marker-end="url(#arrow-llm)" d="M341 230V283H117V312"/><path class="edge" marker-end="url(#arrow-llm)" d="M214 356H238"/><path class="edge" marker-end="url(#arrow-llm)" d="M454 356H478"/><path class="edge" marker-end="url(#arrow-llm)" d="M694 356H718"/><path class="edge" marker-end="url(#arrow-llm)" d="M890 356H914"/>
+        <path class="edge-red" marker-end="url(#arrow-llm-red)" d="M589 395V423H349V401"/><text class="edge-label" x="466" y="419" text-anchor="middle">局部内容错误：detail revision 子分支修复后复验</text>
+        <path class="edge-red" marker-end="url(#arrow-llm-red)" d="M589 423V456H1000V125"/><text class="edge-label" x="786" y="453" text-anchor="middle">影响骨架事件 / 时间 / 关系 / 资源：回用户断点，重选图版并重跑必要细节</text>
+        <path class="edge-dash" d="M1010 395V475H117V401"/><text class="edge-label" x="550" y="495" text-anchor="middle">可选语义索引后台生成；结构化档案读取无需等待语义索引</text>
+      </svg>
+    </div>
+    <figcaption>生成骨架、确认骨架、按骨架填充、审查填充和正式入库是不同的可恢复状态。</figcaption>
+    <details><summary>断点及修复规则</summary><ol><li>修改建议即时进入指定父修订的子分支，用户可继续编辑、切回或比较。</li><li>骨架确认绑定精确 <code>graph_revision_id</code>、人物入口、目标时点和生成范围。</li><li>细节分片绑定已确认骨架。局部文案或局部记忆问题可在细节修订中修复并复验。</li><li>修改一旦影响事件身份、时间、关系、因果前置或共享资源，必须返回骨架断点，生成并确认新的图修订，再重跑必要的细节分片和完整审查。</li><li>首次入库需全链路审查通过。默认档案读视图只暴露该 <code>release_id</code>，旧版本继续可回放。</li></ol></details>
+  </figure>
+</section>
+
+<section id="graph">
+  <div class="section-head"><h2>LifeGraph 节点与边</h2><p>事件图、时间序与重算依赖是不同结构</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="LifeGraph 结构图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 390" role="img" aria-labelledby="graph-title graph-desc">
+        <title id="graph-title">同一个人生事件图的汇总事件、子事件和时间关系</title>
+        <desc id="graph-desc">稳定事件 e move-01 是一个纯汇总锚点，由找房、签约和搬入子事件拆分。前三者有先后关系。家庭搬运是另一个单一共享事件，通过参与边连接不同人物和增量。来源记录支持签约声明，未知月份仍以区间表达。右侧单独的依赖有向无环图说明修改签约会失效哪些状态和后续候选，但和人生时间图不使用同一边类型。</desc>
+        <defs><marker id="arrow-graph" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker><marker id="arrow-graph-dash" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#8a6d2f"/></marker></defs>
+        <text class="stage" x="28" y="25">LIFE EVENT GRAPH · VIEWED BY TIME, IDENTIFIED BY GRAPH REVISION</text>
+        <rect class="box red" x="35" y="49" width="220" height="60" rx="5"/><text class="head" x="145" y="74" text-anchor="middle">迁居锚点</text><text class="mono" x="145" y="94" text-anchor="middle">event_id: E-MOVE-01</text><text class="small" x="145" y="128" text-anchor="middle">aggregate_only = true</text>
+        <rect class="box" x="325" y="42" width="165" height="58" rx="5"/><text class="head" x="407" y="66" text-anchor="middle">找房</text><text class="small" x="407" y="85" text-anchor="middle">时间：春季区间</text>
+        <rect class="box" x="545" y="42" width="165" height="58" rx="5"/><text class="head" x="627" y="66" text-anchor="middle">签约</text><text class="small" x="627" y="85" text-anchor="middle">时间：5–6 月</text>
+        <rect class="box" x="765" y="42" width="165" height="58" rx="5"/><text class="head" x="847" y="66" text-anchor="middle">搬入</text><text class="small" x="847" y="85" text-anchor="middle">时间：6–7 月</text>
+        <path class="edge" marker-end="url(#arrow-graph)" d="M490 71H539"/><text class="edge-label" x="514" y="61" text-anchor="middle">before</text><path class="edge" marker-end="url(#arrow-graph)" d="M710 71H759"/><text class="edge-label" x="734" y="61" text-anchor="middle">before</text>
+        <path class="edge-dash" marker-end="url(#arrow-graph-dash)" d="M255 80C283 80 287 71 320 71"/><path class="edge-dash" marker-end="url(#arrow-graph-dash)" d="M255 81C360 150 460 150 540 100"/><path class="edge-dash" marker-end="url(#arrow-graph-dash)" d="M255 83C470 178 690 170 760 101"/>
+        <text class="edge-label" x="455" y="140">decomposes · 父节点只做汇总，不重复计账</text>
+        <rect class="box teal" x="325" y="185" width="220" height="61" rx="5"/><text class="head" x="435" y="210" text-anchor="middle">共享搬运事件</text><text class="mono" x="435" y="230" text-anchor="middle">event_id: E-MOVE-02</text>
+        <rect class="box green" x="40" y="184" width="185" height="60" rx="5"/><text class="head" x="132" y="208" text-anchor="middle">人物 A</text><text class="small" x="132" y="229" text-anchor="middle">工时 delta · 搬运参与</text>
+        <rect class="box green" x="40" y="272" width="185" height="60" rx="5"/><text class="head" x="132" y="296" text-anchor="middle">人物 B</text><text class="small" x="132" y="317" text-anchor="middle">费用 delta · 收到支持</text>
+        <path class="edge" marker-end="url(#arrow-graph)" d="M225 214H319"/><path class="edge" marker-end="url(#arrow-graph)" d="M225 298C260 288 282 248 319 222"/><text class="edge-label" x="242" y="199">participates_in</text>
+        <rect class="box blue" x="604" y="186" width="190" height="61" rx="5"/><text class="head" x="699" y="211" text-anchor="middle">来源断言</text><text class="small" x="699" y="231" text-anchor="middle">支持签约发生区间</text><path class="edge" marker-end="url(#arrow-graph)" d="M695 105V180"/><text class="edge-label" x="703" y="166">supported_by</text>
+        <rect class="box amber" x="845" y="174" width="238" height="175" rx="5"/><text class="stage" x="862" y="198">SEPARATE DEPENDENCY DAG</text><text class="label" x="864" y="226">签约时点变化</text><text class="label" x="864" y="256">↓ 住房与通勤投影失效</text><text class="label" x="864" y="286">↓ 上学/排班/陪诊后继候选</text><text class="small" x="864" y="321">时间边与依赖边不能混用</text>
+        <path class="edge-dash" marker-end="url(#arrow-graph-dash)" d="M710 100C790 130 800 180 842 206"/>
+        <rect class="box dark" x="324" y="276" width="470" height="66" rx="5"/><text class="head" x="559" y="302" text-anchor="middle">其他属性节点保持各自对象类型</text><text class="small" x="559" y="324" text-anchor="middle">记忆 · 动机 · 观察 · 证据 · 叙事引用 · 人物当时知识</text>
+      </svg>
+    </div>
+    <figcaption>时间轴用于读懂“何时发生”，实体关系用于描述“谁参与”，依赖图用于计算“修改后要重算什么”。</figcaption>
+  </figure>
+    <details><summary>事件图读取规则</summary><ul><li>尚未采用的 <code>candidate_id</code> 只是候选，不是实际人生事件。</li><li>同一次共享事件使用一个 <code>event_id</code>，各人物仅保存其参与角色和状态增量。</li><li>时间区间、时间精度、人物视角、证据及实际事件是否成立分别表达。</li></ul></details>
+</section>
+
+<section id="time">
+  <div class="section-head"><h2>时点语义与回放</h2><p>一条人生可以同时有发生、登记、获知与作答时间</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="人生图四类时点的时间图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 425" role="img" aria-labelledby="time-title time-desc">
+        <title id="time-title">有效时间、登记时间、获知时间和作答时间的关系</title>
+        <desc id="time-desc">某地政策先公开，再按不同时间依法生效并由不同地方实施。人物是否当时知晓以个人信息渠道为准。多年后档案才补录迁居，事件有效时间仍在过去，登记时间在后。查询使用graph revision、as-of与archive-as-of构造快照。问卷回答绑定response-at与题目reference-window，历史回放不会看到更晚的补录或获知。</desc>
+        <defs><marker id="arrow-time" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker></defs>
+        <path d="M135 62H1050" stroke="#716b60" stroke-width="2" marker-end="url(#arrow-time)"/>
+        <text class="stage" x="134" y="38">CALENDAR TIME →</text>
+        <g class="small"><text x="225" y="78">t₀</text><text x="395" y="78">t₁</text><text x="565" y="78">t₂</text><text x="735" y="78">t₃</text><text x="905" y="78">t₄</text></g>
+        <text class="head" x="32" y="117">世界规则</text><path d="M135 111H1040" stroke="#c9c1b0" stroke-width="1"/>
+        <circle cx="260" cy="111" r="7" fill="#2b4c7e"/><text class="small" x="260" y="99" text-anchor="middle">政策公开</text>
+        <rect x="430" y="102" width="205" height="18" rx="8" fill="#e9edf3" stroke="#2b4c7e"/><text class="small" x="532" y="116" text-anchor="middle">法定有效期</text>
+        <rect x="605" y="126" width="250" height="16" rx="7" fill="#e8efeb" stroke="#41696b"/><text class="small" x="730" y="138" text-anchor="middle">地方分期落实 / 服务可用</text>
+        <text class="head" x="32" y="180">人生事件</text><path d="M135 174H1040" stroke="#c9c1b0" stroke-width="1"/>
+        <rect x="390" y="165" width="96" height="18" rx="8" fill="#f5e8e4" stroke="#b5382c"/><text class="small" x="438" y="179" text-anchor="middle">搬家区间</text>
+        <text class="head" x="32" y="237">人物获知</text><path d="M135 231H1040" stroke="#c9c1b0" stroke-width="1"/>
+        <path d="M438 184C470 205 560 211 610 224" fill="none" stroke="#8a6d2f" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-time)"/><circle cx="615" cy="231" r="7" fill="#8a6d2f"/><text class="small" x="615" y="219" text-anchor="middle">异地家属获知搬迁</text>
+        <text class="head" x="32" y="291">档案登记</text><path d="M135 285H1040" stroke="#c9c1b0" stroke-width="1"/>
+        <path d="M448 187C520 253 735 261 815 278" fill="none" stroke="#3d6b4f" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#arrow-time)"/><circle cx="818" cy="285" r="7" fill="#3d6b4f"/><text class="small" x="818" y="273" text-anchor="middle">后来补录</text>
+        <text class="head" x="32" y="345">问卷作答</text><path d="M135 339H1040" stroke="#c9c1b0" stroke-width="1"/>
+        <rect x="360" y="330" width="200" height="18" rx="8" fill="#e9edf3" stroke="#2b4c7e"/><text class="small" x="460" y="344" text-anchor="middle">题目参照期 reference_window</text>
+        <circle cx="690" cy="339" r="7" fill="#2b4c7e"/><text class="small" x="690" y="325" text-anchor="middle">答题 response_at</text>
+        <rect class="box dark" x="238" y="372" width="734" height="40" rx="4"/><text class="mono" x="605" y="397" text-anchor="middle">snapshot_id → graph_revision_id · as_of · archive_as_of · 角色与用途</text>
+      </svg>
+    </div>
+    <figcaption>有效时间描述事实发生或规则适用；登记时间描述档案何时保存；获知时间描述特定人物何时接触信息；作答时间和参照期限定问卷看到什么。</figcaption>
+  </figure>
+    <details><summary>回放示例</summary><p>一次离岗发生在 2001 年，人物在 2012 年回忆错一年，档案在 2025 年补录。读取新的发布修订，可查询到经补录的 2001 年事实。按 2025 年前的 archive-as-of 回放则仍看不到补录。模拟 2012 年问卷只使用人物当时已知的内容和回忆。</p></details>
+</section>
+
+<section id="lifecycle">
+  <div class="section-head"><h2>生命周期与档案读取</h2><p>以所用图修订和观察截止为准</p></div>
+  <figure>
+    <ul class="diagram-steps parallel-flow">
+      <li><b>在世且处于观察窗内</b><span>读取指定时点的状态、关系和可见经历。问卷同时核对施测资格。</span></li>
+      <li><b>超出观察截止</b><span>在世人物按给定情景续写，产生新分支。此前发布只确认到原截止。</span></li>
+      <li><b>已故人物</b><span>生前时点可回放本人视角。死亡后读取归档事实、获准代答及遗属事件。</span></li>
+      <li><b>生死或日期未定</b><span>按时间上下界判定所请求时点。结果有多种可能时，返回不确定状态。</span></li>
+    </ul>
+    <figcaption>新证据修订过去时，从指定父版建立子分支。已故档案同样可以勘误。详见 <a href="虚拟人生成系统研究型设计基线_v3.0.md#33-生死状态静态档案与动态人生">生死状态与档案约定</a>。</figcaption>
+  </figure>
+</section>
+
+<section id="revision">
+  <div class="section-head"><h2>直接编辑与父子版本</h2><p>写入工作分支，校验后才成为默认可读版</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="LLM 图修订分支图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 370" role="img" aria-labelledby="revision-title revision-desc">
+        <title id="revision-title">LLM 修订子分支并沿依赖重算的版本图</title>
+        <desc id="revision-desc">发布版 R1 保存一段人生图和原问卷快照。LLM 用固定父版本和幂等操作在子分支直接改签约月份，生成父版为 R1 的工作修订 R2。依赖服务从 R2 重算住房、通勤、照护和后续候选，生成父版为 R2 的重算修订 R3。自动校验通过后才发布 R3，R1、R2 和原问卷都保留。证据不足的冲突留在可继续编辑的工作分支，不污染默认读视图。</desc>
+        <defs><marker id="arrow-rev" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker><marker id="arrow-rev-red" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#b5382c"/></marker></defs>
+        <rect class="box green" x="33" y="74" width="226" height="110" rx="5"/><text class="stage" x="50" y="99">PUBLISHED PARENT</text><text class="head" x="146" y="128" text-anchor="middle">R1 · 已发布</text><text class="mono" x="146" y="150" text-anchor="middle">graph_revision_id=R1</text><text class="small" x="146" y="170" text-anchor="middle">问卷 Q-01 → snapshot S1</text>
+        <path class="edge" marker-end="url(#arrow-rev)" d="M259 128H315"/>
+        <rect class="box red" x="321" y="52" width="234" height="153" rx="5"/><text class="stage" x="339" y="78">R2 · 子分支工作修订</text><text class="head" x="438" y="108" text-anchor="middle">LLM 直接改写</text><text class="label" x="340" y="137">parent_revision_id = R1</text><text class="label" x="340" y="160">幂等键绑定本次修改</text><text class="small" x="340" y="185">覆盖签约月份并保存依据</text>
+        <path class="edge" marker-end="url(#arrow-rev)" d="M555 128H606"/>
+        <rect class="box amber" x="612" y="52" width="240" height="153" rx="5"/><text class="stage" x="629" y="78">RECOMPUTE CLOSURE</text><text class="head" x="732" y="108" text-anchor="middle">依赖重算</text><text class="label" x="632" y="137">住所 · 通勤 · 排班 · 陪诊</text><text class="label" x="632" y="160">共享家庭资源 · 后续候选</text><text class="small" x="632" y="185">同一事件参与人一并更新</text>
+        <path class="edge" marker-end="url(#arrow-rev)" d="M852 128H902"/>
+        <rect class="box teal" x="908" y="52" width="180" height="153" rx="5"/><text class="stage" x="923" y="78">自动校验与发布</text><text class="head" x="998" y="108" text-anchor="middle">R3 · 重算后发布</text><text class="mono" x="926" y="137">parent_revision_id = R2</text><text class="label" x="926" y="160">结构 / 资源 / 证据通过</text><text class="small" x="926" y="185">切换默认读指针</text>
+        <path class="edge-red" marker-end="url(#arrow-rev-red)" d="M731 207V266H439V211"/><text class="edge-label" x="582" y="258">冲突或硬约束失败：保留诊断，直接再改子分支</text>
+        <rect class="box dark" x="34" y="287" width="1054" height="56" rx="5"/><text class="head" x="58" y="311">回放与并发</text><text class="label" x="170" y="311">旧答卷仍使用 R1 / S1。R2 记录编辑结果，R3 保存完整重算结果。</text><text class="label" x="170" y="330">并发发布核对预期指针，冲突时按共同父版重新计算或保留分支。</text>
+        <path d="M145 184V272H180V287" fill="none" stroke="#476763" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrow-rev)"/><path d="M998 205V272H950V287" fill="none" stroke="#476763" stroke-width="1.5" stroke-dasharray="5 5" marker-end="url(#arrow-rev)"/>
+      </svg>
+    </div>
+    <figcaption>直接修改的是当前子分支的有效图，存储中父修订和已发布快照不被擦除。自动校验决定是否发布，LLM 不需要先等人工接受每个操作。</figcaption>
+  </figure>
+    <details><summary>事务边界文本说明</summary><ol><li>应用编辑之前核对父修订仍是调用时所见版本，重复提交按操作 ID 返回同一结果。</li><li>在同一 case 及所有共享事件参与人范围内定位依赖闭包，非关联记录保留旧版引用。</li><li>校验中间版本不得进入默认问卷检索。冲突、超时或数据不足的修订保留诊断状态。</li><li>校验通过后签发 release 指针，旧 release 与依其生成的问卷答案都继续可读。</li></ol></details>
+</section>
+
+<section id="history">
+  <div class="section-head"><h2>历史世界如何进入个人路径</h2><p>宏观史实不会自动成为个人经历</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="历史暴露到个人经历的流程图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 350" role="img" aria-labelledby="history-title history-desc">
+        <title id="history-title">历史节点经个人暴露和机会集形成候选路径</title>
+        <desc id="history-desc">历史目录记录世界事件或政策和版次。系统先匹配事件有效期及具体地点，再判定资格、服务供给和个人或关联人渠道。可进入直接物理暴露、家庭或机构传导、信息获知等不同分支。仅在人物活动、关系、条件与风险窗口相交时才生成候选事件。实际采用后分配event_id并更新状态，未采用候选保存在审计中。没有个人定位证据时不得捏造街道暴露。</desc>
+        <defs><marker id="arrow-hist" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker><marker id="arrow-hist-red" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#b5382c"/></marker></defs>
+        <rect class="box dark" x="26" y="28" width="200" height="70" rx="5"/><text class="head" x="126" y="53" text-anchor="middle">历史/制度世界项</text><text class="mono" x="126" y="76" text-anchor="middle">historical_node_id@version</text>
+        <rect class="box" x="278" y="28" width="200" height="70" rx="5"/><text class="head" x="378" y="53" text-anchor="middle">时空与制度适配</text><text class="small" x="378" y="76" text-anchor="middle">地点版本 · 时间窗 · 资格</text>
+        <rect class="box teal" x="530" y="28" width="200" height="70" rx="5"/><text class="head" x="630" y="53" text-anchor="middle">对个人的渠道</text><text class="small" x="630" y="76" text-anchor="middle">现场 · 家庭 · 学校/单位 · 信息</text>
+        <rect class="box amber" x="782" y="28" width="300" height="70" rx="5"/><text class="head" x="932" y="53" text-anchor="middle">可行集与当时所知</text><text class="small" x="932" y="76" text-anchor="middle">实际供给 · 代理能力 · 当时可见选项</text>
+        <path class="edge" marker-end="url(#arrow-hist)" d="M226 63H272"/><path class="edge" marker-end="url(#arrow-hist)" d="M478 63H524"/><path class="edge" marker-end="url(#arrow-hist)" d="M730 63H776"/>
+        <path class="edge" marker-end="url(#arrow-hist)" d="M932 98V136H338V154"/><path class="edge" marker-end="url(#arrow-hist)" d="M932 98V136H560V154"/><path class="edge" marker-end="url(#arrow-hist)" d="M932 98V136H782V154"/>
+        <rect class="box red" x="228" y="157" width="220" height="78" rx="5"/><text class="head" x="338" y="184" text-anchor="middle">直接暴露</text><text class="small" x="338" y="207" text-anchor="middle">在场 · 房屋/服务 · 时窗匹配</text>
+        <rect class="box green" x="450" y="157" width="220" height="78" rx="5"/><text class="head" x="560" y="184" text-anchor="middle">关联传导</text><text class="small" x="560" y="207" text-anchor="middle">家属位置 · 真实关系 · 转移/照护</text>
+        <rect class="box blue" x="672" y="157" width="220" height="78" rx="5"/><text class="head" x="782" y="184" text-anchor="middle">只获知或未获知</text><text class="small" x="782" y="207" text-anchor="middle">发布/听说时间 · 信任 · 理解</text>
+        <path class="edge" marker-end="url(#arrow-hist)" d="M338 235V261H560"/><path class="edge" marker-end="url(#arrow-hist)" d="M560 235V261"/><path class="edge" marker-end="url(#arrow-hist)" d="M782 235V261H560"/>
+        <rect class="box amber" x="368" y="264" width="384" height="64" rx="5"/><text class="head" x="560" y="289" text-anchor="middle">机制候选与替代路径</text><text class="small" x="560" y="312" text-anchor="middle">候选采用后写 event_id · 未采用候选不改状态</text>
+        <path class="edge-red" marker-end="url(#arrow-hist-red)" d="M752 296H872"/><text class="edge-label" x="811" y="286" text-anchor="middle">提交增量</text>
+        <rect class="box green" x="877" y="264" width="210" height="64" rx="5"/><text class="head" x="982" y="289" text-anchor="middle">关系/状态及证据</text><text class="small" x="982" y="312" text-anchor="middle">角色各自 delta · provenance</text>
+      </svg>
+    </div>
+    <figcaption>比如地震发生在某县只产生世界节点。焦点人物是否直接受灾、经家属间接受影响或只在后来听说，分别判定与记账。</figcaption>
+  </figure>
+    <details><summary>暴露判定的反例</summary><ul><li>政策资格成立但服务无供给，不等于使用或到账。</li><li>焦点人物在外地、家属在受灾地时，家属经历不能复制为本人直接暴露。</li><li>省级受灾总量不提供个人县、镇或房屋损害事实。</li><li>无事件影响可以是经过证据支持的候选结果，也可以只是未观察，不能互换。</li></ul></details>
+</section>
+
+<section id="cognition">
+  <div class="section-head"><h2>从生活经历到记忆和叙事</h2><p>一次经历可以对应不同人物的理解</p></div>
+  <figure>
+    <ol class="diagram-steps">
+      <li><b>事件与状态</b><span>图账本保存时空、参与主体、状态增量和所依据的断言。</span></li>
+      <li><b>当时知情与解释</b><span>按角色、获知渠道、目标与处境形成各自信念。信息可迟到，也可有误。</span></li>
+      <li><b>后来回忆与自述</b><span>记录回忆时点、所指事件、置信或缺失。保留误记、遗忘和他人不同说法。</span></li>
+      <li><b>按任务组织叙事</b><span>LLM 用可见的事实与记忆展开细节。生成材料带事实锚点、版本和合成标记。</span></li>
+    </ol>
+    <figcaption>比如两人同住后分居，可以对应一个共享事件和两份不同动机的自述。当前认知可影响未来候选行动。详见 <a href="跨学科依据与机制补全.md">认知、记忆和关联生命机制</a>。</figcaption>
+  </figure>
+</section>
+
+<section id="survey">
+  <div class="section-head"><h2>问卷调用与人物视角</h2><p>作答是观察记录，不是图编辑命令</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="问卷调用流程图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 375" role="img" aria-labelledby="survey-title survey-desc">
+        <title id="survey-title">固定人物修订并生成独立问卷回答</title>
+        <desc id="survey-desc">问卷调用先固定发布、图修订、snapshot视角、问卷题本和作答时间。身份和权限服务决定对象可见范围，人物视角查询按as-of、archive-as-of、known-at和题目回顾期提供事实或回忆。语言模型形成回答或未知/拒答状态。保存时区分presented、response与execution三类状态。survey response引用人物修订但不会回写人物LifeGraph。</desc>
+        <defs><marker id="arrow-survey" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker></defs>
+        <rect class="box dark" x="24" y="34" width="192" height="86" rx="5"/><text class="head" x="120" y="59" text-anchor="middle">任务与题本</text><text class="small" x="120" y="82" text-anchor="middle">survey_id@version · question_id</text><text class="small" x="120" y="102" text-anchor="middle">语言 · 选项顺序 · 参照期</text>
+        <rect class="box" x="250" y="34" width="192" height="86" rx="5"/><text class="head" x="346" y="59" text-anchor="middle">发布与人物快照</text><text class="mono" x="346" y="82" text-anchor="middle">release / revision</text><text class="small" x="346" y="102" text-anchor="middle">as_of · archive_as_of</text>
+        <rect class="box blue" x="476" y="34" width="192" height="86" rx="5"/><text class="head" x="572" y="59" text-anchor="middle">授权视角</text><text class="small" x="572" y="82" text-anchor="middle">subject 与 respondent 分开</text><text class="small" x="572" y="102" text-anchor="middle">known_at · permitted_refs</text>
+        <rect class="box teal" x="702" y="34" width="192" height="86" rx="5"/><text class="head" x="798" y="59" text-anchor="middle">回答模型</text><text class="small" x="798" y="82" text-anchor="middle">事实 / 回忆 / 态度 / 意愿</text><text class="small" x="798" y="102" text-anchor="middle">依参照期检索与表达</text>
+        <rect class="box green" x="928" y="34" width="168" height="86" rx="5"/><text class="head" x="1012" y="59" text-anchor="middle">SurveyResponse</text><text class="small" x="1012" y="82" text-anchor="middle">answer · code · refs</text><text class="small" x="1012" y="102" text-anchor="middle">run_id · snapshot_id</text>
+        <path class="edge" marker-end="url(#arrow-survey)" d="M216 77H244"/><path class="edge" marker-end="url(#arrow-survey)" d="M442 77H470"/><path class="edge" marker-end="url(#arrow-survey)" d="M668 77H696"/><path class="edge" marker-end="url(#arrow-survey)" d="M894 77H922"/>
+        <path class="edge" d="M1012 120V154H203"/>
+        <path class="edge" marker-end="url(#arrow-survey)" d="M203 154V184"/><path class="edge" marker-end="url(#arrow-survey)" d="M560 154V184"/><path class="edge" marker-end="url(#arrow-survey)" d="M917 154V184"/>
+        <rect class="box amber" x="38" y="190" width="330" height="130" rx="5"/><text class="head" x="203" y="219" text-anchor="middle">呈现状态</text><text class="mono" x="203" y="242" text-anchor="middle">presentation_status</text><text class="label" x="203" y="271" text-anchor="middle">已呈现 · 跳题 · 无资格 · 未呈现</text><text class="small" x="203" y="298" text-anchor="middle">依据问卷路径记录呈现条件</text>
+        <rect class="box teal" x="395" y="190" width="330" height="130" rx="5"/><text class="head" x="560" y="219" text-anchor="middle">回答状态</text><text class="mono" x="560" y="242" text-anchor="middle">response_status</text><text class="label" x="560" y="271" text-anchor="middle">已答 · 不知道 · 记不清 · 无意见</text><text class="small" x="560" y="298" text-anchor="middle">拒答 · 主动中断 · 未产生作答</text>
+        <rect class="box red" x="752" y="190" width="330" height="130" rx="5"/><text class="head" x="917" y="219" text-anchor="middle">执行状态</text><text class="mono" x="917" y="242" text-anchor="middle">execution_status</text><text class="label" x="917" y="271" text-anchor="middle">成功 · 阻断 · 超时 · 失败</text><text class="small" x="917" y="298" text-anchor="middle">依据服务实际执行结果记录</text>
+        <text class="edge-label" x="560" y="355" text-anchor="middle">答卷记录引用既有图修订。显式测量事件另经图写入契约提交。</text>
+      </svg>
+    </div>
+    <figcaption>对象（subject）和发言者（respondent）可以不同。作答快照由图修订、时点和权限共同决定。</figcaption>
+  </figure>
+    <details><summary>三类问卷状态示例</summary><ul><li>呈现状态记录已呈现、跳题、无资格或未呈现。</li><li>回答状态区分不知道、记不清、无意见、拒答、主动中断和未产生作答。</li><li>执行状态记录成功、阻断、超时或失败。统计分母依施测及执行状态确定。</li></ul></details>
+</section>
+
+<section id="archive-chat">
+  <div class="section-head"><h2>档案库数字人对话</h2><p>工具检索提供事实，角色模型负责自然表达</p></div>
+  <p class="intro">第一人称回答能给出自然对话体验。系统以稳定档案身份和角色视角限定模型可见信息；运行控制层仍将其视为带版本和证据的合成人物代理。</p>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="档案库选人到第一人称数字人问答流程，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 390" role="img" aria-labelledby="archive-chat-title archive-chat-desc">
+        <title id="archive-chat-title">选择数字人并由受限工具检索后进行第一人称对话</title>
+        <desc id="archive-chat-desc">用户选中数字人、档案发布版和查询时点。系统准备本会话的角色上下文。对话模型规划针对问题的工具调用。每个工具调用只读取获准发布版的数据。证据构建器核对人物、有效时间、人物获知时间和来源。模型以第一人称回答或表示未知。会话和工具证据另存，不改变人物事实账本。</desc>
+        <defs>
+          <marker id="arrow-chat" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker>
+          <marker id="arrow-chat-red" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#b5382c"/></marker>
+        </defs>
+        <rect class="box dark" x="18" y="32" width="200" height="86" rx="5"/>
+        <text class="head" x="118" y="58" text-anchor="middle">选择档案人物</text>
+        <text class="small" x="118" y="81" text-anchor="middle">person · release</text>
+        <text class="small" x="118" y="101" text-anchor="middle">当前或历史时点</text>
+        <rect class="box blue" x="250" y="32" width="200" height="86" rx="5"/>
+        <text class="head" x="350" y="58" text-anchor="middle">角色视角上下文</text>
+        <text class="small" x="350" y="81" text-anchor="middle">自称 · 稳定特征 · 所知</text>
+        <text class="small" x="350" y="101" text-anchor="middle">语言 · 不确定 · 披露范围</text>
+        <rect class="box teal" x="482" y="32" width="190" height="86" rx="5"/>
+        <text class="head" x="577" y="58" text-anchor="middle">用户问题</text>
+        <text class="small" x="577" y="81" text-anchor="middle">对话上下文与时点</text>
+        <text class="small" x="577" y="101" text-anchor="middle">独立于调查问卷</text>
+        <rect class="box amber" x="704" y="32" width="186" height="86" rx="5"/>
+        <text class="head" x="797" y="58" text-anchor="middle">对话 Agent</text>
+        <text class="small" x="797" y="81" text-anchor="middle">解析意图和所需依据</text>
+        <text class="small" x="797" y="101" text-anchor="middle">规划只读工具调用</text>
+        <rect class="box" x="922" y="32" width="180" height="86" rx="5"/>
+        <text class="head" x="1012" y="58" text-anchor="middle">中央工具注册表</text>
+        <text class="small" x="1012" y="81" text-anchor="middle">请求级权限过滤</text>
+        <text class="small" x="1012" y="101" text-anchor="middle">参数与结果 schema</text>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M218 75H244"/>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M450 75H476"/>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M672 75H698"/>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M890 75H916"/>
+        <path class="edge-dash" marker-end="url(#arrow-chat)" d="M1012 119V142H577V124"/>
+        <text class="edge-label" x="794" y="139" text-anchor="middle">只能读取所选发布版中授权可见的材料</text>
+        <rect class="box green" x="165" y="164" width="246" height="82" rx="5"/>
+        <text class="head" x="288" y="191" text-anchor="middle">按需检索</text>
+        <text class="small" x="288" y="216" text-anchor="middle">事实 · 记忆 · 关系 · 有效期</text>
+        <text class="small" x="288" y="235" text-anchor="middle">event_id / source 引用</text>
+        <rect class="box amber" x="437" y="164" width="246" height="82" rx="5"/>
+        <text class="head" x="560" y="191" text-anchor="middle">证据与视角核对</text>
+        <text class="small" x="560" y="216" text-anchor="middle">人物 · valid_time · known_at</text>
+        <text class="small" x="560" y="235" text-anchor="middle">权限 · 来源 · 时间精度</text>
+        <rect class="box blue" x="709" y="164" width="246" height="82" rx="5"/>
+        <text class="head" x="832" y="191" text-anchor="middle">第一人称回答</text>
+        <text class="small" x="832" y="216" text-anchor="middle">自然语气 · 个性连续</text>
+        <text class="small" x="832" y="235" text-anchor="middle">未知时说不知道或记不准</text>
+        <rect class="box red" x="981" y="164" width="121" height="82" rx="5"/>
+        <text class="head" x="1041" y="191" text-anchor="middle">呈现给用户</text>
+        <text class="small" x="1041" y="216" text-anchor="middle">保持合成标识</text>
+        <text class="small" x="1041" y="235" text-anchor="middle">角色化回答</text>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M797 119V144H288V158"/>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M411 205H431"/>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M683 205H703"/>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M955 205H975"/>
+        <rect class="box dark" x="165" y="284" width="937" height="70" rx="5"/>
+        <text class="head" x="187" y="310">另存对话会话与证据引用</text>
+        <text class="mono" x="475" y="310">conversation_id · run_id · release_id · snapshot_id</text>
+        <text class="small" x="187" y="335">工具调用、断言来源、拒答及未知留痕。聊天不会回写 LifeGraph；研究问卷须走独立测量流程。</text>
+        <path class="edge" marker-end="url(#arrow-chat)" d="M1041 246V266H635V278"/>
+      </svg>
+    </div>
+    <figcaption>“像本人回答”依赖固定角色视角、表达特征和有据可查的回忆。底层仍是受约束的合成 Agent，不会被赋予真实人物身份或无限档案权限。</figcaption>
+    <details><summary>会话上下文和工具权限</summary>
+      <ol>
+        <li>会话固定 <code>person_id</code>、<code>release_id</code>、<code>graph_revision_id</code> 和本次 <code>snapshot_id</code>，不会静默切换人物或档案版次。</li>
+        <li>先载入获准的身份、自称、表达偏好和少量记忆锚点，再按问题调用人物经历、关系、记忆或所处世界的查询工具。</li>
+        <li>每次返回都包含匹配主体、有效时间、人物当时是否可能获知、证据级别和来源引用。完整档案不会默认塞入提示上下文。</li>
+        <li>证据不足、时间不明、观点未形成或不愿披露时，模型使用对应回答状态，不编造细节填满叙事。</li>
+        <li>对话记忆和日志独立于人生图。若要把新内容纳入档案，需启动有明确范围的档案修订、重算和发布。</li>
+      </ol>
+    </details>
+  </figure>
+</section>
+
+<section id="validation">
+  <div class="section-head"><h2>验收证据与发布边界</h2><p>按指定用途核对各项证据</p></div>
+  <figure>
+    <div class="diagram-scroll" role="region" aria-label="验证等级与发布边界图，可横向滚动查看" tabindex="0">
+      <svg viewBox="0 0 1120 335" role="img" aria-labelledby="validation-title validation-desc">
+        <title id="validation-title">五类独立验收证据与发布范围</title>
+        <desc id="validation-desc">结构、逻辑、人口分布、生命轨迹和指定问卷任务分别进行验收。发布声明选择与当前用途相关的验收项并记录通过、失败、未验证或不可评估，任何一个项目的通过都不自动证明其他项目或其他人群有效。</desc>
+        <defs><marker id="arrow-val" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9z" fill="#476763"/></marker></defs>
+        <rect class="box dark" x="20" y="32" width="196" height="135" rx="5"/><text class="stage" x="40" y="57">V0</text><text class="head" x="118" y="82" text-anchor="middle">结构</text><text class="small" x="118" y="108" text-anchor="middle">模式 · 引用 · 权限</text><text class="small" x="118" y="130" text-anchor="middle">生成、查询、回放</text><text class="small" x="118" y="151" text-anchor="middle">schema / 版本</text>
+        <rect class="box green" x="238" y="32" width="196" height="135" rx="5"/><text class="stage" x="258" y="57">V1</text><text class="head" x="336" y="82" text-anchor="middle">逻辑</text><text class="small" x="336" y="108" text-anchor="middle">时间 · 关系 · 资源</text><text class="small" x="336" y="130" text-anchor="middle">共享事务 · 死亡边界</text><text class="small" x="336" y="151" text-anchor="middle">硬约束用例</text>
+        <rect class="box teal" x="456" y="32" width="196" height="135" rx="5"/><text class="stage" x="476" y="57">V2</text><text class="head" x="554" y="82" text-anchor="middle">总体分布</text><text class="small" x="554" y="108" text-anchor="middle">边际 · 联合格</text><text class="small" x="554" y="130" text-anchor="middle">权重 · 不确定区间</text><text class="small" x="554" y="151" text-anchor="middle">目标总体范围</text>
+        <rect class="box amber" x="674" y="32" width="196" height="135" rx="5"/><text class="stage" x="694" y="57">V3</text><text class="head" x="772" y="82" text-anchor="middle">生命轨迹</text><text class="small" x="772" y="108" text-anchor="middle">转移 · 次序 · 持续时间</text><text class="small" x="772" y="130" text-anchor="middle">留出波次/地区</text><text class="small" x="772" y="151" text-anchor="middle">具体过程范围</text>
+        <rect class="box red" x="892" y="32" width="208" height="135" rx="5"/><text class="stage" x="912" y="57">V4</text><text class="head" x="996" y="82" text-anchor="middle">指定问卷任务</text><text class="small" x="996" y="108" text-anchor="middle">题组 · 总体 · 渠道</text><text class="small" x="996" y="130" text-anchor="middle">真人留出 · 误差限</text><text class="small" x="996" y="151" text-anchor="middle">指定用途</text>
+        <path class="edge" marker-end="url(#arrow-val)" d="M118 167V198"/><path class="edge" marker-end="url(#arrow-val)" d="M336 167V198"/><path class="edge" marker-end="url(#arrow-val)" d="M554 167V198"/><path class="edge" marker-end="url(#arrow-val)" d="M772 167V198"/><path class="edge" marker-end="url(#arrow-val)" d="M996 167V198"/>
+        <rect class="box dark" x="20" y="204" width="1080" height="89" rx="5"/><text class="head" x="48" y="234">发布声明按用途汇总各项证据</text><text class="label" x="48" y="260">population_frame</text><text class="small" x="180" y="260">目标 / 地区 / 时期</text><text class="label" x="350" y="260">survey_version</text><text class="small" x="475" y="260">题本 / 语言 / 模式</text><text class="label" x="640" y="260">release_id</text><text class="small" x="734" y="260">参数 / 模型 / 提示</text><text class="label" x="910" y="260">evidence_scope</text>
+        <text class="small" x="48" y="281">每项记录通过、失败、未验证或不可评估；V0/V1 通过不代表总体、轨迹或问卷有效。</text>
+      </svg>
+    </div>
+    <figcaption>每个发布声明绑定总体、时期、主题及具体问卷，保留各验收项的状态和证据范围。</figcaption>
+  </figure>
+    <details><summary>五类验收证据</summary><ol><li>V0 结构检查模式、引用、查询、回放与访问范围。</li><li>V1 逻辑检查时间、关系、资源、共享事务及生死边界。</li><li>V2 总体检查指定抽样框的边际、联合分布和分析权重。</li><li>V3 轨迹比较留出数据中的转移、次序及持续时间。</li><li>V4 指定问卷任务按题组、总体、施测方式和预登记误差限，与独立真人样本比较。</li></ol></details>
+  <div class="notice">完成 V0–V1 说明图结构与硬规则可用。只有独立总体证据支持时，才能报告 V2；只有指定追踪证据支持时，才能报告 V3；V4 还需要对应问卷任务的盲测和真人留出比较。</div>
+</section>
+
+<section id="operations">
+  <div class="section-head"><h2>运行模式与职责边界</h2><p>同一图契约，不同的执行语义</p></div>
+  <figure>
+    <ol class="diagram-steps">
+      <li><b>接收请求</b><span>固定输入清单、父修订和幂等键，登记作业。</span></li>
+      <li><b>工作进程执行</b><span>按 case 或共享主体分区，保存实际产物和校验诊断。</span></li>
+      <li><b>短事务提交</b><span>核对预期发布指针，一起写入共享事件、各方增量和投递记录。</span></li>
+      <li><b>投递与恢复</b><span>消费者按投递键去重，按发布清单重建读视图。</span></li>
+    </ol>
+    <ul class="outcomes">
+      <li>临时故障沿用幂等键重试。输入或约束冲突保留诊断供纠偏。</li>
+      <li>并发发布冲突时保留子分支并重新核对依赖。提交后投递中断时，从已保存的投递记录恢复。</li>
+    </ul>
+    <figcaption>执行和校验可在事务外运行。发布只在最后一次短事务中切换指针。</figcaption>
+  </figure>
+  <div class="decision-grid">
+    <div><h3>首次生成</h3><p>锁定总体、参数和随机方案，产生首个工作图并校验后签发。原始请求和实际输出存入运行清单。</p></div>
+    <div><h3>直接编辑</h3><p>LLM 在父修订下编辑子分支，定位影响闭包，重算并自动校验。失败保留工作版，可继续修改。</p></div>
+    <div><h3>持续发展</h3><p>在世人物从观察截止日后追加未来事件。新证据改正过去时，另建新分支，旧版和旧答卷仍可回放。</p></div>
+    <div><h3>情景与反事实</h3><p>指定干预、适用世界和模型假设。保留情景权重，不把未经校准的探索比例写成人口概率。</p></div>
+    <div><h3>只读回放</h3><p>读取已存图产物和运行记录，不重新生成。旧版模型或资料若不可用，仍可读取原发布产物。</p></div>
+    <div><h3>验收与回退</h3><p>发布指针只切换到所需验收范围通过的版本。新版本失败可回退读取父版，错误修复不修改旧会话。</p></div>
+  </div>
+  <div class="table-wrap" role="region" aria-label="重点运行观测项" tabindex="0"><table class="contract">
+    <caption>重点运行观测项</caption>
+    <thead><tr><th scope="col">运行面</th><th scope="col">保留指标</th><th scope="col">触发检查</th></tr></thead>
+    <tbody>
+      <tr><th>作业</th><td>队列等待、执行时长、重试、取消、状态持续时间</td><td>超时率上升、阻塞积压、重复消费</td></tr>
+      <tr><th>图写入</th><td>编辑次数、影响闭包大小、校验结果、未解决冲突、版本增长</td><td>高纠偏/撤销率、受影响切片权重漂移</td></tr>
+      <tr><th>来源和参数</th><td>数据版次、许可、总体验证范围、风险集和参数误差</td><td>来源撤销、新调查波次、政策规则变更</td></tr>
+      <tr><th>问卷结果</th><td>呈现、回答、系统执行状态和证据引用的分群比例</td><td>群体方差塌缩、错误类型漂移、跨题关联变化</td></tr>
+    </tbody>
+  </table></div>
+  <div class="notice"><strong>图例约束：</strong>来源世界图、人物事件图和计算依赖图服务不同目的。标识、时点、版本与关系类型不得仅因可视化相似而合并。</div>
+</section>
+
+<footer>当前推荐架构仍是 PoC 候选。每个图中的“能表达”需在同一反例集上实测；任何单页图示均不能替代实际来源核验、概率估计与独立人群评测。设计边界见 <a href="全链路设计复核与统一契约.md">全链路统一契约</a> 和 <a href="骨架生成DSL与仿真平台选型报告_2026-11-20.html">技术选型及 PoC</a>。</footer>
+</main>
+</body>
+</html>

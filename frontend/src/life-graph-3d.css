@@ -1,0 +1,44 @@
+.life-graph-3d {
+  --space-bg: #10191b;
+  --space-panel: #172527;
+  --space-line: #355659;
+  --space-muted: #a8c0ba;
+  --space-ink: #f2f5e8;
+  overflow: hidden;
+  color: var(--space-ink);
+  background: var(--space-bg);
+  border: 1px solid #28494b;
+  border-radius: .75rem;
+  box-shadow: 0 18px 36px rgb(17 39 40 / 22%);
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 620px;
+}
+.life-graph-3d-loading { display:grid; place-items:center; min-block-size:400px; color:#5d6a63; background:#f2f4eb; border:1px solid #d2d8ca; border-radius:.75rem; }
+.life-graph-3d-header { display:flex; justify-content:space-between; align-items:start; gap:1rem; padding:1rem 1.15rem .8rem; background:var(--space-panel); }
+.life-graph-3d-kicker { color:#e1b65a; font:600 .66rem 'IBM Plex Mono',monospace; letter-spacing:.12em; }
+.life-graph-3d h2 { margin:.35rem 0 .25rem; font-size:1.15rem; }
+.life-graph-3d-header p { max-inline-size:44rem; margin:0; color:var(--space-muted); font-size:.76rem; line-height:1.55; }
+.life-graph-3d-controls { display:flex; flex-wrap:wrap; gap:.35rem; }
+.life-graph-3d-controls button { min-block-size:2.3rem; padding:.3rem .65rem; color:var(--space-ink); background:#21383a; border:1px solid var(--space-line); border-radius:.3rem; font-size:.74rem; }
+.life-graph-3d-controls button:hover, .life-graph-3d-controls button[aria-pressed="true"] { color:#132022; background:#dfb45b; }
+.life-graph-3d-stage { position:relative; min-block-size:400px; background:#10191b; }
+.life-graph-3d-stage canvas { display:block; inline-size:100%; block-size:auto; min-block-size:400px; cursor:grab; }
+.life-graph-3d-stage canvas:active { cursor:grabbing; }
+.life-graph-3d-overlay { position:absolute; inset:auto 1rem 1rem; display:flex; gap:.5rem; pointer-events:none; }
+.life-graph-3d-overlay span { padding:.35rem .5rem; color:#d8e8df; background:#0d1516d9; border:1px solid #36595b; border-radius:.25rem; font:600 .65rem 'IBM Plex Mono',monospace; }
+.life-graph-3d-readout { display:flex; justify-content:space-between; gap:1rem; padding:.75rem 1rem; background:#142124; border-block-start:1px solid #2a4c4e; }
+.life-graph-3d-readout > div:first-child { display:grid; gap:.15rem; min-inline-size:0; }
+.life-graph-3d-readout span, .life-graph-3d-readout small { color:var(--space-muted); font-size:.7rem; }
+.life-graph-3d-readout strong { font-size:.9rem; overflow-wrap:anywhere; }
+.life-graph-3d-legend { display:flex; flex-wrap:wrap; justify-content:end; align-content:start; gap:.3rem .6rem; max-inline-size:48%; color:var(--space-muted); font-size:.66rem; }
+.life-graph-3d-legend span { display:inline-flex; align-items:center; gap:.25rem; }
+.life-graph-3d-legend i { inline-size:.45rem; block-size:.45rem; border-radius:50%; }
+.life-graph-3d-accessible { border-block-start:1px solid #2a4c4e; background:#142124; }
+.life-graph-3d-accessible summary { padding:.65rem 1rem; color:#dbe9df; cursor:pointer; font-size:.75rem; }
+.life-graph-3d-accessible ol { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.25rem 1rem; max-block-size:14rem; overflow:auto; margin:0; padding:.5rem 1.2rem .9rem 2.2rem; }
+.life-graph-3d-accessible li { min-inline-size:0; color:var(--space-muted); font-size:.7rem; }
+.life-graph-3d-accessible button { padding:0; color:#f0c66d; background:transparent; border:0; text-align:start; font-size:.72rem; }
+.life-graph-3d-accessible li span { display:block; }
+.life-graph-3d-fallback { display:grid; place-items:center; min-block-size:400px; padding:2rem; color:var(--space-muted); text-align:center; }
+@media (max-width: 600px) { .life-graph-3d-header { flex-direction:column; } .life-graph-3d-stage canvas { min-block-size:340px; } .life-graph-3d-readout { flex-direction:column; } .life-graph-3d-legend { justify-content:start; max-inline-size:100%; } .life-graph-3d-accessible ol { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion: reduce) { .life-graph-3d-stage canvas { animation:none; } }

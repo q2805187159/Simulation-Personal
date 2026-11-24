@@ -1,0 +1,13 @@
+{
+  "version": "synthetic-case-2026.11.1",
+  "basis": "synthetic_engineering_fixture",
+  "health_rate_multiplier": {"lower": 0.7, "middle": 1.0, "higher": 1.5},
+  "annual_rates": {
+    "job-exit": 0.014,
+    "relocation": 0.018,
+    "health-transition": 0.025,
+    "shared-care": 1.1,
+    "partnership": 0.035,
+    "death": 0.052
+  }
+}

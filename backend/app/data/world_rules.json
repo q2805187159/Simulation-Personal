@@ -1,0 +1,2165 @@
+{
+  "schema_version": 1,
+  "world_version": "world-v3.0.1",
+  "source_document": "docs/v3/历史节点与环境暴露目录.md",
+  "rules": [
+    {
+      "id": "POL-LR-1950",
+      "version": "1.0.0",
+      "label": "土地改革与地方实施",
+      "valid_time": {
+        "start": "1950-01-01",
+        "end": "1953-12-31",
+        "precision": "year",
+        "reported_period": "1950–1953"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "土地改革法与地方实施，地区和民族地区执行并非同一节奏",
+      "age_band": [16, null],
+      "eligibility": "家庭所在村、土地/租佃关系、地方干部与基层组织",
+      "phase": "shock",
+      "phases": ["shock", "reconstruction"],
+      "mechanism": "财产、劳动、家庭和组织关系重排；shock→reconstruction",
+      "affected_dimensions": ["ORIGIN", "HOUSEHOLD", "WORK", "ASSET", "POLITY", "HISTORY"],
+      "evidence_policy": "法律存在由官方档案确认；个人是否被划分、财产如何变动需个人/地方材料。不得从出生地直接推断阶级经历。",
+      "sources": [
+        {
+          "label": "全国政协资料",
+          "url": "https://www.cppcc.gov.cn/2011/09/26/ARTI1317001118781503.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-MARR-1950",
+      "version": "1.0.0",
+      "label": "婚姻法与家庭权利框架",
+      "valid_time": {
+        "start": "1950-05-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "1950-05-01 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "婚姻法确立婚姻自由、婚姻登记和家庭权利的法律框架",
+      "age_band": [18, null],
+      "eligibility": "婚龄、登记地、家庭与地方习俗、是否实际办理",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "婚姻登记和家庭关系机会变化；地方执行、习俗和非登记关系并存",
+      "affected_dimensions": ["PARTNER", "FERT", "HOUSEHOLD", "SEXGENDER", "JUSTICE"],
+      "evidence_policy": "颁法不等于每个家庭同日改变。不得用现行婚龄门槛抹掉历史登记、非登记或强制情境。",
+      "sources": [
+        {
+          "label": "国家档案局资料",
+          "url": "https://www.saac.gov.cn/daj/yaow/202004/5eb333c462844e3eafab4bdeac5f6c49.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-HUKOU-1958",
+      "version": "1.0.0",
+      "label": "户口登记与城乡迁移门槛",
+      "valid_time": {
+        "start": "1958-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "1958 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "户口登记条例和城乡迁移管理形成制度性门槛",
+      "age_band": [0, null],
+      "eligibility": "出生登记、迁移申请、工作/学校/家庭团聚、城市公共服务",
+      "phase": "constraint",
+      "phases": ["constraint", "reconstruction"],
+      "mechanism": "迁移成本、教育与就业资格、家庭分离和福利可及性变化；后续改革为 reconstruction",
+      "affected_dimensions": ["GEO", "MOBILITY", "EDU", "WORK", "WELFARE", "HOUSING", "HOUSEHOLD"],
+      "evidence_policy": "制度存在由法规确认；个人实际户口、居住和服务使用需个人档案。户籍不等于实际居住、阶层或态度。",
+      "sources": [
+        {
+          "label": "国家卫健委法规库",
+          "url": "https://www.nhc.gov.cn/zwgk/falv/201304/7aa5c93b53b44160aa718a78dd78b145.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "HIST-FAMINE-1959",
+      "version": "1.0.0",
+      "label": "大跃进时期饥荒与队列差异",
+      "valid_time": {
+        "start": "1959-01-01",
+        "end": "1961-12-31",
+        "precision": "year",
+        "reported_period": "1959–1961"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "大跃进时期严重饥荒，强度和后果在省县间差异显著",
+      "age_band": [0, null],
+      "eligibility": "胎儿期/婴幼儿期队列、家庭食物获取、迁移与亲属死亡；至少需要出生时间和受孕/成长地证据",
+      "phase": "shock",
+      "phases": ["shock", "life_course", "memory"],
+      "mechanism": "营养、健康、认知、教育与生存机会可能受影响；shock→life_course→memory",
+      "affected_dimensions": ["BODY", "HEALTH", "DEV", "EDU", "INCOME", "HOUSEHOLD", "MEMORY", "LIFECHANCE"],
+      "evidence_policy": "纵向/队列研究报告部分长期健康与认知关联；系统综述指出既有研究在年龄、强度测量和样本上存在异质性。不能把 1959–1961 出生等同于相同强度的暴露或确定的终身后果。",
+      "sources": [
+        {
+          "label": "队列研究",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/25432603/",
+          "kind": "population_observation"
+        },
+        {
+          "label": "系统综述与荟萃分析",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/28338900/",
+          "kind": "population_observation"
+        }
+      ]
+    },
+    {
+      "id": "HIST-EDU-1966-76",
+      "version": "1.0.0",
+      "label": "教育与社会组织秩序变动",
+      "valid_time": {
+        "start": "1966-01-01",
+        "end": "1976-12-31",
+        "precision": "year",
+        "reported_period": "1966–1976"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "教育与社会组织秩序剧烈变动，学校、升学和工作路径随地点/时期而异",
+      "age_band": [6, 25],
+      "eligibility": "当时年龄、所在地、在读年级、学校停复课/招生、家庭与工作分配记录",
+      "phase": "shock",
+      "phases": ["shock", "life_course"],
+      "mechanism": "受教育中断或替代经历、青年迁移与职业路径变化；shock→life_course",
+      "affected_dimensions": ["DEV", "EDU", "WORK", "CAREER", "MOBILITY", "HOUSEHOLD", "MEMORY"],
+      "evidence_policy": "属于需要按地方校史、学籍、本人/家庭资料核实的历史背景，不用“文革一代”代替个人教育经历。",
+      "sources": [
+        {
+          "label": "教育部高等教育历史资料",
+          "url": "https://www.moe.gov.cn/jyb_xwfb/xw_fbh/moe_2606/moe_2074/moe_2438/moe_2442/tnull_39569.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-EDU-1977",
+      "version": "1.0.0",
+      "label": "恢复高考",
+      "valid_time": {
+        "start": "1977-01-01",
+        "end": "1977-12-31",
+        "precision": "year",
+        "reported_period": "1977"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "恢复高考，教育部资料记载首届报考与录取规模",
+      "age_band": [15, 40],
+      "eligibility": "年龄、学籍、备考资源、地区招生制度和家庭支持",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "教育与职业通道重新开放，队列差异强；opportunity",
+      "affected_dimensions": ["DEV", "EDU", "WORK", "CAREER", "LIFECHANCE"],
+      "evidence_policy": "统计是全国宏观值；不能从出生队列推断一定参加、录取或改变阶层。",
+      "sources": [
+        {
+          "label": "教育部资料",
+          "url": "https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/s3580/moe_2448/moe_2450/moe_2451/tnull_39642.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-EDU-1986",
+      "version": "1.0.0",
+      "label": "九年义务教育法与地方普及",
+      "valid_time": {
+        "start": "1986-07-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "1986–2006+"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "义务教育法及 2006 修订，地方分步普及并受财政/地理条件影响",
+      "age_band": [6, 17],
+      "eligibility": "适龄儿童、县域学校、家庭负担、残障和民族地区教育供给",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "入学资格、学校可达性、辍学/复学、城乡与地区差异；opportunity",
+      "affected_dimensions": ["EDU", "DEV", "LANG", "MOBILITY", "LIFECHANCE"],
+      "evidence_policy": "法律规定九年义务教育，地方实现时间不同。不得把法定权利当成个人实际受教育年限。",
+      "sources": [
+        {
+          "label": "教育部法律全文",
+          "url": "https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/s3579/moe_1166/tnull_15707.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "教育部原法生效日期",
+          "url": "https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/s3581/moe_2669/moe_2921/tnull_51639.html",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2006-12-31",
+      "release_and_record_times": {
+        "published_at": "1986-04-12",
+        "effective_at": "1986-07-01",
+        "revised_effective_at": "2006-09-01"
+      }
+    },
+    {
+      "id": "POL-WEST-2000",
+      "version": "1.0.0",
+      "label": "西部大开发",
+      "valid_time": {
+        "start": "2000-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "2000–2010+"
+      },
+      "scope": "regions",
+      "regions": ["15", "45", "50", "51", "52", "53", "54", "61", "62", "63", "64", "65"],
+      "scope_detail": "西部大开发覆盖西部 12 省区市，并对部分民族自治州比照照顾",
+      "age_band": [0, null],
+      "eligibility": "户籍/常住地、基础设施项目位置、行业、城乡和生态/资源产业",
+      "phase": "opportunity",
+      "phases": ["opportunity", "constraint"],
+      "mechanism": "交通、电信、教育、生态、农业、能源产业与区域公共服务机会变化；opportunity/constraint",
+      "affected_dimensions": ["GEO", "ENVIRON", "WORK", "EDU", "HEALTH", "MOBILITY", "ETHNIC", "COMMUNITY"],
+      "evidence_policy": "国家文件明确适用地区与重点，项目落地和家庭结果仍按省县、行业和年份验证。不能以“西部/民族地区”泛化个人经历。",
+      "sources": [
+        {
+          "label": "国家发展改革委政策答记者问",
+          "url": "https://www.ndrc.gov.cn/xxgk/jd/jd/200507/t20050708_1182982.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "实施意见",
+          "url": "https://www.ndrc.gov.cn/fggz/lywzjw/200507/t20050714_1370494.html",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2010-12-31",
+      "regional_matching_note": "首轮目录按 12 个省区市做候选粗筛；湘西州、恩施州和延边州的比照政策需要州级位置。"
+    },
+    {
+      "id": "POVERTY-RELOCATION-2015",
+      "version": "1.0.0",
+      "label": "易地扶贫搬迁与社区安置",
+      "valid_time": {
+        "start": "2015-12-08",
+        "end": "2020-12-31",
+        "precision": "day",
+        "reported_period": "2015–2020"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "“十三五”时期建档立卡贫困人口易地扶贫搬迁",
+      "age_band": [0, null],
+      "eligibility": "核对户是否建档、搬迁地/原居地、群众意愿、房屋/生计、就业与公共服务接续",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "原地扶持或易地安置、职业与农地改变、原社区关系分离、新社区融入和返贫风险",
+      "affected_dimensions": ["GEO", "HOUSING", "WORK", "INCOME", "ASSET", "HOUSEHOLD", "COMMUNITY", "EDU", "HEALTH", "MOBILITY"],
+      "evidence_policy": "政策强调群众自愿和精准识别，任务目标不是个体搬迁证明。无户/村级资料不推断家庭获得资格或脱贫因果。",
+      "sources": [
+        {
+          "label": "国家发展改革委搬迁方案",
+          "url": "https://www.ndrc.gov.cn/xwdt/xwfb/201512/t20151208_955833.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "脱贫攻坚决定",
+          "url": "https://m.mof.gov.cn/czxw/201512/t20151209_1604511.htm",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-EDU-EXPANSION-1999",
+      "version": "1.0.0",
+      "label": "高等教育扩招",
+      "valid_time": {
+        "start": "1999-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "1999 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "高等教育扩招，普通本专科招生较 1998 增加约 47%",
+      "age_band": [15, 30],
+      "eligibility": "出生队列、高中完成、地区招生计划、家庭支付能力、院校/专业与就业市场",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "高等教育入学机会扩大，同时院校规模、家庭教育成本与毕业生就业结构变化；opportunity",
+      "affected_dimensions": ["EDU", "DEBT", "HOUSEHOLD", "CAREER", "WORK", "INCOME", "LIFECHANCE"],
+      "evidence_policy": "教育部招生统计是全国总量，不说明个体录取概率；省份、户籍、考试成绩、专业和家庭资源差异须保留。",
+      "sources": [
+        {
+          "label": "教育部统计",
+          "url": "https://www.moe.gov.cn/jyb_sjzl/sjzl_fztjgb/tnull_841.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "教育部改革史",
+          "url": "https://www.moe.gov.cn/jyb_xwfb/s5147/201909/t20190924_400593.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "EDU-MIGRANT-EXAM-2012",
+      "version": "1.0.0",
+      "label": "随迁子女在流入地参加升学考试",
+      "valid_time": {
+        "start": "2012-08-31",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2012 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "随迁子女在流入地参加中考/高考的中央意见与省级门槛",
+      "age_band": [12, 22],
+      "eligibility": "核对非本地户籍、父母稳定就业/住所/社保、连续就读、学籍和省市方案",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "子女随父母迁移、留守、回原籍考试、申请获准/未获准、升学和家庭再迁移",
+      "affected_dimensions": ["EDU", "GEO", "MOBILITY", "HOUSEHOLD", "CAREER", "LIFECHANCE"],
+      "evidence_policy": "中央意见要求省级因地制宜细化，中央政策和不同省方案不等于个人资格。需查相应省份与入学/考试年月。",
+      "sources": [
+        {
+          "label": "教育部/国办意见",
+          "url": "https://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/201208/t20120831_141376.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "教育部省级督查",
+          "url": "https://www.moe.gov.cn/srcsite/A15/s3263/201211/t20121114_144944.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "上海随迁升学历史方案",
+          "url": "https://www.shanghai.gov.cn/nw29397/20200820/0001-29397_34328.html",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "issued_at": "2012-08-30",
+        "published_at": "2012-08-31"
+      }
+    },
+    {
+      "id": "POL-EMP-1998",
+      "version": "1.0.0",
+      "label": "国企下岗与再就业政策",
+      "valid_time": {
+        "start": "1998-01-01",
+        "end": "2005-12-31",
+        "precision": "year",
+        "reported_period": "1998–2005"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "国企下岗、再就业服务中心、失业保险并轨与积极就业政策",
+      "age_band": [16, 65],
+      "eligibility": "国企单位、行业、城市、岗位、工龄、家庭收入与社保关系",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "下岗、基本生活费、培训、税费减免、小额贷款、再就业；shock→relief→reconstruction",
+      "affected_dimensions": ["WORK", "CAREER", "INCOME", "WELFARE", "HOUSEHOLD", "HEALTH", "EDU"],
+      "evidence_policy": "国家统计为全国口径，1998–2002 累计 2022 万、含此前累计 2715 万。不能把全国数字当东北人数，也不能把“下岗”自动写入每个东北家庭。",
+      "sources": [
+        {
+          "label": "国家统计局",
+          "url": "https://www.stats.gov.cn/zt_18555/ztfx/qzxzgcl60zn/202303/t20230301_1920385.html",
+          "kind": "population_observation"
+        }
+      ]
+    },
+    {
+      "id": "POL-NE-2003",
+      "version": "1.0.0",
+      "label": "东北老工业基地振兴",
+      "valid_time": {
+        "start": "2003-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "2003 起"
+      },
+      "scope": "regions",
+      "regions": ["21", "22", "23"],
+      "scope_detail": "东北老工业基地振兴及资源型城市转型",
+      "age_band": [16, 70],
+      "eligibility": "东北三省及相关资源型城市的行业、企业、社区、住房和社保",
+      "phase": "reconstruction",
+      "phases": ["reconstruction"],
+      "mechanism": "产业改造、替代产业、棚户区改造、社保和就业政策形成新机会；reconstruction",
+      "affected_dimensions": ["GEO", "WORK", "CAREER", "HOUSING", "WELFARE", "COMMUNITY", "ENVIRON"],
+      "evidence_policy": "国家政策明确区域和任务，城市执行、行业收益与家庭结果不同。不得把“东北人”当作统一下岗、悲观或迁出群体。",
+      "sources": [
+        {
+          "label": "国家发展改革委",
+          "url": "https://www.ndrc.gov.cn/fggz/fgzy/xmtjd/202107/t20210721_1291202_ext.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-AIR-2013",
+      "version": "1.0.0",
+      "label": "大气污染防治行动计划",
+      "valid_time": {
+        "start": "2013-09-01",
+        "end": null,
+        "precision": "month",
+        "reported_period": "2013–2017+"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "大气污染防治行动计划对重点区域和行业分阶段治理",
+      "age_band": [0, null],
+      "eligibility": "常住/工作地点、户外时长、供暖/燃料、职业污染源和重污染天气预警/停课安排",
+      "phase": "constraint",
+      "phases": ["constraint", "reconstruction"],
+      "mechanism": "累积环境剂量、健康/工作能力、产业岗位、迁居与家庭防护成本；政策也改变产业和能源结构",
+      "affected_dimensions": ["ENVIRON", "HEALTH", "WORK", "HOUSING", "MOBILITY", "EDU", "INCOME", "COMMUNITY"],
+      "evidence_policy": "计划设定重点区域和分区域目标；政策发布不等于每人同等污染剂量或健康后果。",
+      "sources": [
+        {
+          "label": "生态环境部收录的国务院计划",
+          "url": "https://www.mee.gov.cn/ywgz/zcghtjdd/sthjghjh/201811/t20181129_676555.shtml",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2017-12-31"
+    },
+    {
+      "id": "POL-HOUSE-1998",
+      "version": "1.0.0",
+      "label": "城镇住房制度改革",
+      "valid_time": {
+        "start": "1998-07-01",
+        "end": null,
+        "precision": "month",
+        "reported_period": "1998 下半年起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "城镇住房实物分配停止、货币化和住房金融发展",
+      "age_band": [18, null],
+      "eligibility": "单位住房、城市实施时点、工资、公积金、贷款资格、家庭资产",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "住房获得、家庭资产/负债和居住迁移机会变化；地方时间不同",
+      "affected_dimensions": ["HOUSING", "ASSET", "DEBT", "INCOME", "HOUSEHOLD", "MOBILITY"],
+      "evidence_policy": "国务院通知允许地方自行确定具体时间，不能用 1998 年作为全国统一断点。",
+      "sources": [
+        {
+          "label": "国务院通知",
+          "url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/201309/t20130924_776668.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-WTO-2001",
+      "version": "1.0.0",
+      "label": "加入 WTO 与产业链重组",
+      "valid_time": {
+        "start": "2001-12-11",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2001-12-11 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "中国加入 WTO，外贸、制造业和区域产业链重组",
+      "age_band": [16, 70],
+      "eligibility": "出口行业、沿海/内地城市、企业岗位、教育技能、迁移网络",
+      "phase": "opportunity",
+      "phases": ["opportunity", "constraint"],
+      "mechanism": "行业扩张/收缩、工资和迁移机会变化；opportunity 与 constraint 并存",
+      "affected_dimensions": ["WORK", "CAREER", "INCOME", "MOBILITY", "EDU", "CONSUME"],
+      "evidence_policy": "加入协议是世界节点，个体暴露取决于行业和地区。",
+      "sources": [
+        {
+          "label": "WTO 中国成员资料",
+          "url": "https://www.wto.org/english/thewto_e/countries_e/china_e.htm",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "effective_at": "2001-12-11"
+      }
+    },
+    {
+      "id": "POL-NCMS-2003",
+      "version": "1.0.0",
+      "label": "新型农村合作医疗试点",
+      "valid_time": {
+        "start": "2003-01-01",
+        "end": "2010-12-31",
+        "precision": "year",
+        "reported_period": "2003–2010"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "新型农村合作医疗从试点县逐步扩展",
+      "age_band": [0, null],
+      "eligibility": "农村户籍/居住、试点县、参合缴费、就医地与报销规则",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "医疗可及、因病致贫风险和家庭照料负担变化；地方财政与试点阶段不同",
+      "affected_dimensions": ["HEALTH", "WELFARE", "INCOME", "HOUSEHOLD", "CAREER"],
+      "evidence_policy": "2003 起各省选择县试点，非全国同日覆盖；不能根据农村身份直接假设参合或报销。",
+      "sources": [
+        {
+          "label": "国家卫生健康委",
+          "url": "https://www.nhc.gov.cn/wjw/gfxwj/200407/0fab6362e4f64b0d8d6efe3f0ad4e5f6.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-NRPS-2009",
+      "version": "1.0.0",
+      "label": "新型农村社会养老保险试点",
+      "valid_time": {
+        "start": "2009-01-01",
+        "end": "2014-12-31",
+        "precision": "year",
+        "reported_period": "2009 试点；2014 并轨"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "新型农村社会养老保险分批试点，初期约 10% 县",
+      "age_band": [0, null],
+      "eligibility": "年龄、农村居民资格、试点县、缴费和领取条件",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "老年收入底线、代际转移与养老安排变化；opportunity",
+      "affected_dimensions": ["HEALTH", "WELFARE", "INCOME", "HOUSEHOLD", "DEATH"],
+      "evidence_policy": "2009 年试点与 2014 年并轨使用不同规则。不能用 2009 年出生/农村标签推断个人获得养老金。",
+      "sources": [
+        {
+          "label": "财政部问答",
+          "url": "https://www.mof.gov.cn/zhuantihuigu/2010ysgk/2010ysgkkj/201003/t20100325_280124.htm",
+          "kind": "world_event"
+        },
+        {
+          "label": "国务院并轨意见",
+          "url": "https://fgk.chinatax.gov.cn/zcfgk/c102440/c5194451/content.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "MED-CROSSPROV-2016-2022",
+      "version": "1.0.0",
+      "label": "跨省异地就医直接结算",
+      "valid_time": {
+        "start": "2016-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "2016 起分阶段；2023 规程施行"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "跨省异地住院结算试点扩展到普通门诊/门诊慢特病，2023 起按全国规程实施",
+      "age_band": [0, null],
+      "eligibility": "核对参保地、就医地、备案时间、联网定点机构、疾病类别和两地支付规则",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "迁移/异地养老的医疗可及与垫付负担变化；备案/联网条件缺失仍可能手工报销",
+      "affected_dimensions": ["HEALTH", "WELFARE", "INCOME", "DEBT", "MOBILITY", "HOUSEHOLD"],
+      "evidence_policy": "规则规定支付范围按就医地、起付线/比例/限额按参保地；政策可及不等于个人实际报销或健康改善。",
+      "sources": [
+        {
+          "label": "国家医保局/财政部通知",
+          "url": "https://www.nhsa.gov.cn/art/2022/7/26/art_104_8629.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "2020 门诊试点",
+          "url": "https://www.nhsa.gov.cn/art/2020/9/30/art_104_6501.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "2016 住院结算文件",
+          "url": "https://www.kaiping.gov.cn/attachment/0/21/21955/525544.pdf",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2023-12-31",
+      "release_and_record_times": {
+        "national_rules_published_at": "2022-07-26",
+        "national_rules_effective_at": "2023-01-01"
+      }
+    },
+    {
+      "id": "POL-AGTAX-2006",
+      "version": "1.0.0",
+      "label": "全国取消农业税",
+      "valid_time": {
+        "start": "2006-01-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2006-01-01 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "全国全面取消农业税，之前多个省份/县分批免征",
+      "age_band": [0, null],
+      "eligibility": "农业经营家庭、所在省县、税费改革和地方财政/公共服务",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "家庭农业现金流与基层财政结构改变；不同年份已有地方免征差异",
+      "affected_dimensions": ["INCOME", "ASSET", "WORK", "FOOD", "HOUSEHOLD", "COMMUNITY", "POLITY"],
+      "evidence_policy": "全国生效日之前已有地方阶段性免征，不能对各地设同一断点；个人需有农业经营和地方证据。",
+      "sources": [
+        {
+          "label": "国家发展改革委",
+          "url": "https://www.ndrc.gov.cn/fggz/tzgg/ggkx/200609/t20060929_1031695.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "PUB-SARS-2003",
+      "version": "1.0.0",
+      "label": "SARS 与学校卫生防疫",
+      "valid_time": {
+        "start": "2003-01-01",
+        "end": "2003-12-31",
+        "precision": "year",
+        "reported_period": "2003"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "SARS 与学校卫生防疫、隔离、停课/复课安排",
+      "age_band": [0, null],
+      "eligibility": "所在城市/学校、病例接触、医疗职业、家庭照料、信息来源",
+      "phase": "shock",
+      "phases": ["shock", "relief"],
+      "mechanism": "健康风险、学校教学中断、隔离和公共卫生信任；shock→relief",
+      "affected_dimensions": ["HEALTH", "EDU", "WORK", "MOBILITY", "MENTAL", "BELIEF", "SURVEYRESP"],
+      "evidence_policy": "教育部预案规定按病例和地区调整，不等于全国每个学生停课。",
+      "sources": [
+        {
+          "label": "教育部预案",
+          "url": "https://www.moe.gov.cn/jyb_xxgk/gk_gbgg/moe_0/moe_9/moe_39/tnull_110.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "PUB-MELAMINE-2008",
+      "version": "1.0.0",
+      "label": "婴幼儿配方乳粉事件与监管调整",
+      "valid_time": {
+        "start": "2008-09-01",
+        "end": null,
+        "precision": "month",
+        "reported_period": "2008-09 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "三聚氰胺婴幼儿配方乳粉事件、召回与食品监管调整",
+      "age_band": [0, null],
+      "eligibility": "婴幼儿真实摄入批次/品牌、家庭购买和医院检查；普通消费者与从业者分开",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "真实摄入后的健康筛查/就医/赔付、喂养改变、供应链与监管信任；仅媒体暴露只影响信息/消费态度候选",
+      "affected_dimensions": ["FOOD", "HEALTH", "HOUSEHOLD", "CONSUME", "BELIEF", "MEMORY", "PROV"],
+      "evidence_policy": "监管限量和整顿规划证明事件/制度响应，不证明某婴儿摄入或患病；需批次/购买/检查记录，不能由出生年份推断健康损害。",
+      "sources": [
+        {
+          "label": "五部门公告",
+          "url": "https://www.miit.gov.cn/zwgk/zcwj/wjfb/gg/art/2020/art_f789ce7c0f1b4801afe410d64e7bd6e5.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "奶业整顿纲要",
+          "url": "https://www.miit.gov.cn/jgsj/xfpgys/wjfb/art/2020/art_8ddb7642c97643c9851db2ff76234528.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "PUB-H7N9-2013",
+      "version": "1.0.0",
+      "label": "H7N9 病例与活禽市场防控",
+      "valid_time": {
+        "start": "2013-03-31",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2013 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "H7N9 人感染病例、活禽市场监测和职业/地区防控",
+      "age_band": [0, null],
+      "eligibility": "确认病例/诊断，活禽养殖屠宰运输/市场/医护暴露、所在城市、市场关闭与家庭照料",
+      "phase": "shock",
+      "phases": ["shock", "constraint"],
+      "mechanism": "感染/隔离和医疗；市场停业、收入、消费/食品行为、风险沟通；无感染或仅媒体接触须分开",
+      "affected_dimensions": ["HEALTH", "WORK", "INCOME", "FOOD", "MOBILITY", "BELIEF", "COMMUNITY"],
+      "evidence_policy": "监测发现人类病例多数有活禽暴露史但不能作为个人诊断；官方资料未支持持续人传人推定。",
+      "sources": [
+        {
+          "label": "首批确诊通报",
+          "url": "https://www.nhc.gov.cn/yjb/yqxx/201303/1268030fcd2e4dfcadfdc619d4b90502.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "防控通知",
+          "url": "https://www.nhc.gov.cn/wjw/gfxwj/201304/fb9982a228b24c1bbfb9cd5b78544b00.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "2017 监测问答",
+          "url": "https://www.nhc.gov.cn/yjb/c100057/201702/df692b979bf7479facea5af7fbd94366.shtml",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2017-12-31"
+    },
+    {
+      "id": "DIS-WC-2008",
+      "version": "1.0.0",
+      "label": "汶川地震",
+      "valid_time": {
+        "start": "2008-05-12",
+        "end": "2008-05-12",
+        "precision": "day",
+        "reported_period": "2008-05-12"
+      },
+      "scope": "regions",
+      "regions": ["51", "61", "62"],
+      "scope_detail": "汶川 8.0 级地震，涉及 10 个省区市；重建总体规划覆盖川甘陕 51 个县",
+      "age_band": [10, null],
+      "eligibility": "震时在场、住宅/学校/工作地、亲属、资产、救援与迁移；非现场者可有新闻/救援渠道",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction", "memory"],
+      "mechanism": "住房、公共服务、就业社保、交通、产业、生态、文化和人口安置多阶段变化；shock→relief→reconstruction→memory",
+      "affected_dimensions": ["GEO", "ENVIRON", "HEALTH", "HOUSING", "HOUSEHOLD", "WORK", "INCOME", "EDU", "MOBILITY", "COMMUNITY", "MENTAL", "MEMORY", "RELIGION", "ETHNIC"],
+      "evidence_policy": "国家规划确认时间、范围和重建任务；研究显示收入/健康/就业恢复与家庭关系和主观福祉不同步，结论受样本与方法限制。不能从四川籍贯或 2008 年年龄自动推断亲历或创伤。",
+      "sources": [
+        {
+          "label": "国家发展改革委规划",
+          "url": "https://www.ndrc.gov.cn/xxgk/zcfb/qt/200809/t20080924_967737.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "PubMed 研究摘要",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/36531932/",
+          "kind": "population_observation"
+        }
+      ]
+    },
+    {
+      "id": "DIS-LS-2013",
+      "version": "1.0.0",
+      "label": "四川芦山地震",
+      "valid_time": {
+        "start": "2013-04-20",
+        "end": "2013-04-20",
+        "precision": "day",
+        "reported_period": "2013-04-20"
+      },
+      "scope": "regions",
+      "regions": ["51"],
+      "scope_detail": "四川芦山 7.0 级地震，受灾人口 218.4 万",
+      "age_band": [0, null],
+      "eligibility": "在场、住房/学校/道路损坏、震前是否经历汶川、救援和重建",
+      "phase": "shock",
+      "phases": ["shock", "reconstruction"],
+      "mechanism": "建筑安全、灾后公共服务和风险知觉；汶川后设防可能成为保护性环境因素",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "HEALTH", "EDU", "MOBILITY", "MENTAL", "MEMORY"],
+      "evidence_policy": "官方统计与灾后设防说明可作群体背景；不能据“经历过汶川”直接生成统一心理结果。",
+      "sources": [
+        {
+          "label": "应急管理部",
+          "url": "https://www.mem.gov.cn/xw/bndt/202004/t20200420_351685.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-YUSHU-2010",
+      "version": "1.0.0",
+      "label": "玉树地震",
+      "valid_time": {
+        "start": "2010-04-14",
+        "end": "2010-04-14",
+        "precision": "day",
+        "reported_period": "2010-04-14"
+      },
+      "scope": "regions",
+      "regions": ["51", "63"],
+      "scope_detail": "玉树 7.1 级地震，青海玉树州及四川甘孜部分县，民族/宗教/高寒生态情境",
+      "age_band": [0, null],
+      "eligibility": "在场、牧业/旅游/宗教场所、住房学校医院、牲畜和道路",
+      "phase": "shock",
+      "phases": ["shock", "reconstruction"],
+      "mechanism": "重建与民族文化、宗教场所、生态保护、就业扶贫结合；reconstruction",
+      "affected_dimensions": ["ETHNIC", "RELIGION", "ENVIRON", "HOUSING", "HEALTH", "WORK", "COMMUNITY", "MOBILITY"],
+      "evidence_policy": "规划明确高寒、生态、民族文化和公共服务条件。不能把藏族身份等同地震暴露或宗教实践。",
+      "sources": [
+        {
+          "label": "国家发展改革委指导意见",
+          "url": "https://www.ndrc.gov.cn/xxgk/zcfb/qt/201005/t20100525_967773.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-LUDIAN-2014",
+      "version": "1.0.0",
+      "label": "云南鲁甸地震",
+      "valid_time": {
+        "start": "2014-08-03",
+        "end": "2014-08-03",
+        "precision": "day",
+        "reported_period": "2014-08-03"
+      },
+      "scope": "regions",
+      "regions": ["53"],
+      "scope_detail": "云南鲁甸 6.5 级地震，昭通等地严重受灾",
+      "age_band": [0, null],
+      "eligibility": "在场、房屋/学校/医疗、交通通信、亲属和安置",
+      "phase": "shock",
+      "phases": ["shock", "reconstruction"],
+      "mechanism": "住房重建、卫生防疫、应急心理、迁移与生计重组；shock→reconstruction",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "HEALTH", "EDU", "WORK", "MOBILITY", "MENTAL"],
+      "evidence_policy": "官方灾情与卫生应急部署为群体事实；不能由云南或少数民族身份推断受灾程度。",
+      "sources": [
+        {
+          "label": "国家卫生健康委",
+          "url": "https://www.nhc.gov.cn/yjb/c100058/201408/538362943e414f7e9d0ac2de9f33eee1.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-JIUZHAI-2017",
+      "version": "1.0.0",
+      "label": "四川九寨沟地震",
+      "valid_time": {
+        "start": "2017-08-08",
+        "end": "2017-08-08",
+        "precision": "day",
+        "reported_period": "2017-08-08"
+      },
+      "scope": "regions",
+      "regions": ["51"],
+      "scope_detail": "四川九寨沟 7.0 级地震，游客疏散与旅游业恢复",
+      "age_band": [0, null],
+      "eligibility": "居民、游客、景区从业者、旅行交通、家庭成员",
+      "phase": "shock",
+      "phases": ["shock", "reconstruction"],
+      "mechanism": "旅游、交通、收入、临时安置和景区恢复；shock→reconstruction",
+      "affected_dimensions": ["MOBILITY", "WORK", "INCOME", "ENVIRON", "HEALTH", "COMMUNITY"],
+      "evidence_policy": "官方报道确认游客和群众疏散任务；不能把到过四川等同景区亲历。",
+      "sources": [
+        {
+          "label": "应急管理部",
+          "url": "https://www.mem.gov.cn/xw/ztzl/2018/srxxgcxjpsx/zl/jyjz/201708/t20170809_231890.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-LUDING-2022",
+      "version": "1.0.0",
+      "label": "四川泸定地震",
+      "valid_time": {
+        "start": "2022-09-05",
+        "end": "2022-09-05",
+        "precision": "day",
+        "reported_period": "2022-09-05"
+      },
+      "scope": "regions",
+      "regions": ["51"],
+      "scope_detail": "四川泸定 6.8 级地震，6 市州 24 县，54.8 万人受灾",
+      "age_band": [0, null],
+      "eligibility": "在场、道路/通信/电力、住宅、景区/山区职业、临时安置",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "过渡安置、住房维修重建、公共服务、地灾防治和产业恢复；shock→relief→reconstruction",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "WORK", "MOBILITY", "HEALTH", "COMMUNITY"],
+      "evidence_policy": "官方统计和地方救助方案可作环境节点；不能把四川居民、旅游从业者或民族身份直接变成受灾者。",
+      "sources": [
+        {
+          "label": "应急管理部",
+          "url": "https://www.mem.gov.cn/xw/yjglbgzdt/202301/t20230112_440396.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "安置政策报道",
+          "url": "https://www.mem.gov.cn/xw/gdyj/202212/t20221203_427937.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-JISHISHAN-2023",
+      "version": "1.0.0",
+      "label": "积石山地震",
+      "valid_time": {
+        "start": "2023-12-18",
+        "end": "2023-12-18",
+        "precision": "day",
+        "reported_period": "2023-12-18"
+      },
+      "scope": "regions",
+      "regions": ["62", "63"],
+      "scope_detail": "甘肃积石山 6.2 级地震，甘青两省多民族县域",
+      "age_band": [0, null],
+      "eligibility": "在场、住房和取暖、道路水电通信、亲属、临时安置",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "救援、过渡住房、公共服务恢复与长期重建；shock→relief→reconstruction",
+      "affected_dimensions": ["ETHNIC", "RELIGION", "ENVIRON", "HOUSING", "HEALTH", "MOBILITY", "COMMUNITY", "MENTAL"],
+      "evidence_policy": "官方烈度调查涉及保安族、东乡族、撒拉族、回族、藏族县域，但不能把民族类别等同个人暴露。",
+      "sources": [
+        {
+          "label": "应急管理部烈度图",
+          "url": "https://www.mem.gov.cn/xw/yjglbgzdt/202312/t20231222_472849.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "2023 年灾情",
+          "url": "https://www.mem.gov.cn/xw/yjglbgzdt/202401/t20240120_475697.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-FLOOD-1998",
+      "version": "1.0.0",
+      "label": "长江、嫩江和松花江流域洪涝",
+      "valid_time": {
+        "start": "1998-01-01",
+        "end": "1998-12-31",
+        "precision": "year",
+        "reported_period": "1998"
+      },
+      "scope": "regions",
+      "regions": ["15", "22", "23", "32", "34", "36", "42", "43"],
+      "scope_detail": "长江、嫩江松花江等流域洪涝及农业、交通和住房影响",
+      "age_band": [0, null],
+      "eligibility": "洪泛区居住/耕作、单位/学校停摆、转移、救济和灾后生产",
+      "phase": "shock",
+      "phases": ["shock", "relief", "memory"],
+      "mechanism": "资产与收入冲击、迁移、公共工程和风险记忆；事件按流域/县细化",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "INCOME", "ASSET", "MOBILITY", "HEALTH", "FOOD", "MEMORY"],
+      "evidence_policy": "全国灾情年鉴给宏观背景，个人需地点与在场证据。不得把 1998 出生或某省籍贯当作洪灾经历。",
+      "sources": [
+        {
+          "label": "国家统计局历史资料",
+          "url": "https://www.stats.gov.cn/yearbook/1999/l24c.htm",
+          "kind": "population_observation"
+        },
+        {
+          "label": "福建省水利厅汇总的受影响流域",
+          "url": "https://slt.fujian.gov.cn/ztzl/dsxxjy/dsrrj/202111/t20211101_5762871.htm",
+          "kind": "world_event"
+        }
+      ],
+      "regional_matching_note": "候选粗筛采用官方材料明确列出的长江、嫩江和松花江主要受影响省区。"
+    },
+    {
+      "id": "DIS-ICE-2008",
+      "version": "1.0.0",
+      "label": "南方低温雨雪冰冻灾害",
+      "valid_time": {
+        "start": "2008-01-01",
+        "end": "2008-02-29",
+        "precision": "month",
+        "reported_period": "2008-01—02"
+      },
+      "scope": "regions",
+      "regions": ["33", "34", "36", "42", "43", "45", "52"],
+      "scope_detail": "南方大范围低温雨雪冰冻，交通、电力、通信、农业与春运受到冲击",
+      "age_band": [0, null],
+      "eligibility": "受灾省县、铁路/公路滞留、供电供水中断、农业/林业/畜牧从业者",
+      "phase": "shock",
+      "phases": ["shock", "relief"],
+      "mechanism": "出行受阻、停工停学、供应链和能源中断、救助与恢复；shock→relief",
+      "affected_dimensions": ["ENVIRON", "MOBILITY", "WORK", "EDU", "FOOD", "HEALTH", "INCOME", "COMMUNITY"],
+      "evidence_policy": "官方材料记载 21 省区市不同程度受灾、151.2 万人紧急转移安置及大量交通滞留；数字有统计时点。不能从南方籍贯推断个人滞留。",
+      "sources": [
+        {
+          "label": "国务院抢险抗灾与重建安排",
+          "url": "https://www.ln.gov.cn/web/zwgkx/lnsrmzfgb/2008n/qk/2008n_dwq/gwywj/DFBB7EEBD7FD4A249AEBF7FDA4C83FFD/index.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "应急管理部回顾",
+          "url": "https://www.mem.gov.cn/gk/zcjd/202601/t20260109_591444.shtml",
+          "kind": "world_event"
+        }
+      ],
+      "regional_matching_note": "候选粗筛采用重建报告列明的七个重灾省区。"
+    },
+    {
+      "id": "DIS-TYPHOON-2019",
+      "version": "1.0.0",
+      "label": "台风利奇马及洪涝",
+      "valid_time": {
+        "start": "2019-08-01",
+        "end": "2019-08-31",
+        "precision": "month",
+        "reported_period": "2019-08"
+      },
+      "scope": "regions",
+      "regions": ["13", "21", "22", "31", "32", "33", "34", "35", "37"],
+      "scope_detail": "台风“利奇马”影响东部和东北 9 省市，并发生洪涝、房屋与农田损失",
+      "age_band": [0, null],
+      "eligibility": "在强风雨带居住/务工/务农、转移安置、房屋/农田、救援或渔业/交通工作",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "台风与洪水→转移/房屋受损/农损/道路中断→收入、住房、复工与卫生防疫恢复",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "FOOD", "WORK", "INCOME", "MOBILITY", "HEALTH", "COMMUNITY"],
+      "evidence_policy": "应急管理部截至 8 月 13 日统计 1288.4 万人受灾、204 万人紧急转移安置；须结合县域和时间定位个人。",
+      "sources": [
+        {
+          "label": "应急管理部灾情与救灾",
+          "url": "https://www.mem.gov.cn/xw/bndt/201908/t20190813_335587.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-FLOOD-2021-ZZ",
+      "version": "1.0.0",
+      "label": "河南郑州 7·20 特大暴雨",
+      "valid_time": {
+        "start": "2021-07-17",
+        "end": "2021-07-23",
+        "precision": "range",
+        "reported_period": "2021-07-17—23"
+      },
+      "scope": "regions",
+      "regions": ["41"],
+      "scope_detail": "河南郑州“7·20”特大暴雨，河南 150 县、1478.6 万人受灾，伤亡高度集中于郑州",
+      "age_band": [0, null],
+      "eligibility": "居住/通勤/地铁隧道/学校、救援接触、房屋和企业位置",
+      "phase": "shock",
+      "phases": ["shock", "relief"],
+      "mechanism": "城市内涝、交通中断、灾后重建与应急信任；shock→relief→memory",
+      "affected_dimensions": ["ENVIRON", "MOBILITY", "WORK", "HOUSING", "HEALTH", "MENTAL", "BELIEF", "COMMUNITY"],
+      "evidence_policy": "调查报告同时记录极端降雨和城市治理失误。省级“受灾人口”不能替代个人轨迹。",
+      "sources": [
+        {
+          "label": "应急管理部调查报告",
+          "url": "https://www.mem.gov.cn/xw/bndt/202201/t20220121_407106.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "ECON-CRISIS-2008",
+      "version": "1.0.0",
+      "label": "国际金融危机与务工流动",
+      "valid_time": {
+        "start": "2008-09-01",
+        "end": "2009-12-31",
+        "precision": "year",
+        "reported_period": "2008-09—2009"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "国际金融危机冲击外向型企业和农民工流动",
+      "age_band": [16, 70],
+      "eligibility": "外向型行业、跨省务工、订单/工资、返乡交通与家庭农忙",
+      "phase": "shock",
+      "phases": ["shock", "relief"],
+      "mechanism": "企业停工、返乡、培训、创业、小额贷款和社会保障；shock→relief",
+      "affected_dimensions": ["WORK", "INCOME", "MOBILITY", "HOUSEHOLD", "EDU", "WELFARE", "CAREER"],
+      "evidence_policy": "发改委区分约 2000 万与工作有关返乡，其中约 1200 万与停工停产有关，统计定义存在不确定性。不能把“农民工”或 2008 年返乡自动写成失业。",
+      "sources": [
+        {
+          "label": "国家发展改革委",
+          "url": "https://www.ndrc.gov.cn/xwdt/gdzt/znzcls/200907/t20090706_1200856.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-HUKOU-2014",
+      "version": "1.0.0",
+      "label": "户籍改革与常住地公共服务",
+      "valid_time": {
+        "start": "2014-07-30",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2014 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "户籍改革意见、居住证与基本公共服务逐步覆盖常住人口",
+      "age_band": [0, null],
+      "eligibility": "常住地、稳定就业/住所、社保年限、随迁子女教育和当地承载能力",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "落户与服务资格放宽但城市差别化；opportunity",
+      "affected_dimensions": ["MOBILITY", "EDU", "WORK", "WELFARE", "HOUSING", "HOUSEHOLD"],
+      "evidence_policy": "文件明确“因地制宜、区别对待”，不能把政策发布日当作个人已落户或子女已享受同等服务。",
+      "sources": [
+        {
+          "label": "国务院意见",
+          "url": "https://www.mof.gov.cn/zhengwuxinxi/zhengcefabu/201407/t20140730_1120027.htm",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-RESIDENCE-2016",
+      "version": "1.0.0",
+      "label": "居住证暂行条例",
+      "valid_time": {
+        "start": "2016-01-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2016-01-01 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "《居住证暂行条例》及地方申领/签注实施",
+      "age_band": [0, null],
+      "eligibility": "离开常住户籍地居住半年以上，并满足稳定就业/住所/连续就读之一；还需核对材料、办理和签注",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "居住证可连接劳动就业、社保、住房公积金、义务教育、公共卫生等服务；资格、申领、实际使用分开",
+      "affected_dimensions": ["MOBILITY", "EDU", "WORK", "WELFARE", "HOUSING", "HEALTH", "HOUSEHOLD", "PROV"],
+      "evidence_policy": "法规规定申领门槛和服务框架，地方公共服务供给渐进；未申领或未满足条件者不可推定已享服务。",
+      "sources": [
+        {
+          "label": "司法部法规",
+          "url": "https://xzfg.moj.gov.cn/law/download?LawID=420&t=1794119996214&type=pdf",
+          "kind": "world_event"
+        },
+        {
+          "label": "教育部法规文本",
+          "url": "https://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/201612/t20161213_291799.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-FERT-1984",
+      "version": "1.0.0",
+      "label": "生育政策的地方阶段与例外",
+      "valid_time": {
+        "start": "1984-01-01",
+        "end": "2015-12-31",
+        "precision": "year",
+        "reported_period": "1984 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "生育政策按城乡、地区、民族和夫妻情况出现差异化执行",
+      "age_band": [15, 60],
+      "eligibility": "婚姻、城乡、民族/地区政策、计划、处罚/服务和家庭资源",
+      "phase": "constraint",
+      "phases": ["constraint", "agency"],
+      "mechanism": "生育机会、家庭规模、代际照料和政策风险；constraint 与 agency 并存",
+      "affected_dimensions": ["FERT", "HOUSEHOLD", "SEXGENDER", "WELFARE", "JUSTICE", "POLITY"],
+      "evidence_policy": "官方资料说明农村、城市和少数民族例外及地方差异。不能用“二孩/一孩”标签回填个人生育合法性或意愿。",
+      "sources": [
+        {
+          "label": "国家卫生健康委答复",
+          "url": "https://www.nhc.gov.cn/zwgk/jianyi/201801/a0f5e8be51154fd3974555da883809f3.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-FERT-2016-2021",
+      "version": "1.0.0",
+      "label": "全面二孩与三孩政策阶段变化",
+      "valid_time": {
+        "start": "2016-01-01",
+        "end": "2021-12-31",
+        "precision": "year",
+        "reported_period": "2016—2021"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "全面二孩、三孩及配套政策阶段变化",
+      "age_band": [15, 60],
+      "eligibility": "出生日期、婚姻/生育记录、地方服务、托育与家庭资源",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "目标和服务框架改变，实际生育仍由成本、关系、健康和工作共同决定",
+      "affected_dimensions": ["FERT", "HOUSEHOLD", "WORK", "INCOME", "CAREER", "HEALTH"],
+      "evidence_policy": "法律/政策有效期必须版本化，不能倒推所有家庭同样响应。",
+      "sources": [
+        {
+          "label": "2016 生育政策",
+          "url": "https://www.nhc.gov.cn/rkjcyjtfzs/c100148/201601/92c084c40ef340e18a3712f42ac57b16.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "2021 三孩政策",
+          "url": "https://app.www.gov.cn/govdata/gov/202107/20/473722/article.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-PITD-2019",
+      "version": "1.0.0",
+      "label": "个人所得税专项附加扣除",
+      "valid_time": {
+        "start": "2019-01-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2019-01-01 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "个人所得税专项附加扣除：子女教育、继续教育、大病医疗、住房贷款/租金和赡养老人等",
+      "age_band": [16, null],
+      "eligibility": "核对纳税身份/所得、扶养与教育/医疗记录、房贷或租赁合同、赡养关系、申报/分配比例",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "净税负和可支配收入变化，可能影响教育/医疗/住房/赡养支出；无纳税额、无资格或未申报者可能无现金效果",
+      "affected_dimensions": ["INCOME", "HOUSEHOLD", "FERT", "EDU", "HEALTH", "HOUSING", "DEBT", "CAREER"],
+      "evidence_policy": "税务公告证明办理规则，不证明个人实际扣除或家庭支出变化；须按政策版本和申报凭证记录。",
+      "sources": [
+        {
+          "label": "国家税务总局操作办法",
+          "url": "https://www.chinatax.gov.cn/n810219/n810744/n3752930/n3752974/c3963406/content.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "专项附加扣除办法",
+          "url": "https://12366.chinatax.gov.cn/bzds/074/074-4-5.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "TECH-MOBILE-2010S",
+      "version": "1.0.0",
+      "label": "智能手机与移动平台扩散",
+      "valid_time": {
+        "start": "2010-01-01",
+        "end": "2019-12-31",
+        "precision": "year",
+        "reported_period": "2010s"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "智能手机、移动支付、社交平台与平台劳动扩散",
+      "age_band": [6, null],
+      "eligibility": "设备、网络、工作/学校要求、数字技能、语言与可达性",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "信息、支付、社交、就业与数字排斥机会；区域/年龄/收入差异大",
+      "affected_dimensions": ["DIGITAL", "WORK", "CONSUME", "KNOW", "LANG", "COMMUNITY", "SURVEYRESP"],
+      "evidence_policy": "需用分地区、年龄和时间点的调查校准，不能从年龄或城乡直接推出数字能力。CNNIC 支持总体普及趋势。个人采用时间与平台劳动单独取证。",
+      "sources": [
+        {
+          "label": "CNNIC 第39次统计报告",
+          "url": "https://www.cnnic.cn/n4/2022/0401/c88-1121.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "COVID-19-2020",
+      "version": "1.0.0",
+      "label": "新冠疫情与地方差异化防控",
+      "valid_time": {
+        "start": "2020-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "2020 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "COVID-19 疫情、武汉交通管控与地方差异化防控",
+      "age_band": [0, null],
+      "eligibility": "当时所在地、行业、学校、医疗/照护、家庭成员、信息与政策接触",
+      "phase": "shock",
+      "phases": ["shock", "relief", "memory"],
+      "mechanism": "健康、迁移、教育、就业、照料、供应和信任多路径变化；shock→relief→memory",
+      "affected_dimensions": ["HEALTH", "MOBILITY", "EDU", "WORK", "HOUSEHOLD", "MENTAL", "BELIEF", "DIGITAL", "SURVEYRESP"],
+      "evidence_policy": "交通管控和政策文件确认宏观节点，个人需地点与时段匹配。不能把 2020 出生、全国居住或“经历疫情”自动转化为单一态度或创伤。",
+      "sources": [
+        {
+          "label": "国家卫生健康委",
+          "url": "https://www.nhc.gov.cn/xcs/fkdt/202001/fd5f034f1cfc4d4a8e05217960c788e2.shtml",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2022-12-31"
+    },
+    {
+      "id": "COVID-REOPEN-2020",
+      "version": "1.0.0",
+      "label": "分区分级与错峰复工",
+      "valid_time": {
+        "start": "2020-02-10",
+        "end": "2020-03-31",
+        "precision": "range",
+        "reported_period": "2020-02—03"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "分区分级、错峰返岗与县域风险动态调整",
+      "age_band": [16, 70],
+      "eligibility": "当时县区风险级别、行业是否必需、复工批次、通勤路线、隔离/健康管理和用工情况",
+      "phase": "relief",
+      "phases": ["relief"],
+      "mechanism": "复工/停工、收入、通勤/返乡、照料、线上替代和医疗可及产生地区/职业差异",
+      "affected_dimensions": ["HEALTH", "WORK", "INCOME", "MOBILITY", "EDU", "HOUSEHOLD", "DIGITAL", "PROV"],
+      "evidence_policy": "国务院文件支持分批复工和低/中/高风险差异；个人是否复工/隔离仍需单位、所在地区与时段证据。",
+      "sources": [
+        {
+          "label": "国务院联防联控通知",
+          "url": "https://app.www.gov.cn/govdata/gov/202002/10/454257/article.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "县域分区复工通知",
+          "url": "https://www.mee.gov.cn/zcwj/gwywj/202003/t20200304_767297.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-RETIRE-2025",
+      "version": "1.0.0",
+      "label": "渐进式延迟法定退休年龄",
+      "valid_time": {
+        "start": "2025-01-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2025-01-01 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "渐进式延迟法定退休年龄，按出生日期、性别、岗位类别和月份分步调整",
+      "age_band": [45, 70],
+      "eligibility": "参保身份、岗位类别、出生年月、缴费年限和单位制度",
+      "phase": "opportunity",
+      "phases": ["opportunity", "constraint"],
+      "mechanism": "退休时间、劳动供给、照料和养老金规划改变；opportunity/constraint",
+      "affected_dimensions": ["WORK", "CAREER", "WELFARE", "HEALTH", "HOUSEHOLD", "TIME"],
+      "evidence_policy": "规则需按有效日期逐月计算，不能用一个固定年龄生成全部人物。",
+      "sources": [
+        {
+          "label": "北京市政府法规转载",
+          "url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/qtwj/202501/t20250102_3979012.html",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "effective_at": "2025-01-01"
+      }
+    },
+    {
+      "id": "HIST-EXAM-1905",
+      "version": "1.0.0",
+      "label": "废科举与新式学堂",
+      "valid_time": {
+        "start": "1905-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "1905 起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "废科举与新式学堂（清末，按当时省府县）。停科举后，新式学堂的供给与开办年份因地而异。",
+      "age_band": [6, null],
+      "eligibility": "核对备考史、地方学堂、学费、家计与原有私塾教育。",
+      "phase": "reconstruction",
+      "phases": ["reconstruction"],
+      "mechanism": "转入新学堂、继续私塾或转向谋生。",
+      "affected_dimensions": ["EDU", "WORK", "INCOME", "GEO", "HISTORY"],
+      "evidence_policy": "保留当时学籍和称谓，现代学历无对应时留空。",
+      "sources": [
+        {
+          "label": "陕西地方志",
+          "url": "https://dfz.shaanxi.gov.cn/zslm/fzzlk/xbsxsz/szdylpdf/201404/P020240923608865461897.pdf",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "MIG-CA-1923",
+      "version": "1.0.0",
+      "label": "加拿大华人移民限制",
+      "valid_time": {
+        "start": "1923-01-01",
+        "end": "1947-12-31",
+        "precision": "year",
+        "reported_period": "1923–1947"
+      },
+      "scope": "external",
+      "regions": [],
+      "scope_detail": "加拿大华人移民限制（加拿大；有加中迁移或亲属联系者）。加拿大档案馆保存入境与登记记录，1923 年法案于 1947 年废止。",
+      "age_band": [0, null],
+      "eligibility": "核对居留地、入境申请年份、身份类别与两地亲属关系。",
+      "phase": "constraint",
+      "phases": ["constraint"],
+      "mechanism": "入境限制可能延迟家庭团聚、延长分居或改变汇款安排。",
+      "affected_dimensions": ["MOBILITY", "HOUSEHOLD", "ID", "JUSTICE", "INCOME", "HISTORY"],
+      "evidence_policy": "按当时辖区和入境类别判断。存档人群有选择偏差。",
+      "sources": [
+        {
+          "label": "加拿大图书档案馆",
+          "url": "https://www.canada.ca/en/library-archives/collection/research-help/genealogy-family-history/immigration/immigrants-from-china-1885-1952.html",
+          "kind": "world_event"
+        }
+      ],
+      "regional_matching_note": "需要加拿大居留、入境或跨境亲属证据。"
+    },
+    {
+      "id": "HIST-SCHOOL-MOVE-1937",
+      "version": "1.0.0",
+      "label": "抗战时期教育文化机构内迁云南",
+      "valid_time": {
+        "start": "1937-01-01",
+        "end": "1945-12-31",
+        "precision": "year",
+        "reported_period": "1937 起"
+      },
+      "scope": "regions",
+      "regions": ["11", "12", "31", "32", "33", "53"],
+      "scope_detail": "抗战时期教育文化机构内迁云南（部分华北、华东学校与内迁云南沿线）。档案记录部分高等学府和教育文化机构内迁云南。",
+      "age_band": [6, null],
+      "eligibility": "核对学校归属、迁校批次、学生或教工名册与家属去向。",
+      "phase": "shock",
+      "phases": ["shock", "relief"],
+      "mechanism": "学业延续、中断或异地寄宿，教工工作与照护责任也可能改变。",
+      "affected_dimensions": ["EDU", "MOBILITY", "WORK", "HOUSEHOLD", "HISTORY"],
+      "evidence_policy": "机构名册覆盖特定成员。一般平民迁难需要另外取证。",
+      "sources": [
+        {
+          "label": "国家档案局",
+          "url": "https://www.saac.gov.cn/daj/c100262/202506/b283efdb26a94afb9dc1f37a2412fe98.shtml",
+          "kind": "world_event"
+        }
+      ],
+      "regional_matching_note": "按目录中的教育文化机构所在地与云南接收地粗筛；须核学校和实际行程。"
+    },
+    {
+      "id": "DIS-TANGSHAN-1976",
+      "version": "1.0.0",
+      "label": "唐山地震与工业城市重建",
+      "valid_time": {
+        "start": "1976-07-28",
+        "end": "1976-07-28",
+        "precision": "day",
+        "reported_period": "1976-07-28；恢复另分期"
+      },
+      "scope": "regions",
+      "regions": ["13"],
+      "scope_detail": "唐山地震与工业城市重建（河北唐山、丰南及实证波及区）。国家档案馆保存转移救治和恢复生产等重建档案。",
+      "age_band": [10, null],
+      "eligibility": "查震时行踪、厂矿或居民区、家属位置、伤病转运与安置。",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "救治、临时居住、单位复工分别影响照料、住所与劳动。",
+      "affected_dimensions": ["ENVIRON", "HEALTH", "FUNC", "HOUSING", "WORK", "HOUSEHOLD", "MEMORY"],
+      "evidence_policy": "按当时制度、交通和通信条件重建经历。",
+      "sources": [
+        {
+          "label": "国家档案局重建档案",
+          "url": "https://www.saac.gov.cn/mowcn/cn/c100517/202512/33d60e5ce8dc4fe7a877ebe18f159c30.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-RURAL-CONTRACT-1978",
+      "version": "1.0.0",
+      "label": "家庭联产承包责任制",
+      "valid_time": {
+        "start": "1978-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "1978 起试验；1980 年代初分地推广"
+      },
+      "scope": "regions",
+      "regions": ["34"],
+      "scope_detail": "家庭联产承包责任制（安徽凤阳等先行地区，随后查各地集体与农户）。小岗村试验与 1982 年中央文件对应不同实施层次。",
+      "age_band": [16, null],
+      "eligibility": "查村组实施年、承包成员、地块、实际经营和劳动条件。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "经营权、投入和收入风险变化影响兼业、家庭劳动与迁移选项。",
+      "affected_dimensions": ["WORK", "HOUSEHOLD", "INCOME", "ASSET", "FOOD", "MOBILITY"],
+      "evidence_policy": "所有权、经营权和实际种植分别存档。",
+      "sources": [
+        {
+          "label": "北京市文物局藏品解读",
+          "url": "https://wwj.beijing.gov.cn/bjww/362760/362767/bwgxh/spzl/326039637/index.html",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "1983-12-31",
+      "regional_matching_note": "1978 年先行阶段保守匹配安徽；后续地方推广须核各村组实施时间。"
+    },
+    {
+      "id": "DIS-TW-CHI-CHI-1999",
+      "version": "1.0.0",
+      "label": "台湾集集地震与聚落复建",
+      "valid_time": {
+        "start": "1999-09-21",
+        "end": "1999-09-21",
+        "precision": "day",
+        "reported_period": "1999-09-21；恢复另分期"
+      },
+      "scope": "regions",
+      "regions": ["71"],
+      "scope_detail": "台湾集集地震与聚落复建（台湾中部，南投、台中等地按震度与地方记录）。当地机构保存地震观测及学校、住宅、社区复建档案。",
+      "age_band": [9, null],
+      "eligibility": "查当日位置、房屋或校舍受损、当地安置方案与社区关系。",
+      "phase": "shock",
+      "phases": ["shock", "reconstruction"],
+      "mechanism": "合住、就学、照护、通勤和聚落网络可在不同日期变化。",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "EDU", "HEALTH", "MOBILITY", "COMMUNITY", "HOUSEHOLD"],
+      "evidence_policy": "采用当地震度口径和重建方案。聚落名称不能证明个人民族或语言。",
+      "sources": [
+        {
+          "label": "地震测报中心",
+          "url": "https://scweb.cwa.gov.tw/zh-tw/page/disaster/3",
+          "kind": "world_event"
+        },
+        {
+          "label": "台湾地区重建档案目录",
+          "url": "https://aa.archives.gov.tw/ELK/SearchDetailed?SystemID=MDAwNDk0MTY2OQ%3D%3D",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "MIG-THREE-GORGES-2001",
+      "version": "1.0.0",
+      "label": "三峡工程库区移民与安置",
+      "valid_time": {
+        "start": "2001-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "建设期分批；2001 年条例版次"
+      },
+      "scope": "regions",
+      "regions": ["42", "50"],
+      "scope_detail": "三峡工程库区移民与安置（三峡坝区、库区及接收地）。2001 年条例规定工程移民的安置制度。",
+      "age_band": [0, null],
+      "eligibility": "查原地址与项目边界、清册批次、土地经营、补偿和接收地。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "就地后靠、异地安置或留居改变农业、住房、通勤与原有网络。",
+      "affected_dimensions": ["GEO", "MOBILITY", "HOUSING", "WORK", "ASSET", "HOUSEHOLD", "COMMUNITY"],
+      "evidence_policy": "按时间分别确认安置计划、补偿核定、到账和实际迁居。",
+      "sources": [
+        {
+          "label": "国家能源局收录的移民条例",
+          "url": "https://www.nea.gov.cn/2011-08/19/c_131060587.htm",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "INF-QINGHAI-TIBET-2006",
+      "version": "1.0.0",
+      "label": "青藏铁路全线通车",
+      "valid_time": {
+        "start": "2006-07-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2006-07-01 起"
+      },
+      "scope": "regions",
+      "regions": ["54", "63"],
+      "scope_detail": "青藏铁路全线通车（青海—西藏沿线站点和接驳地）。格尔木至拉萨段于 2006 年 7 月 1 日通车。",
+      "age_band": [0, null],
+      "eligibility": "查站点可达性、当年班次、票价和接驳，以及货运或旅游就业联系。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "交通供给变化提供探亲、就学、就医、旅行和商贸选项。",
+      "affected_dimensions": ["GEO", "MOBILITY", "WORK", "EDU", "HEALTH", "INCOME", "COMMUNITY"],
+      "evidence_policy": "线路可用、首次使用和实际就业分别记录。",
+      "sources": [
+        {
+          "label": "西藏自治区交通运输厅",
+          "url": "https://jtt.xizang.gov.cn/xxgk/fdzdgknr/jggk/jtgk/201611/t20161130_233601.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "DIS-HK-MANGKHUT-2018",
+      "version": "1.0.0",
+      "label": "香港山竹风暴潮与交通中断",
+      "valid_time": {
+        "start": "2018-09-16",
+        "end": "2018-09-17",
+        "precision": "range",
+        "reported_period": "2018-09-16—17 香港主要影响"
+      },
+      "scope": "regions",
+      "regions": ["81"],
+      "scope_detail": "香港山竹风暴潮与交通中断（香港沿海低洼区、交通和供电受影响范围）。香港天文台记录沿海水浸、停电及陆海空交通中断。",
+      "age_band": [0, null],
+      "eligibility": "查当日街段楼层、潮位站适用范围、线路、班次和停电。",
+      "phase": "shock",
+      "phases": ["shock", "relief"],
+      "mechanism": "入户水浸、渡轮停航、缺班或配电中断分别影响不同个人。",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "MOBILITY", "WORK", "INCOME", "COMMUNITY"],
+      "evidence_policy": "潮位增幅与具体住宅的入屋积水深度采用不同口径。",
+      "sources": [
+        {
+          "label": "香港天文台热带气旋年报",
+          "url": "https://www.hko.gov.hk/en/publica/tc/tc2018/section3_5rpt.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "ECON-MO-TOURISM-2020",
+      "version": "1.0.0",
+      "label": "澳门旅游客流骤减与服务业就业",
+      "valid_time": {
+        "start": "2020-01-01",
+        "end": "2020-12-31",
+        "precision": "year",
+        "reported_period": "2020"
+      },
+      "scope": "regions",
+      "regions": ["82"],
+      "scope_detail": "澳门入境客流骤减与服务业就业（澳门旅游相关行业与跨境通勤者）。澳门旅游附属帐记录 2020 年入境旅客人次同比减少 85.0%。",
+      "age_band": [16, 70],
+      "eligibility": "查企业客源、岗位班表、用工身份、通勤口岸和家庭预算。",
+      "phase": "shock",
+      "phases": ["shock"],
+      "mechanism": "客流和通达性可经营收、班次、转岗或居住安排传导。",
+      "affected_dimensions": ["WORK", "CAREER", "INCOME", "MOBILITY", "HOUSEHOLD", "CONSUME"],
+      "evidence_policy": "人次降幅属于旅游总体，个体工时和劳动关系分别取证。",
+      "sources": [
+        {
+          "label": "澳门统计暨普查局旅游附属帐",
+          "url": "https://www.dsec.gov.mo/getAttachment/25EF2084-6EB1-4F85-8F77-A40C9A7CBB2B/C_TSA_PUB_2020_Y.aspx",
+          "kind": "population_observation"
+        }
+      ]
+    },
+    {
+      "id": "MIG-US-EXCLUSION-1882",
+      "version": "1.0.0",
+      "label": "美国排华法案与移民限制",
+      "valid_time": {
+        "start": "1882-01-01",
+        "end": "1943-12-31",
+        "precision": "year",
+        "reported_period": "1882 年法案、后续延展及 1943 年废除"
+      },
+      "scope": "external",
+      "regions": [],
+      "scope_detail": "美国联邦移民规则；按赴美、返美和入境口岸的适用版次查。",
+      "age_band": [0, null],
+      "eligibility": "核对身份类别、再入境或团聚申请、口岸决定及美国境内亲属在当时的关系。",
+      "phase": "constraint",
+      "phases": ["constraint"],
+      "mechanism": "入境延后、继续分居、改走可行目的地或改变汇款安排。",
+      "affected_dimensions": ["MOBILITY", "HOUSEHOLD", "ID", "JUSTICE", "INCOME", "HISTORY"],
+      "evidence_policy": "1943 年废除后仍有配额约束；例外、申请和批准分别登记。",
+      "sources": [
+        {
+          "label": "美国国家档案馆法案与沿革",
+          "url": "https://www.archives.gov/milestone-documents/chinese-exclusion-act",
+          "kind": "world_event"
+        }
+      ],
+      "regional_matching_note": "需要美国居留、入境或跨境亲属证据。"
+    },
+    {
+      "id": "HIST-SENDDOWN-1968",
+      "version": "1.0.0",
+      "label": "知识青年下乡及返城",
+      "valid_time": {
+        "start": "1968-12-01",
+        "end": null,
+        "precision": "month",
+        "reported_period": "1968 年末大规模展开，返城分批"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "知识青年下乡及返城，分别查原城市、接收县、农场或生产队，与学校停复课关联。",
+      "age_band": [6, null],
+      "eligibility": "下乡一侧查动员批次、学籍、接收地和实际到达；接收地一侧查校龄、当地学校和真实来往。",
+      "phase": "constraint",
+      "phases": ["constraint", "life_course"],
+      "mechanism": "下乡劳作、留乡、招工返城或升学；接收地学生的学习接触可随人员来去改变。",
+      "affected_dimensions": ["EDU", "WORK", "CAREER", "MOBILITY", "HOUSEHOLD", "SOCIAL", "HISTORY"],
+      "evidence_policy": "地方档案可支持批次与经历；县级教育估计属于接收地群体，不能转为对下乡青年本人同向估计。",
+      "sources": [
+        {
+          "label": "江苏知青档案及实例",
+          "url": "https://www.dajs.gov.cn/art/2023/10/12/art_189_9627.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "接收地教育研究",
+          "url": "https://doi.org/10.1257/aer.20191414",
+          "kind": "population_observation"
+        }
+      ],
+      "candidate_through": "1978-12-31"
+    },
+    {
+      "id": "MED-TW-NHI-1995",
+      "version": "1.0.0",
+      "label": "台湾地区全民健保开办",
+      "valid_time": {
+        "start": "1995-03-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "1995-03-01；卡片与第二代制度另分期"
+      },
+      "scope": "regions",
+      "regions": ["71"],
+      "scope_detail": "台湾地区全民健保开办。2004 年换用晶片卡，2013 年第二代健保上线。",
+      "age_band": [0, null],
+      "eligibility": "查当期投保类别、依附单位、原保障、实际就诊机构和费用。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "纳入保险、给付与就医支出变化，照护安排有条件调整。",
+      "affected_dimensions": ["HEALTH", "WELFARE", "INCOME", "HOUSEHOLD"],
+      "evidence_policy": "搜索当期制度和费用资料；三次变更各用其有效日期，当前卡片或缴费规则不能回填 1995 年。",
+      "sources": [
+        {
+          "label": "台湾地区健保主管机构制度沿革",
+          "url": "https://www.nhi.gov.tw/en/cp-80-d5357-61-2.html",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "effective_at": "1995-03-01"
+      }
+    },
+    {
+      "id": "WORK-HK-MINWAGE-2011",
+      "version": "1.0.0",
+      "label": "香港法定最低工资",
+      "valid_time": {
+        "start": "2011-05-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2011-05-01 起，费率随版次调整"
+      },
+      "scope": "regions",
+      "regions": ["81"],
+      "scope_detail": "香港法定最低工资首次实施，初始时薪为 28 港元，2026-05-01 起为 43.1 港元。",
+      "age_band": [16, 70],
+      "eligibility": "查工资期、劳动身份、实际工时、计入的工资项目及当时豁免类别。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "应付工资下限或工资差额改变；工时、职位、实际到账仍由本人和雇主记录决定。",
+      "affected_dimensions": ["WORK", "INCOME", "CAREER", "HOUSEHOLD"],
+      "evidence_policy": "留宿家务工和法定定义中的部分学生工作属例外，核对工作类型。",
+      "sources": [
+        {
+          "label": "香港政府 2011 生效公告",
+          "url": "https://www.info.gov.hk/gia/general/201105/01/P201104290332.htm",
+          "kind": "world_event"
+        },
+        {
+          "label": "2026 调整公告",
+          "url": "https://www.info.gov.hk/gia/general/202605/01/P2026043000261.htm",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "effective_at": "2011-05-01",
+        "latest_rate_effective_at": "2026-05-01"
+      }
+    },
+    {
+      "id": "WEL-LTCI-PILOT-2016-2020",
+      "version": "1.0.0",
+      "label": "长期护理保险试点与扩围",
+      "valid_time": {
+        "start": "2016-01-01",
+        "end": null,
+        "precision": "year",
+        "reported_period": "2016 年试点起步；2020 年扩大试点"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "长期护理保险分地区试点和扩围；查当地政策启动、参保类别、护理支付与服务点。",
+      "age_band": [0, null],
+      "eligibility": "在试点地且属于当地保障对象，查功能限制持续时间、失能评估、定点服务和申领资料。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "合格参保人可能获得居家、社区或机构护理，家庭照护时数和开支可同时调整。",
+      "affected_dimensions": ["WELFARE", "HEALTH", "FUNC", "HOUSEHOLD", "TIME", "INCOME"],
+      "evidence_policy": "2020 年指导意见以职工医保参保人群起步，按规范诊疗、持续失能与评估适用；试点地规则和签约容量单独核对。",
+      "sources": [
+        {
+          "label": "国家医保局试点沿革",
+          "url": "https://www.nhsa.gov.cn/art/2022/9/15/art_110_9075.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "扩大试点意见",
+          "url": "https://www.nhsa.gov.cn/art/2020/9/16/art_37_3586.html",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2020-12-31"
+    },
+    {
+      "id": "POL-MARR-TW-2019",
+      "version": "1.0.0",
+      "label": "台湾地区同性婚姻登记制度",
+      "valid_time": {
+        "start": "2019-05-24",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2019-05-24 起"
+      },
+      "scope": "regions",
+      "regions": ["71"],
+      "scope_detail": "台湾地区司法解释施行法生效，适用登记关系与条件随法条版本核对。",
+      "age_band": [18, null],
+      "eligibility": "核对当期登记辖区、双方身份和材料、自主意愿、实际登记；跨境关系另查当期适用条件。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "可出现登记、继续未登记伴侣关系、公开称谓或照料安排变化。",
+      "affected_dimensions": ["PARTNER", "HOUSEHOLD", "ID", "JUSTICE", "SEXGENDER", "WELFARE"],
+      "evidence_policy": "登记资格与登记行为分开；人物身份认同及对不同对象的公开程度有自己的时间和证据。",
+      "sources": [
+        {
+          "label": "台湾地区司法机构施行资料",
+          "url": "https://www.judicial.gov.tw/tw/cp-1429-57760-61de7-1.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "WORK-MO-MINWAGE-2020-2026",
+      "version": "1.0.0",
+      "label": "澳门雇员最低工资",
+      "valid_time": {
+        "start": "2020-11-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2020-11-01 起；2024-01-01、2026-01-01 调整"
+      },
+      "scope": "regions",
+      "regions": ["82"],
+      "scope_detail": "澳门雇员最低工资；原法及修改版按适用的劳动关系和报酬计量单位查询。",
+      "age_band": [16, 70],
+      "eligibility": "核对劳动关系、按月/周/日/时或按产量计酬、法定除外类别及工资期。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "应付工资下限改变，只有账单与支付确认后才更新家庭实际现金流。",
+      "affected_dimensions": ["WORK", "INCOME", "CAREER", "HOUSEHOLD"],
+      "evidence_policy": "2026 年时薪为 35 澳门元，不能用于更早工资期。",
+      "sources": [
+        {
+          "label": "澳门公报原法",
+          "url": "https://bo.dsaj.gov.mo/bo/i/2020/17/lei05_cn.asp",
+          "kind": "world_event"
+        },
+        {
+          "label": "澳门立法会版本说明",
+          "url": "https://www.al.gov.mo/uploads/attachment/2026-01/4418069782e3ba04cb.pdf",
+          "kind": "world_event"
+        },
+        {
+          "label": "澳门劳工事务局 2026 调整公告",
+          "url": "https://www.gov.mo/zh-hant/news/1208441/",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "effective_at": "2020-11-01",
+        "first_rate_change_at": "2024-01-01",
+        "second_rate_change_at": "2026-01-01"
+      }
+    },
+    {
+      "id": "POL-RENT-HOUSING-2021",
+      "version": "1.0.0",
+      "label": "保障性租赁住房制度",
+      "valid_time": {
+        "start": "2021-07-02",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2021 年起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "保障性租赁住房制度框架；主要面向符合条件的新市民、青年人，项目与准入规则由城市细化。",
+      "age_band": [16, null],
+      "eligibility": "查项目受理期、当地资格、配租、家庭原住房、通勤与租约。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "可能降低租住支出，改变通勤或与家人共住；申请后继续私租是独立分支。",
+      "affected_dimensions": ["HOUSING", "INCOME", "MOBILITY", "HOUSEHOLD", "WORK"],
+      "evidence_policy": "需求、符合条件、项目有房、签约和搬入各有证据。",
+      "sources": [
+        {
+          "label": "国务院办公厅意见",
+          "url": "https://www.mee.gov.cn/zcwj/gwywj/202107/t20210704_845205.shtml",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "EDU-DOUBLE-REDUCTION-2021",
+      "version": "1.0.0",
+      "label": "义务教育双减与校内课后服务",
+      "valid_time": {
+        "start": "2021-07-24",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2021 年 7 月政策发布后分地执行"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "义务教育作业、校外学科培训和校内课后服务调整；按学校和培训机构执行时间核对。",
+      "age_band": [6, 65],
+      "eligibility": "学生实际就读义务教育，核课程属性、家庭原培训安排、学校课后服务供给及参加决定。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "改变辅导费用、放学接送、亲子时间分配或培训从业者授课安排。",
+      "affected_dimensions": ["EDU", "TIME", "HOUSEHOLD", "WORK", "INCOME", "LEISURE"],
+      "evidence_policy": "政策条款可约束可行安排；学习结果和家长主观压力需要原始资料或显式合成。",
+      "sources": [
+        {
+          "label": "教育部政策原文",
+          "url": "https://www.moe.gov.cn/jyb_xwfb/gzdt_gzdt/s5987/202107/t20210724_546566.html",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "published_at": "2021-07-24"
+      }
+    },
+    {
+      "id": "PUB-COVID-B-2023",
+      "version": "1.0.0",
+      "label": "疫情防控转入乙类乙管",
+      "valid_time": {
+        "start": "2023-01-08",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2022-12-26 方案公开；2023-01-08 实施"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "新型冠状病毒感染转入“乙类乙管”；跨境、学校、医疗场所与用工规则分开解析。",
+      "age_band": [0, null],
+      "eligibility": "查角色的工作、通行、健康和照护状态，以及当地医院、单位及目的地当日安排。",
+      "phase": "reconstruction",
+      "phases": ["reconstruction"],
+      "mechanism": "检测、通行、就医与照护方式改变；感染、停工、死亡均以独立个体事件和证据处理。",
+      "affected_dimensions": ["HEALTH", "WORK", "MOBILITY", "EDU", "HOUSEHOLD", "WELFARE"],
+      "evidence_policy": "保存公布和实施两个时间，不把制度改变当作感染日期或医疗能力已恢复。",
+      "sources": [
+        {
+          "label": "国家卫健委总体方案",
+          "url": "https://www.nhc.gov.cn/xcs/zhengcwj/202212/8eaeef83bb7a4fdb851a3ae204295df1.shtml",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2023-01-08",
+      "release_and_record_times": {
+        "published_at": "2022-12-26",
+        "effective_at": "2023-01-08"
+      }
+    },
+    {
+      "id": "DIS-HAIHE-2023",
+      "version": "1.0.0",
+      "label": "海河流域洪涝与安置",
+      "valid_time": {
+        "start": "2023-07-29",
+        "end": "2023-08-31",
+        "precision": "range",
+        "reported_period": "2023 年 7 月下旬至 8 月，恢复另分期"
+      },
+      "scope": "regions",
+      "regions": ["11", "12", "13"],
+      "scope_detail": "海河流域洪涝及京津冀多个蓄滞洪区启用；按河段、村镇/街道与实际转移时间拆分。",
+      "age_band": [0, null],
+      "eligibility": "查家庭在场或资产所在地、转移名单、道路断行、安置点和重返时间。",
+      "phase": "shock",
+      "phases": ["shock", "relief", "reconstruction"],
+      "mechanism": "人员转移、住房修缮、耕地收成、停业与亲友支援分账。",
+      "affected_dimensions": ["ENVIRON", "HOUSING", "MOBILITY", "WORK", "ASSET", "INCOME", "HOUSEHOLD"],
+      "evidence_policy": "全国月报的人次及统计时点不能转成具体县户损失。受灾地、户籍地、安置地各有坐标。",
+      "sources": [
+        {
+          "label": "应急管理部月度通报",
+          "url": "https://www.mem.gov.cn/xw/yjglbgzdt/202308/t20230804_458461.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "河北救援与安置",
+          "url": "https://www.mem.gov.cn/xw/gdyj/202308/t20230807_458554.shtml",
+          "kind": "world_event"
+        },
+        {
+          "label": "中国气象局气候公报",
+          "url": "https://www.cma.gov.cn/zfxxgk/gknr/qxbg/202402/W020240223586744867426.pdf",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "POL-HUKOU-2024",
+      "version": "1.0.0",
+      "label": "新型城镇化与常住地服务改革",
+      "valid_time": {
+        "start": "2024-07-31",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2024 年发布五年行动计划"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "新型城镇化与常住地公共服务改革；计划按城区常住人口分城市类型，具体办法由城市制定。",
+      "age_band": [0, null],
+      "eligibility": "查当年城市分类、实施细则、个人材料和家庭成员分别适用的服务。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "落户选项与常住地教育、住房等服务可分期改变；家庭可能先办一项、先迁一人或维持原状。",
+      "affected_dimensions": ["GEO", "MOBILITY", "EDU", "WORK", "WELFARE", "HOUSING", "HOUSEHOLD"],
+      "evidence_policy": "低于 300 万、300 万至 500 万和 500 万以上的框架不同；国家发布不能代替当期当地窗口与裁定。",
+      "sources": [
+        {
+          "label": "国务院五年行动计划",
+          "url": "https://app.www.gov.cn/govdata/gov/202407/31/517833/article.html",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "published_at": "2024-07-31"
+      }
+    },
+    {
+      "id": "WEL-CHILD-2025",
+      "version": "1.0.0",
+      "label": "育儿补贴制度",
+      "valid_time": {
+        "start": "2025-01-01",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2025-01-01 起计补；方案与经办条件另记公开日"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "育儿补贴面向符合条件的 3 周岁以下婴幼儿；现阶段国家基础标准每孩每年 3600 元。",
+      "age_band": [18, 55],
+      "eligibility": "查出生/收养及监护关系、儿童户籍地、补贴月数、初次或续领申请和地方拨付。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "合规申请后按年发放；未申请、待审、已通过待发和到账需要各自状态。",
+      "affected_dimensions": ["FERT", "HOUSEHOLD", "WELFARE", "INCOME", "TIME"],
+      "evidence_policy": "2025 年前出生且未满 3 岁者按月折算。计补日、人物获知和到账日分别写入。",
+      "sources": [
+        {
+          "label": "经办规范",
+          "url": "https://app.www.gov.cn/govdata/gov/202509/18/536944/article.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "育儿补贴实施方案",
+          "url": "https://www.beijing.gov.cn/zhengce/zhengcefagui/202507/t20250730_4161880.html",
+          "kind": "world_event"
+        }
+      ],
+      "candidate_through": "2026-12-31",
+      "release_and_record_times": {
+        "effective_at": "2025-01-01",
+        "published_at": "2025-07-28"
+      }
+    },
+    {
+      "id": "EDU-PRESCHOOL-2025",
+      "version": "1.0.0",
+      "label": "学前一年保育教育费减免",
+      "valid_time": {
+        "start": "2025-09-01",
+        "end": null,
+        "precision": "month",
+        "reported_period": "2025 年秋季学期起"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "学前一年保育教育费减免。公办在园儿童适用，获批民办参照当地同类公办标准；文件所列地区延续既有政策。",
+      "age_band": [4, 7],
+      "eligibility": "查实际在园学段、园所公民办及批准状态、地方收费和既有政策、学期账单。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "家庭保教费下降；民办超过标准的费用和伙食等项目可继续计费。",
+      "affected_dimensions": ["EDU", "HOUSEHOLD", "INCOME", "WELFARE", "TIME"],
+      "evidence_policy": "西藏、四省涉藏州县和新疆文件明确的四地州沿用各自既有政策。仅按政策对象和账单重算，不能推导家长返岗。",
+      "sources": [
+        {
+          "label": "国务院办公厅意见及地区条款",
+          "url": "https://www.moe.gov.cn/jyb_xxgk/moe_1777/moe_1778/202508/t20250805_1258143.html",
+          "kind": "world_event"
+        }
+      ]
+    },
+    {
+      "id": "WEL-LTCI-2026",
+      "version": "1.0.0",
+      "label": "长期护理保险分地区推进",
+      "valid_time": {
+        "start": "2026-03-26",
+        "end": null,
+        "precision": "day",
+        "reported_period": "2026 年 3 月方案公开，按本地月份分期建立"
+      },
+      "scope": "mainland",
+      "regions": [],
+      "scope_detail": "长护险制度由试点向分地区实施推进；核地市统筹区、当地缴费及待遇规则、首批到后续纳入人群。",
+      "age_band": [0, null],
+      "eligibility": "查本地当时是否受理相应人员类别，另核参保、缴费、评估、实际服务和结算。",
+      "phase": "opportunity",
+      "phases": ["opportunity"],
+      "mechanism": "职工、退休、灵活就业和未就业居民可能不同时间进入制度；照护安排依供给及选择更新。",
+      "affected_dimensions": ["WELFARE", "HEALTH", "FUNC", "HOUSEHOLD", "TIME", "INCOME"],
+      "evidence_policy": "国家方案提出约 3 年基本建立制度。湖南规定 2026 年由具备条件市州对就业人员等先启动，2027 年扩至所有市州，2028 年逐步纳入未就业城乡居民。具体市州启动和服务资格另查。",
+      "sources": [
+        {
+          "label": "八部门实施方案",
+          "url": "https://www.nhsa.gov.cn/art/2026/3/26/art_53_20040.html",
+          "kind": "world_event"
+        },
+        {
+          "label": "湖南实施方案",
+          "url": "https://www.hunan.gov.cn/hnszf/xxgk/wjk/szfbgt/202609/t20260924_34071666.html",
+          "kind": "world_event"
+        }
+      ],
+      "release_and_record_times": {
+        "published_at": "2026-03-26"
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+services:
+  api:
+    environment:
+      LLM_PROVIDER: openai_compatible
+      LLM_API_KEY_FILE: /run/secrets/llm_api_key
+    secrets:
+      - llm_api_key
+
+secrets:
+  llm_api_key:
+    file: ${LLM_HOST_SECRET_FILE:?Set LLM_HOST_SECRET_FILE to the local key file}

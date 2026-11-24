@@ -1,0 +1,1910 @@
+{
+  "schema_version": 1,
+  "mechanism_version": "historical-mechanisms-v1.0.0",
+  "source_documents": [
+    "docs/v3/历史暴露推演与个人路径机制规范_v1.md#11",
+    "虚拟人系统设计图卷.html#historyCatalog"
+  ],
+  "rules": [
+    {
+      "id": "HIST-EXAM-1905",
+      "channels": [
+        "school",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "exam_preparation"
+        ],
+        "supply": [
+          "local_school_access",
+          "tuition_affordability"
+        ],
+        "execution": [
+          "school_enrollment"
+        ]
+      },
+      "trigger": "已有应试准备，县学堂在可达范围且付得起学费",
+      "pathway": "转入新学堂、继续私塾或转向谋生。",
+      "outcome": "转入新式学堂，旧式备考结束，后续谋职渠道改变",
+      "negative_control": "当地暂无学堂则继续私塾或随亲戚学徒",
+      "record_check": "入学日期须晚于该学堂开办，科举身份保留原称"
+    },
+    {
+      "id": "MIG-CA-1923",
+      "jurisdictions": [
+        "CA"
+      ],
+      "channels": [
+        "direct",
+        "household",
+        "service",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "canadian_jurisdiction",
+          "family_sponsor",
+          "admission_category"
+        ],
+        "execution": [
+          "entry_application",
+          "admission_decision",
+          "family_reunification"
+        ]
+      },
+      "trigger": "一方已在加拿大，另一方拟申请入境且不属当时准入类别",
+      "pathway": "入境限制可能延迟家庭团聚、延长分居或改变汇款安排。",
+      "outcome": "申请受限，夫妻或亲子分居延长，形成有时点的汇款与通信",
+      "negative_control": "符合当时例外而获准，或一家原本同住而无团聚障碍",
+      "record_check": "核实辖区、身份和申请结果；1947 年废止不直接生成团聚"
+    },
+    {
+      "id": "HIST-SCHOOL-MOVE-1937",
+      "channels": [
+        "school",
+        "work",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "institution_affiliation",
+          "relocation_cohort"
+        ],
+        "execution": [
+          "relocation_arrival",
+          "classes_resumed"
+        ]
+      },
+      "trigger": "学籍或教工关系与迁校机构、批次吻合",
+      "pathway": "学业延续、中断或异地寄宿，教工工作与照护责任也可能改变。",
+      "outcome": "随校内迁并异地寄宿，课程连续但家属仍在原地",
+      "negative_control": "留原地转学、因交通或家计中断，或家属另行迁移",
+      "record_check": "迁址与复课分别取证；无名册关联时保留待核"
+    },
+    {
+      "id": "POL-LR-1950",
+      "channels": [
+        "direct",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "village_implementation",
+          "household_land_tenancy"
+        ],
+        "execution": [
+          "land_use_change",
+          "tenancy_change"
+        ]
+      },
+      "trigger": "村级执行时间与家庭田产、租佃和劳动关系吻合",
+      "pathway": "可能改变家庭财产、职业、生计和代际叙事，不能从出生地推出个人阶级经历。",
+      "outcome": "土地使用与租佃关系改变，更新家庭经营地块和生产安排",
+      "negative_control": "家庭土地关系变化很小，主要改变互助组织或劳动安排",
+      "record_check": "集体制度版本与权属变更分别登记，成分待核"
+    },
+    {
+      "id": "POL-MARR-1950",
+      "channels": [
+        "direct",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "civil_registration_jurisdiction",
+          "marital_status"
+        ],
+        "execution": [
+          "marriage_application",
+          "registration_decision",
+          "cohabitation_change"
+        ]
+      },
+      "trigger": "适用法律时点且登记地、婚姻状态可定位",
+      "pathway": "可能影响伴侣关系、婚姻登记和家庭结构；法律颁布不等于每户同日改变。",
+      "outcome": "本人申请登记或依法处理婚姻争议，改变共居及抚养安排",
+      "negative_control": "只举行仪式未登记，或原有家庭状态持续",
+      "record_check": "婚姻意愿、习俗、登记和实际共居逐项验证"
+    },
+    {
+      "id": "POL-HUKOU-1958",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "rural_urban_move"
+        ],
+        "supply": [
+          "admission_route"
+        ],
+        "execution": [
+          "transfer_application",
+          "transfer_approval",
+          "registration_change",
+          "arrival",
+          "service_use"
+        ]
+      },
+      "trigger": "人物拟从农村迁入城市且存在入学、招工或投亲渠道",
+      "pathway": "可能改变迁移成本、家庭团聚、教育/就业资格；户籍不等于实际居住、阶层或态度。",
+      "outcome": "迁移获批后更新登记地点，实际到达与服务使用另建事件",
+      "negative_control": "进城暂住但原籍户口未迁，或家庭成员分批迁移",
+      "record_check": "区分户籍登记、居住和通行资料，缺审批记录时保留未知"
+    },
+    {
+      "id": "HIST-FAMINE-1959",
+      "channels": [
+        "direct",
+        "household",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_food_shortage",
+          "developmental_window"
+        ],
+        "execution": [
+          "household_food_access",
+          "food_intake_change"
+        ]
+      },
+      "trigger": "受孕或成长时空与地方食物短缺证据吻合",
+      "pathway": "营养、健康、认知、教育与生存机会可能受影响；研究结果异质且测量限制显著。",
+      "outcome": "家计和食物来源受限，出现饮食调整或迁亲，健康后果保留待核",
+      "negative_control": "家庭因替代食物或亲属转移缓冲，也可能无法判断摄入",
+      "record_check": "按年龄、时段和地区比较；不可据出生年或存活状态写病史"
+    },
+    {
+      "id": "HIST-EDU-1966-76",
+      "channels": [
+        "school",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "school_enrollment",
+          "school_schedule_intersection"
+        ],
+        "execution": [
+          "education_interruption",
+          "return_to_school"
+        ]
+      },
+      "trigger": "学校、年级和停复课或招生时段存在交集",
+      "pathway": "可能出现受教育中断或替代路径；不以“文革一代”代替个人教育经历。",
+      "outcome": "课程中断后进入劳动，之后经复学或成人教育补偿",
+      "negative_control": "学校教学部分持续，或形成非正式学习轨迹",
+      "record_check": "按校史校验，不以全国时间段替代个人学籍"
+    },
+    {
+      "id": "DIS-TANGSHAN-1976",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_presence",
+          "housing_or_factory_connection"
+        ],
+        "execution": [
+          "damage_record",
+          "temporary_resettlement",
+          "work_resumption"
+        ]
+      },
+      "trigger": "震时位于工矿社区且住房或厂房有受损记录",
+      "pathway": "救治、临时居住、单位复工分别影响照料、住所与劳动。",
+      "outcome": "转移安置、厂区停工与复工分开，家庭出现照料或暂时分居",
+      "negative_control": "在异地仅获家属消息，或本人为外地支援人员",
+      "record_check": "复工、临时住处、消息获知均按 1970 年代当地条件核查"
+    },
+    {
+      "id": "POL-EDU-1977",
+      "channels": [
+        "school",
+        "work",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_exam_eligibility"
+        ],
+        "supply": [
+          "exam_access"
+        ],
+        "execution": [
+          "exam_registration",
+          "admission",
+          "enrollment"
+        ]
+      },
+      "trigger": "本人符合当年当地报名条件且有考试机会",
+      "pathway": "打开教育和职业通道；不能从出生队列推出参加、录取或阶层跃升。",
+      "outcome": "恢复高考带来报名；录取后离家就读、职业入口变化",
+      "negative_control": "在岗或照护而未报名，或应试未录取后继续工作",
+      "record_check": "区分 1977 冬考、录取与实际入学日期"
+    },
+    {
+      "id": "POL-RURAL-CONTRACT-1978",
+      "channels": [
+        "household",
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "village_implementation",
+          "household_contract_eligibility"
+        ],
+        "execution": [
+          "contract_assignment",
+          "actual_farming"
+        ]
+      },
+      "trigger": "村组已实行责任制，家庭进入当地承包安排",
+      "pathway": "经营权、投入和收入风险变化影响兼业、家庭劳动与迁移选项。",
+      "outcome": "家庭决定作物和用工，承担经营波动，由此调整兼业和代际劳动",
+      "negative_control": "未实际经营，转向务工且亲属继续耕作",
+      "record_check": "落实日期按村组；经营权与所有权分栏"
+    },
+    {
+      "id": "POL-FERT-1984",
+      "channels": [
+        "direct",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_birth_rule",
+          "household_eligibility"
+        ],
+        "execution": [
+          "procedure",
+          "registration",
+          "enforcement"
+        ]
+      },
+      "trigger": "核到婚育时期对应地方条例与家庭资格",
+      "pathway": "影响生育选择空间、家庭规模和照料安排；不从民族/出生年回填合法性或意愿。",
+      "outcome": "家庭在符合当地条件后安排生育，或承担手续成本",
+      "negative_control": "选择不育、推迟、存在当地例外或发生非合规登记",
+      "record_check": "分别记录资格、生育事实、执法与个人意愿"
+    },
+    {
+      "id": "POL-EDU-1986",
+      "channels": [
+        "school",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "compulsory_school_age"
+        ],
+        "supply": [
+          "reachable_school_supply"
+        ],
+        "execution": [
+          "enrollment",
+          "attendance",
+          "completion"
+        ]
+      },
+      "trigger": "适龄且乡镇当年有学校或可达替代",
+      "pathway": "改变入学机会和可及性；法定权利不等于个人实际受教育年限。",
+      "outcome": "进入义务教育，通学调度影响家务与早期劳动",
+      "negative_control": "有法定权利但受距离或照护约束，断学后复学",
+      "record_check": "校验入学、实际出勤和完成学段"
+    },
+    {
+      "id": "POL-EMP-1998",
+      "channels": [
+        "work",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "applicable_employer",
+          "eligible_job",
+          "employment_relationship"
+        ],
+        "execution": [
+          "off_post_record",
+          "employment_termination",
+          "benefit_receipt",
+          "reemployment"
+        ]
+      },
+      "trigger": "同一单位、岗位、离岗记录和劳动关系有效期吻合",
+      "pathway": "存在下岗、基本生活费、培训、补贴、再就业等不同路径。全国总量不是东北人数。",
+      "outcome": "离岗仍保留劳动关系，可能经服务中心和培训转入本地服务业",
+      "negative_control": "原单位留岗、解除关系后另找工作、内退或未申请服务",
+      "record_check": "离岗、解除关系、欠薪、领取保障与再就业分开，收入不重复扣减"
+    },
+    {
+      "id": "POL-HOUSE-1998",
+      "channels": [
+        "service",
+        "work",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_employer_implementation",
+          "public_housing_tenancy",
+          "employee_eligibility"
+        ],
+        "execution": [
+          "purchase_agreement",
+          "title_transfer",
+          "payment"
+        ]
+      },
+      "trigger": "地方和单位实施时间吻合，核对旧公房与职工资格",
+      "pathway": "可能改变住房获得、家庭资产/负债与居住迁移；1998 不是全国统一断点。",
+      "outcome": "已承租旧公房且满足条件时可按地方安排购入，形成产权和付款变化",
+      "negative_control": "新入职者继续租住、按可得规则申请补贴或自行购房",
+      "record_check": "分房、承租、购买、产权、公积金与还贷分开核验"
+    },
+    {
+      "id": "DIS-FLOOD-1998",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "network",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "floodplain_overlap",
+          "asset_or_residence_connection"
+        ],
+        "execution": [
+          "evacuation",
+          "damage_record",
+          "aid_receipt"
+        ]
+      },
+      "trigger": "地址或耕地落入当期洪泛区，核对水情与转移时间",
+      "pathway": "可影响收入、资产、迁移和风险记忆；不能按年份或省份推定个人受灾。",
+      "outcome": "临时转移和农损共存，过水住宅修复，后续生产资金承压",
+      "negative_control": "住处未进水、农田受损而仍在原处住；援建或亲属渠道另记",
+      "record_check": "住户、地块和补助分别匹配；按流域、县和时点核验"
+    },
+    {
+      "id": "POL-EDU-EXPANSION-1999",
+      "channels": [
+        "school",
+        "household",
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "application_eligibility"
+        ],
+        "supply": [
+          "provincial_seat_supply",
+          "tuition_affordability"
+        ],
+        "execution": [
+          "admission",
+          "enrollment",
+          "graduation",
+          "first_job"
+        ]
+      },
+      "trigger": "当年达到报名条件，匹配省份招生名额和家庭成本",
+      "pathway": "扩大入学机会，也改变院校容量、家庭教育成本和毕业生就业结构。",
+      "outcome": "进入新增供给下的院校或专业，毕业后求职时长与技能岗位再抽样",
+      "negative_control": "先就业、选择职教，或录取后因成本放弃",
+      "record_check": "录取、注册、毕业与首份技能岗位分时登记"
+    },
+    {
+      "id": "DIS-TW-CHI-CHI-1999",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "service",
+        "network",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_housing_or_school_connection"
+        ],
+        "execution": [
+          "house_damage",
+          "school_closure",
+          "temporary_lodging"
+        ]
+      },
+      "trigger": "合成人物在南投有受损住宅，学校另有停复课记录",
+      "pathway": "合住、就学、照护、通勤和聚落网络可在不同日期变化。",
+      "outcome": "暂住他处并调整接送，房屋复建后重算通学与照护",
+      "negative_control": "本宅可住但校舍复建需借校；或异地家属仅提供支援",
+      "record_check": "地方震度和聚落记录按原口径；居住选项不推断族别"
+    },
+    {
+      "id": "POL-WEST-2000",
+      "channels": [
+        "direct",
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_project_implementation"
+        ],
+        "supply": [
+          "personal_access"
+        ],
+        "execution": [
+          "project_opening",
+          "route_or_service_use"
+        ]
+      },
+      "trigger": "县域规划项目实际开工或投用，个人可达",
+      "pathway": "改变交通、电信、教育、生态和就业机会；项目和家庭结果需按市县检验。",
+      "outcome": "项目改善道路或服务，缩短出行并增加就业候选",
+      "negative_control": "未覆盖村仍以原路线通勤；施工期暂时绕行",
+      "record_check": "项目开工与通车分时，政策区域不直接写个体获益"
+    },
+    {
+      "id": "POL-WTO-2001",
+      "channels": [
+        "work",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "trade_linked_employer",
+          "applicable_job"
+        ],
+        "execution": [
+          "order_change",
+          "shift_change",
+          "employment_change"
+        ]
+      },
+      "trigger": "企业产品和客户确与贸易市场相连，有订单或用工变动",
+      "pathway": "岗位扩张/收缩、工资和迁移机会并存；宏观增长不等于个人职业上升。",
+      "outcome": "订单扩张带来换班、招聘或迁入务工",
+      "negative_control": "受进口竞争或订单未变，劳动安排维持或转岗",
+      "record_check": "用企业行业与订单核实，贸易总额不是工资增幅"
+    },
+    {
+      "id": "MIG-THREE-GORGES-2001",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "service",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "household_roster",
+          "resettlement_cohort"
+        ],
+        "supply": [
+          "receiving_location"
+        ],
+        "execution": [
+          "compensation_assessment",
+          "compensation_receipt",
+          "relocation_arrival"
+        ]
+      },
+      "trigger": "家庭清册与安置批次命中，接收地可定位",
+      "pathway": "就地后靠、异地安置或留居改变农业、住房、通勤与原有网络。",
+      "outcome": "库区家庭外迁并重新安排住房、农地和子女学校",
+      "negative_control": "就地后靠、留居或部分成员先行外出",
+      "record_check": "补偿应付、到账与搬迁各有日期，保留原有亲属网络"
+    },
+    {
+      "id": "POL-NE-2003",
+      "channels": [
+        "work",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_project_implementation",
+          "job_or_benefit_eligibility"
+        ],
+        "supply": [
+          "position_or_service_supply"
+        ],
+        "execution": [
+          "training",
+          "employment",
+          "benefit_receipt"
+        ]
+      },
+      "trigger": "当地产业项目、社保或棚改服务已实际可用",
+      "pathway": "产业冲击和转型支持可并存；不得把东北居民写成统一下岗、悲观或迁出。",
+      "outcome": "转型项目出现岗位，技能或培训满足时可本地再就业",
+      "negative_control": "无匹配岗位后继续非正规就业，或先迁出后返乡",
+      "record_check": "拆分政策文件与项目招聘和待遇使用，保留下岗起点"
+    },
+    {
+      "id": "POL-NCMS-2003",
+      "channels": [
+        "service",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_program",
+          "enrollment",
+          "covered_treatment"
+        ],
+        "supply": [
+          "covered_provider"
+        ],
+        "execution": [
+          "treatment",
+          "upfront_payment",
+          "reimbursement"
+        ]
+      },
+      "trigger": "县已试点，家庭参合且就医机构和费用符合当年规则",
+      "pathway": "改变医疗可及与家庭医疗负担；不能根据农村身份直接假设参合或报销。",
+      "outcome": "报销到账改变家庭净支出与周转需求，可影响复诊",
+      "negative_control": "参合但未就医、费用未获报销或先垫付后补偿",
+      "record_check": "保留总费用、自付、报销和就医时点，研究结果不推出健康改善"
+    },
+    {
+      "id": "PUB-SARS-2003",
+      "channels": [
+        "direct",
+        "school",
+        "work",
+        "service",
+        "household",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "site_affiliation",
+          "local_control_rule"
+        ],
+        "execution": [
+          "school_closure",
+          "isolation",
+          "clinical_record"
+        ]
+      },
+      "trigger": "学校或工作单位有当期停课、隔离或管理记录",
+      "pathway": "可能影响健康、教学、隔离和公共卫生信任；不是全国每个学生停课。",
+      "outcome": "学习或工作安排短期中断，照护与交通安排调整",
+      "negative_control": "学校维持授课但加强管理；仅获知新闻或家人受影响",
+      "record_check": "停课、隔离、接触与确诊分别核实"
+    },
+    {
+      "id": "POL-AGTAX-2006",
+      "channels": [
+        "work",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "prior_local_tax",
+          "covered_land"
+        ],
+        "execution": [
+          "tax_assessment",
+          "payment",
+          "tax_reduction"
+        ]
+      },
+      "trigger": "当地此前确实征税且家庭经营地块适用",
+      "pathway": "可能改变农业现金流和基层财政结构；不可对各地使用同一断点。",
+      "outcome": "家庭农业当期税费支出下降，安排留存或投入",
+      "negative_control": "县已先行免征，2006 当年无新增变化",
+      "record_check": "比较实际缴纳记录和地方免征时点"
+    },
+    {
+      "id": "INF-QINGHAI-TIBET-2006",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "station_catchment"
+        ],
+        "supply": [
+          "route_access",
+          "fare_affordability",
+          "timetable"
+        ],
+        "execution": [
+          "trip",
+          "travel_cost"
+        ]
+      },
+      "trigger": "当年在站点可达范围并有票价、班次与接驳条件",
+      "pathway": "交通供给变化提供探亲、就学、就医、旅行和商贸选项。",
+      "outcome": "家庭首次用铁路异地探亲或就诊，改变行程与支出",
+      "negative_control": "票价、距离或身体条件使继续走原路线；仅商户到货变化",
+      "record_check": "按当年班次与站点核验，通车不会自动迁居"
+    },
+    {
+      "id": "DIS-ICE-2008",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "trip_or_supply_overlap"
+        ],
+        "execution": [
+          "transit_interruption",
+          "power_outage",
+          "agricultural_damage"
+        ]
+      },
+      "trigger": "行程与停运区间有交集，或居所处于受损配电区",
+      "pathway": "可能导致出行受阻、停工停学、供应链中断和救助；籍贯不能推出滞留。",
+      "outcome": "车次中断导致延期到家，停电另影响家中照护",
+      "negative_control": "及时改道；未出行但供电中断；无可识别影响",
+      "record_check": "把交通、供能与农损分事件，同一延期只记录一次"
+    },
+    {
+      "id": "DIS-WC-2008",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "network",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_presence",
+          "housing_or_school_connection"
+        ],
+        "execution": [
+          "damage_record",
+          "school_closure",
+          "temporary_resettlement",
+          "aid_receipt",
+          "school_return"
+        ]
+      },
+      "trigger": "地震当日在影响区且住宅受损或学校停课能独立核验",
+      "pathway": "研究显示收入、健康、就业恢复与家庭关系和主观福祉并不同步；不能按四川籍贯推定亲历。",
+      "outcome": "临时安置影响上学及工作通勤，工程恢复后分阶段复原",
+      "negative_control": "震时在外仅照护家属；或震后作为工程人员迁入",
+      "record_check": "临时住处、补助实际发放和返校分别写账，心理结果单独评估"
+    },
+    {
+      "id": "PUB-MELAMINE-2008",
+      "channels": [
+        "direct",
+        "household",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "product_batch_match",
+          "consumption_record"
+        ],
+        "execution": [
+          "product_discontinuation",
+          "screening",
+          "clinical_record",
+          "compensation_receipt"
+        ]
+      },
+      "trigger": "实际食用落入涉及的产品批次与时期",
+      "pathway": "实际摄入可能引出筛查、就医、赔付和喂养变化；未摄入者可能只有市场/信任影响，也可能无可识别变化。",
+      "outcome": "家长停用并带婴幼儿筛查，费用或赔付有记录时才写入",
+      "negative_control": "未食用但因消息换品牌；若筛查无病则仅保留筛查经历",
+      "record_check": "购买不等同摄入，筛查不等同确诊，剂量与诊断留待核实"
+    },
+    {
+      "id": "ECON-CRISIS-2008",
+      "channels": [
+        "work",
+        "household",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "export_linked_employer",
+          "applicable_job"
+        ],
+        "execution": [
+          "order_change",
+          "shift_change",
+          "wage_statement",
+          "return_migration"
+        ]
+      },
+      "trigger": "外向型工厂订单和班表显示减班或停工",
+      "pathway": "停工、返乡、培训、创业和保障是不同路径；返乡不等于持续失业。",
+      "outcome": "收入下降后提前返乡，之后可再次外出或改做本地零工",
+      "negative_control": "按计划探亲且工作未断，或留城接受缩短工时",
+      "record_check": "区分探亲、停工、欠薪与解除劳动关系"
+    },
+    {
+      "id": "POL-NRPS-2009",
+      "channels": [
+        "service",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_program",
+          "age_eligible",
+          "enrollment"
+        ],
+        "execution": [
+          "application",
+          "approval",
+          "pension_payment"
+        ]
+      },
+      "trigger": "县已启动试点，年龄、资格和领取条件吻合",
+      "pathway": "可能改变老年收入底线与代际转移；不能按出生年/农村标签推断领取。",
+      "outcome": "养老金到账后调整农业工时、消费或子女支持",
+      "negative_control": "已参保待领取；领取但劳动和家庭转移保持原水平",
+      "record_check": "把审核与首次领取分时；2014 年后查并轨口径"
+    },
+    {
+      "id": "DIS-YUSHU-2010",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_or_asset_connection"
+        ],
+        "execution": [
+          "damage_record",
+          "temporary_resettlement",
+          "service_restoration"
+        ]
+      },
+      "trigger": "住房、牲畜或当地公共服务存在损毁且人物有对应关系",
+      "pathway": "高寒、生态和交通条件影响恢复机会；藏族身份不等于地震暴露或宗教实践。",
+      "outcome": "住房和生计恢复不同步，安置改变诊疗、上学和牧业安排",
+      "negative_control": "家庭就近修复留居，外地家属仅提供物资",
+      "record_check": "分别核对行政范围、实际生计和个人语言/宗教实践"
+    },
+    {
+      "id": "EDU-MIGRANT-EXAM-2012",
+      "channels": [
+        "school",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_exam_rule",
+          "continuous_enrollment",
+          "guardian_eligibility"
+        ],
+        "execution": [
+          "application",
+          "exam",
+          "admission",
+          "enrollment"
+        ]
+      },
+      "trigger": "流入地当年考种和省市办法允许，并核对连续学籍、家长条件",
+      "pathway": "家庭可全员迁移、子女留守、回原籍考试、申请获准或未获准；考试资格影响学业地点和家庭迁移。",
+      "outcome": "获准在流入地考试，减少回籍备考和亲子分居",
+      "negative_control": "中考可在当地但高考资格不同；材料不全回原籍报考",
+      "record_check": "报名资格、考试、录取和实际就读各存一次"
+    },
+    {
+      "id": "PUB-H7N9-2013",
+      "channels": [
+        "direct",
+        "work",
+        "service",
+        "household",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_market_rule",
+          "poultry_work_affiliation"
+        ],
+        "execution": [
+          "market_closure",
+          "earnings_change",
+          "clinical_record"
+        ]
+      },
+      "trigger": "当地有相关市场或工作限制，且涉禽摊位或用工记录吻合",
+      "pathway": "感染/隔离、市场停业、收入/食品行为、风险沟通各有独立路径；仅新闻接触不产生感染事实。",
+      "outcome": "摊位暂停营业，经销售与工时影响收入，家庭可转售其他商品",
+      "negative_control": "市场仍营业但客流变动，或仅通过媒体得知",
+      "record_check": "将工作影响与个人感染分开，各用对应记录"
+    },
+    {
+      "id": "DIS-LS-2013",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_connection"
+        ],
+        "execution": [
+          "building_damage",
+          "road_disruption",
+          "school_closure",
+          "school_return"
+        ]
+      },
+      "trigger": "匹配雅安芦山震时位置及当地建筑、道路或停学记录",
+      "pathway": "影响可能经住房安全、公共服务、风险知觉和恢复发生；先前经历不决定同一心理结果。",
+      "outcome": "房屋评估后加固或暂住；道路恢复后返校或复工",
+      "negative_control": "住处可继续使用但通勤中断，或震前已迁出",
+      "record_check": "与汶川暴露分节点；同一伤病需要对应的发生时间"
+    },
+    {
+      "id": "POL-AIR-2013",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_monitoring_overlap",
+          "activity_or_employer_connection"
+        ],
+        "execution": [
+          "work_hours_change",
+          "heating_change",
+          "clinical_record"
+        ]
+      },
+      "trigger": "当地监测与居住、职业和活动时间吻合，或单位实际限产改造",
+      "pathway": "长期污染暴露可关联健康/工作能力；限产、燃煤替代与产业迁移也会改变就业和能源条件。",
+      "outcome": "减少户外作业或调整供暖，工时和家庭支出可同时变化",
+      "negative_control": "住区监测改善但工作场所暴露未变，或岗位经改造维持",
+      "record_check": "环境浓度、个人活动与就诊各存不同证据，禁止以浓度直接定病"
+    },
+    {
+      "id": "DIS-LUDIAN-2014",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_or_institution_connection"
+        ],
+        "execution": [
+          "housing_damage",
+          "medical_transfer",
+          "school_return",
+          "temporary_resettlement"
+        ]
+      },
+      "trigger": "实际在场或有昭通受损学校、住房、医院的连接",
+      "pathway": "住房重建、卫生防疫与生计变化可经不同路径作用；云南或民族身份不能代替暴露证据。",
+      "outcome": "住处中断后借住，就诊转运和复学分别安排",
+      "negative_control": "只受道路中断，家庭未迁移；或参与修复而非伤者",
+      "record_check": "区分医疗转运、接诊与入住安置，保留县乡精度"
+    },
+    {
+      "id": "POL-HUKOU-2014",
+      "channels": [
+        "service",
+        "household",
+        "school",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_rule_version",
+          "applicant_documents",
+          "household_eligibility"
+        ],
+        "execution": [
+          "application",
+          "registration",
+          "service_use"
+        ]
+      },
+      "trigger": "迁入城市当年落户条件已执行，稳定住处就业等材料可核",
+      "pathway": "落户和服务资格放宽但城市不同；政策发布不等于个人已落户或使用服务。",
+      "outcome": "落户获批后按城市规则申请服务，家庭可能随后团聚",
+      "negative_control": "长期居住但暂不落户，或一位成员先落户",
+      "record_check": "先核落户再核服务，不复制其他城市门槛"
+    },
+    {
+      "id": "POVERTY-RELOCATION-2015",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "poverty_roster",
+          "local_resettlement_project"
+        ],
+        "supply": [
+          "resettlement_site"
+        ],
+        "execution": [
+          "application",
+          "benefit_receipt",
+          "move_in",
+          "employment"
+        ]
+      },
+      "trigger": "建档及搬迁项目明确，家庭实际参与且有安置地点",
+      "pathway": "可能出现搬迁并转业、原地扶持、搬迁后适应困难、家庭分居或后续返贫等路径。",
+      "outcome": "搬迁后重建上学、就医和就业路线，家人可以分阶段转移",
+      "negative_control": "原地扶持、部分成员迁出，或新住处已交付但收入仍波动",
+      "record_check": "确认失地、补助、入住和就业各自记录，搬迁不直接标定收入改善"
+    },
+    {
+      "id": "POL-RESIDENCE-2016",
+      "channels": [
+        "service",
+        "household",
+        "school",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "minimum_residence",
+          "employment_housing_or_enrollment",
+          "applicant_documents"
+        ],
+        "execution": [
+          "application",
+          "permit_issue",
+          "endorsement",
+          "service_use"
+        ]
+      },
+      "trigger": "居住时长、稳定就业/住所/就读等满足且材料可核",
+      "pathway": "可能连接就业、社保、公积金、义务教育和基本公共卫生；有资格/有证/实际使用分别记录。",
+      "outcome": "申领并签注后可以实际申请入学或公共服务",
+      "negative_control": "符合条件但未申请，有证但特定服务仍有门槛",
+      "record_check": "申领、签发、签注、服务使用与落户分别核验"
+    },
+    {
+      "id": "MED-CROSSPROV-2016-2022",
+      "channels": [
+        "service",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "insurance_and_care_jurisdictions",
+          "registration",
+          "covered_expense"
+        ],
+        "supply": [
+          "network_provider"
+        ],
+        "execution": [
+          "treatment",
+          "upfront_payment",
+          "direct_settlement",
+          "reimbursement"
+        ]
+      },
+      "trigger": "参保地、就医地、当时联网机构、备案及费用类别可核",
+      "pathway": "可降低垫付和就医手续成本；未备案/非联网机构仍可能手工报销，参保地与就医地支付规则共同作用。",
+      "outcome": "直接结算减少提前垫付，家庭预算仅记实际个人支付与基金结算",
+      "negative_control": "联网故障后手工报销，或机构无相应结算资格而自行垫付",
+      "record_check": "两地规则分用，避免同一费用重复报销；2023 规程不得回填较早就医"
+    },
+    {
+      "id": "POL-FERT-2016-2021",
+      "channels": [
+        "direct",
+        "household",
+        "service",
+        "work",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_birth_rule",
+          "birth_date_and_family_eligibility"
+        ],
+        "supply": [
+          "local_service_access"
+        ],
+        "execution": [
+          "birth_registration",
+          "service_use",
+          "care_schedule_change"
+        ]
+      },
+      "trigger": "生育时间与对应版本和地方服务吻合",
+      "pathway": "政策机会改变不等于家庭按政策目标行动；不可倒推个人意愿。",
+      "outcome": "家庭在新条件下重新考虑生育，若实际发生则重排照护与工作",
+      "negative_control": "政策变化后家庭仍推迟或维持原计划",
+      "record_check": "二孩与三孩分别绑定有效期，意愿与登记及服务使用独立"
+    },
+    {
+      "id": "DIS-JIUZHAI-2017",
+      "channels": [
+        "direct",
+        "work",
+        "household",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "itinerary_or_site_affiliation"
+        ],
+        "execution": [
+          "evacuation",
+          "site_closure",
+          "injury_report"
+        ]
+      },
+      "trigger": "旅游者行程或景区岗位与当地受影响时间重叠",
+      "pathway": "旅游、交通、收入、安置和景区恢复并非所有人共同经历。",
+      "outcome": "游客疏散返程或景区停业导致从业者换工",
+      "negative_control": "居民无直接伤损但收入受游客下降影响；外地游客未出发",
+      "record_check": "严格区分旅游行程、从业停工与个人伤害"
+    },
+    {
+      "id": "DIS-HK-MANGKHUT-2018",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "address_or_route_overlap"
+        ],
+        "execution": [
+          "ferry_suspension",
+          "property_flooding",
+          "power_outage"
+        ]
+      },
+      "trigger": "住所或动线与香港水浸、停航或停电地点时段相交",
+      "pathway": "入户水浸、渡轮停航、缺班或配电中断分别影响不同个人。",
+      "outcome": "渡轮停航造成缺班或改道；低层住房受浸时另存财产损失",
+      "negative_control": "高层住宅无入屋水浸但停电，或远程工作照常进行",
+      "record_check": "潮位站不是个体住所，航班取消以班次匹配"
+    },
+    {
+      "id": "POL-PITD-2019",
+      "channels": [
+        "service",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "tax_year_and_item",
+          "qualifying_relationship",
+          "tax_liability"
+        ],
+        "execution": [
+          "declaration",
+          "tax_assessment",
+          "withholding_change"
+        ]
+      },
+      "trigger": "适用纳税年度、项目、关系、申报与税额已核",
+      "pathway": "税负和可支配收入可能变化；无纳税额、无资格或未申报的人可能没有现金效果。",
+      "outcome": "扣除依法计入，使用实际税额差更新现金流",
+      "negative_control": "无应纳税额、未申报、或家庭成员分配使本人未享受",
+      "record_check": "扣除额、税额减少及现金到账分别表达"
+    },
+    {
+      "id": "DIS-TYPHOON-2019",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "site_or_asset_overlap"
+        ],
+        "execution": [
+          "evacuation",
+          "housing_damage",
+          "crop_damage"
+        ]
+      },
+      "trigger": "位置和时段落入县级风雨或转移通知范围，有资产或业务记录",
+      "pathway": "台风与洪水可带来转移、房屋/农损、交通中断和复工重建；不能按省籍推断个人受灾。",
+      "outcome": "临时转移后修缮住宅，农田受淹时另算农损",
+      "negative_control": "沿海岗位停工但住处安全，或未在当地而由家人代办",
+      "record_check": "保留应急通报统计时点和资产所有者"
+    },
+    {
+      "id": "COVID-19-2020",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "site_and_period",
+          "local_control_rule"
+        ],
+        "execution": [
+          "school_or_work_change",
+          "access_restriction",
+          "clinical_record"
+        ]
+      },
+      "trigger": "具体场所和时期有出入、学校、医疗或经营措施证据",
+      "pathway": "全国居住或 2020 出生不等于相同限制、亲历、态度或创伤。",
+      "outcome": "上课改为远程或照护重排，个人感染若有证据另建事件",
+      "negative_control": "当期不受管控但家属异地受限，或仅掌握公开消息",
+      "record_check": "按城市和日期分段，管控/就医/感染不同事件"
+    },
+    {
+      "id": "COVID-REOPEN-2020",
+      "channels": [
+        "work",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "county_risk_class",
+          "employer_clearance"
+        ],
+        "supply": [
+          "transport_available"
+        ],
+        "execution": [
+          "return_to_work",
+          "hours_change",
+          "care_handoff"
+        ]
+      },
+      "trigger": "县域分级版本与企业返岗批次、交通可达性匹配",
+      "pathway": "复工/停工、收入、迁移、照护、线上替代和医疗可及因地区与职业而异。",
+      "outcome": "错峰返岗后工时变化，家中照护由他人接续",
+      "negative_control": "企业获准但本人回不来；继续远程；原岗位已取消",
+      "record_check": "区分县风险、企业许可、实际到岗及工时，不与停工重复冲减"
+    },
+    {
+      "id": "ECON-MO-TOURISM-2020",
+      "channels": [
+        "work",
+        "household",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "tourism_dependent_job"
+        ],
+        "execution": [
+          "roster_change",
+          "pay_change",
+          "cross_border_disruption"
+        ]
+      },
+      "trigger": "酒店、餐饮或旅游岗位对入境客流有可见依赖，班表可核",
+      "pathway": "客流和通达性可经营收、班次、转岗或居住安排传导。",
+      "outcome": "缩班并降低劳动收入或临时转岗，跨境通勤可另受口岸变化",
+      "negative_control": "岗位收入暂稳，或本地客源行业损失轻",
+      "record_check": "消费单位保留澳门元和统计时点，班表须由单位记录核验"
+    },
+    {
+      "id": "TECH-MOBILE-2010S",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_use_case"
+        ],
+        "supply": [
+          "network_available",
+          "device_access"
+        ],
+        "execution": [
+          "first_device_use",
+          "mobile_payment",
+          "online_order"
+        ]
+      },
+      "trigger": "当地网络与设备可用，个人存在支付、沟通或工作使用记录",
+      "pathway": "不能从年龄或城乡直接推出数字能力；区分设备可得、代办服务和主动使用。",
+      "outcome": "首次用移动支付或线上接单，形成具体场景与学习轨迹",
+      "negative_control": "共享设备仍现金支付，或只由亲友代办服务",
+      "record_check": "分母标注为居民、网民或手机网民；平台劳动另查岗位"
+    },
+    {
+      "id": "DIS-FLOOD-2021-ZZ",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "route_or_site_overlap"
+        ],
+        "execution": [
+          "transit_disruption",
+          "asset_damage",
+          "power_outage"
+        ]
+      },
+      "trigger": "降雨当日路线、住处或单位与具体积水点和时段相交",
+      "pathway": "城市内涝、交通中断、灾后重建与应急信任可能受影响；省级受灾数不等于个人轨迹。",
+      "outcome": "通勤中断后错峰改道，商铺受淹时另存资产维修和停业",
+      "negative_control": "人在市区但线路不经过积水区；家中仅停电或亲友受影响",
+      "record_check": "不同积水点不合并，不依据在郑州生成某趟乘车或伤亡"
+    },
+    {
+      "id": "DIS-LUDING-2022",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_overlap"
+        ],
+        "execution": [
+          "road_disruption",
+          "housing_damage",
+          "relief_payment"
+        ]
+      },
+      "trigger": "位置在甘孜或雅安相应区域，实际道路或住宅受损",
+      "pathway": "恢复政策因县镇和房屋损伤不同；四川居民身份不等于直接受灾。",
+      "outcome": "过渡安置后维修或重建，暂时改变山区就业和医疗出行",
+      "negative_control": "道路断行但住房无损；景区关闭仅影响从业工时",
+      "record_check": "救助申请和实际发放分记，避免与同期天气或其他停工重复"
+    },
+    {
+      "id": "DIS-JISHISHAN-2023",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "affected_site_or_family_link"
+        ],
+        "execution": [
+          "temporary_housing",
+          "housing_repair",
+          "heating_service"
+        ]
+      },
+      "trigger": "房屋或取暖等服务位于甘青受影响乡镇且当时有在场或家庭联系",
+      "pathway": "民族乡县只是地理范围，不能用于推断个人民族、语言或暴露强度。",
+      "outcome": "冬季先安置后修复房屋，学校交通和采暖成本分别恢复",
+      "negative_control": "短期依亲居住或仅参与救助，原有工作未中断",
+      "record_check": "烈度调查不证明每幢建筑损伤，民族县地名不映射个人身份"
+    },
+    {
+      "id": "POL-RETIRE-2025",
+      "channels": [
+        "service",
+        "work",
+        "household",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "birth_month",
+          "statutory_category",
+          "insurance_record"
+        ],
+        "execution": [
+          "retirement_application",
+          "actual_exit",
+          "pension_payment"
+        ]
+      },
+      "trigger": "出生年月、法定类别和参保时间与当期方案吻合",
+      "pathway": "可能改变退休、劳动供给、照料与养老金规划；规则需逐月计算。",
+      "outcome": "按规则生成退休选项，办理后分日更新工作与养老金",
+      "negative_control": "符合弹性条件后提前或延后；继续工作但待遇起领时点不同",
+      "record_check": "法定年龄、实际离岗和起领各自核算，登记缴费年限规则版本"
+    },
+    {
+      "id": "MIG-US-EXCLUSION-1882",
+      "jurisdictions": [
+        "US"
+      ],
+      "channels": [
+        "service",
+        "household",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "federal_rule_version",
+          "applicant_status",
+          "exception_status"
+        ],
+        "execution": [
+          "entry_application",
+          "application_decision",
+          "family_transfer"
+        ]
+      },
+      "trigger": "行为发生于适用联邦版次；入境或再入境申请及身份文件可定位",
+      "pathway": "入境延后、继续分居、改走可行目的地或改变汇款安排。",
+      "outcome": "审批等待延长家庭分居，改变下一阶段路线和汇款安排",
+      "negative_control": "存在当期法定例外，或一家迁移计划从未进入申请",
+      "record_check": "核对早期法案和后续延展。1943 年废除后的配额、申请与获批仍需独立核验"
+    },
+    {
+      "id": "HIST-SENDDOWN-1968",
+      "channels": [
+        "direct",
+        "school",
+        "work",
+        "household",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "mobilization_or_host_school",
+          "exposure_role"
+        ],
+        "execution": [
+          "assignment_arrival",
+          "host_school_contact",
+          "return_arrangement"
+        ]
+      },
+      "trigger": "城市青年动员与实际到达，或接收地儿童有同地学校和来往证据",
+      "pathway": "下乡劳作、留乡、招工返城或升学；接收地学生的学习接触可随人员来去改变。",
+      "outcome": "劳动、居住、学业或返城分期变化；接收地教育单列",
+      "negative_control": "城市青年留在接收地；当地学生有同县暴露但未发生交流",
+      "record_check": "记录谁经历了什么，研究分母依暴露角色和结果而定"
+    },
+    {
+      "id": "MED-TW-NHI-1995",
+      "channels": [
+        "service",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "enrollment_category",
+          "applicable_fee_schedule"
+        ],
+        "supply": [
+          "covered_provider"
+        ],
+        "execution": [
+          "treatment",
+          "billing",
+          "payment"
+        ]
+      },
+      "trigger": "就诊时点、投保类别和机构待遇范围可定位",
+      "pathway": "纳入保险、给付与就医支出变化，照护安排有条件调整。",
+      "outcome": "费用按当期项目与费率重算，记录医疗消费和家庭垫付",
+      "negative_control": "原有保障续接，或新保险下仍需自付某项费用",
+      "record_check": "1995 开办、2004 卡片与 2013 第二代制度不得混用"
+    },
+    {
+      "id": "WORK-HK-MINWAGE-2011",
+      "channels": [
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "pay_period_rule",
+          "covered_employment",
+          "exemption_status"
+        ],
+        "execution": [
+          "worked_hours",
+          "wage_statement",
+          "back_pay"
+        ]
+      },
+      "trigger": "有效工资期、劳动关系及豁免核对通过，查工资和工时口径",
+      "pathway": "应付工资下限或工资差额改变；工时、职位、实际到账仍由本人和雇主记录决定。",
+      "outcome": "产生应付最低金额和应付差额，实际发薪后更新收入",
+      "negative_control": "已高于最低工资、属于法定豁免，或实际少发形成争议",
+      "record_check": "舍入、币种、费率版本、应付和实发分记，保留劳动争议路径",
+      "policy_rates": [
+        {
+          "effective_at": "2011-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 28
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2013-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 30
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2015-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 32.5
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2017-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 34.5
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2019-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 37.5
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2023-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 40
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2025-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 42.1
+          },
+          "source_ref": "https://www.labour.gov.hk/common/public/pdf/smw/SMW_Reference_Guidelines_2026_sc.pdf"
+        },
+        {
+          "effective_at": "2026-05-01",
+          "currency": "HKD",
+          "rates": {
+            "hour": 43.1
+          },
+          "source_ref": "https://www.info.gov.hk/gia/general/202605/01/P2026043000261.htm"
+        }
+      ]
+    },
+    {
+      "id": "WEL-LTCI-PILOT-2016-2020",
+      "channels": [
+        "service",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_program",
+          "insurance_category",
+          "disability_assessment"
+        ],
+        "supply": [
+          "service_capacity"
+        ],
+        "execution": [
+          "application",
+          "approval",
+          "service_use",
+          "payment"
+        ]
+      },
+      "trigger": "所在试点及参保身份适用，且有当地规范的失能评估",
+      "pathway": "合格参保人可能获得居家、社区或机构护理，家庭照护时数和开支可同时调整。",
+      "outcome": "确认使用居家或机构服务后，按服务时段调整家庭照护日程和费用",
+      "negative_control": "无合适定点服务、未参保、拒绝申请或评估未通过",
+      "record_check": "试点名单、当地受理规则、服务与现金流分别核对"
+    },
+    {
+      "id": "POL-MARR-TW-2019",
+      "channels": [
+        "service",
+        "household",
+        "network"
+      ],
+      "gates": {
+        "eligibility": [
+          "registration_jurisdiction",
+          "partner_eligibility",
+          "mutual_consent"
+        ],
+        "execution": [
+          "registration",
+          "shared_residence",
+          "care_arrangement"
+        ]
+      },
+      "trigger": "当期制度开放且双方身份、本人意愿和登记记录可查",
+      "pathway": "可出现登记、继续未登记伴侣关系、公开称谓或照料安排变化。",
+      "outcome": "登记后有日期的法律关系更新，同住和照护另查",
+      "negative_control": "合法可登记但维持原关系；跨境资格待核",
+      "record_check": "登记辖区、证件、保密边界、关系称谓和其他场景的公开程度独立"
+    },
+    {
+      "id": "WORK-MO-MINWAGE-2020-2026",
+      "channels": [
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "pay_period_rule",
+          "covered_employment",
+          "pay_unit",
+          "exemption_status"
+        ],
+        "execution": [
+          "worked_hours",
+          "wage_statement",
+          "back_pay"
+        ]
+      },
+      "trigger": "工资期与澳门适用的法律版本一致，匹配计薪单位及例外",
+      "pathway": "应付工资下限改变，只有账单与支付确认后才更新家庭实际现金流。",
+      "outcome": "以该期标准记录应付下限并按实际到账更新",
+      "negative_control": "工资超出下限、计时调整或欠薪后补发",
+      "record_check": "2026 年时薪不回填 2020 或 2024 年，澳门元与其他币种分账",
+      "policy_rates": [
+        {
+          "effective_at": "2020-11-01",
+          "currency": "MOP",
+          "rates": {
+            "month": 6656,
+            "week": 1536,
+            "day": 256,
+            "hour": 32,
+            "piecework_average_hour": 32
+          },
+          "source_ref": "https://www.dsal.gov.mo/download/pdf_en/dsallawc/Law_No.5_2020.pdf"
+        },
+        {
+          "effective_at": "2024-01-01",
+          "currency": "MOP",
+          "rates": {
+            "month": 7072,
+            "week": 1632,
+            "day": 272,
+            "hour": 34,
+            "piecework_average_hour": 34
+          },
+          "source_ref": "https://www.gov.mo/pt/noticias/696656/"
+        },
+        {
+          "effective_at": "2026-01-01",
+          "currency": "MOP",
+          "rates": {
+            "month": 7280,
+            "week": 1680,
+            "day": 280,
+            "hour": 35,
+            "piecework_average_hour": 35
+          },
+          "source_ref": "https://www.dsal.gov.mo/en/standard/lei_5_2020.html"
+        }
+      ]
+    },
+    {
+      "id": "POL-RENT-HOUSING-2021",
+      "channels": [
+        "service",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_program",
+          "household_eligibility"
+        ],
+        "supply": [
+          "budget_and_supply"
+        ],
+        "execution": [
+          "application",
+          "allocation",
+          "lease",
+          "move_in"
+        ]
+      },
+      "trigger": "城市项目已开放且资格、申请与资源状况匹配",
+      "pathway": "可能降低租住支出，改变通勤或与家人共住；申请后继续私租是独立分支。",
+      "outcome": "配租签约并入住后改变居住、租金和通勤",
+      "negative_control": "排队、选择续签旧居、部分成员先搬或项目未开办",
+      "record_check": "区分国办文件、项目供给、申请结果、实际租约和首次入住"
+    },
+    {
+      "id": "EDU-DOUBLE-REDUCTION-2021",
+      "channels": [
+        "school",
+        "household",
+        "work",
+        "service"
+      ],
+      "gates": {
+        "eligibility": [
+          "eligible_school_stage",
+          "prior_tutoring_or_service_scope"
+        ],
+        "supply": [
+          "local_school_service_supply"
+        ],
+        "execution": [
+          "tutoring_change",
+          "afterschool_use",
+          "care_schedule_change"
+        ]
+      },
+      "trigger": "当期学校和学生阶段符合，核对原培训性质或本校课后服务",
+      "pathway": "改变辅导费用、放学接送、亲子时间分配或培训从业者授课安排。",
+      "outcome": "改变校外费用、课后安排和接送时间，相关单位可另存从业者路径",
+      "negative_control": "原本无培训、选择不用课后服务，或机构转岗未成",
+      "record_check": "校内外活动要对其实际学段和性质；学业结果另证"
+    },
+    {
+      "id": "PUB-COVID-B-2023",
+      "channels": [
+        "direct",
+        "household",
+        "school",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "site_and_period",
+          "local_control_rule"
+        ],
+        "execution": [
+          "access_change",
+          "healthcare_visit",
+          "clinical_record"
+        ]
+      },
+      "trigger": "按 2023-01-08 前后切分实际场所和规则",
+      "pathway": "检测、通行、就医与照护方式改变；感染、停工、死亡均以独立个体事件和证据处理。",
+      "outcome": "调整通行、就医或单位安排，可能产生新的照护路径",
+      "negative_control": "规则变化但个人安排持续，其他住处的亲属受影响",
+      "record_check": "发布、实施、个体感染和就诊日期各自验证"
+    },
+    {
+      "id": "DIS-HAIHE-2023",
+      "channels": [
+        "direct",
+        "household",
+        "work",
+        "service",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "route_or_asset_overlap"
+        ],
+        "execution": [
+          "evacuation",
+          "property_loss",
+          "business_interruption"
+        ]
+      },
+      "trigger": "位置或资产和蓄滞洪区/中断路段/局部积水时段有明确交集",
+      "pathway": "人员转移、住房修缮、耕地收成、停业与亲友支援分账。",
+      "outcome": "有转移记录后开始临住；财产、交通和营业各查独立暴露",
+      "negative_control": "子女在异地远程支援，老屋受损但其当前住宅无损",
+      "record_check": "当地河段和村镇优先于全国月报，维修、补助与停工付款分账"
+    },
+    {
+      "id": "POL-HUKOU-2024",
+      "channels": [
+        "service",
+        "household",
+        "work"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_rule_version",
+          "applicant_documents",
+          "service_target"
+        ],
+        "execution": [
+          "application",
+          "registration",
+          "service_use"
+        ]
+      },
+      "trigger": "城市当期细则已生效，人员材料、机构与申请目标匹配",
+      "pathway": "落户选项与常住地教育、住房等服务可分期改变；家庭可能先办一项、先迁一人或维持原状。",
+      "outcome": "落户办理后改变籍贯之外的登记地；服务资格按实际业务接续",
+      "negative_control": "长期住在当地并使用允许的服务，但未办理落户",
+      "record_check": "城区人口口径和生效版次留档，按家庭每位成员重算"
+    },
+    {
+      "id": "WEL-CHILD-2025",
+      "channels": [
+        "service",
+        "household",
+        "media"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_program",
+          "age_guardian_eligible"
+        ],
+        "execution": [
+          "application",
+          "approval",
+          "payment"
+        ]
+      },
+      "trigger": "年龄、监护、地区、申请及审批符合当期规则",
+      "pathway": "合规申请后按年发放；未申请、待审、已通过待发和到账需要各自状态。",
+      "outcome": "计算应补区间，拨款经确认后更新实际余额",
+      "negative_control": "符合但未申请、待审、晚发或未取得",
+      "record_check": "追溯计算、人物所知与真实到账分开记录"
+    },
+    {
+      "id": "EDU-PRESCHOOL-2025",
+      "channels": [
+        "school",
+        "service",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_rule_version",
+          "eligible_provider",
+          "final_preschool_year"
+        ],
+        "execution": [
+          "enrollment",
+          "fee_statement",
+          "fee_waiver"
+        ]
+      },
+      "trigger": "学前一年在园且核对当地园所类型、收费及地方延续版本",
+      "pathway": "家庭保教费下降；民办超过标准的费用和伙食等项目可继续计费。",
+      "outcome": "按学期减免符合条件的保教费，保留其他收费",
+      "negative_control": "未入园，或原有地方规则已覆盖同一项费用",
+      "record_check": "家庭实际账单、园方财政补助是两套资金账，避免重复计算"
+    },
+    {
+      "id": "WEL-LTCI-2026",
+      "channels": [
+        "service",
+        "household"
+      ],
+      "gates": {
+        "eligibility": [
+          "local_program",
+          "insurance_category",
+          "disability_assessment"
+        ],
+        "supply": [
+          "service_capacity"
+        ],
+        "execution": [
+          "application",
+          "approval",
+          "service_use",
+          "payment"
+        ]
+      },
+      "trigger": "地方分期规则与本人参保类别、评估和供给一致",
+      "pathway": "职工、退休、灵活就业和未就业居民可能不同时间进入制度；照护安排依供给及选择更新。",
+      "outcome": "实际服务、支付和家庭照护时数按发生增量更新",
+      "negative_control": "已参保但等待供给，未就业居民尚未纳入或选择不使用",
+      "record_check": "从 2020 试点到 2026 框架按当地有效期衔接，同一服务不得重复入账"
+    }
+  ]
+}

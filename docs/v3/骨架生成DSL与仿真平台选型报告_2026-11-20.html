@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="面向中国多地区、多民族人口人生骨架生成的开源 DSL、微观仿真内核、约束引擎及多平台选型评估。">
+<link rel="icon" href="data:,">
+<title>人生骨架生成 DSL 与仿真平台选型 | 2026.11</title>
+<style>
+:root{color-scheme:light;--ink:#211d17;--muted:#5a5344;--paper:#f2ecdd;--surface:#faf6ea;--line:rgba(33,29,23,.16);--green:#3d6b4f;--green-soft:#e6eee5;--teal:#41696b;--teal-soft:#e8efeb;--amber:#8a6d2f;--amber-soft:#f5eedc;--red:#b5382c;--red-soft:#f5e8e4;--slate:#3b4848;--slate-soft:#ebe8df;--blue:#2b4c7e;--blue-soft:#e9edf3;--shadow:0 1px 0 rgba(33,29,23,.05);font-family:"Noto Sans SC","Source Han Sans SC","Microsoft YaHei",sans-serif;font-synthesis:none;text-rendering:optimizeLegibility}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:78px}
+body{margin:0;background:var(--paper);background-image:repeating-linear-gradient(0deg,rgba(33,29,23,.035) 0 1px,transparent 1px 28px);color:var(--ink);font-size:15px;line-height:1.72}
+a{color:#1c6558;text-underline-offset:3px}
+a:hover{color:#113f36}
+button,select{font:inherit}
+button{cursor:pointer}
+.skip{position:absolute;left:-10000px;top:auto;padding:8px;background:#fff;color:var(--ink);z-index:90}
+.skip:focus{left:12px;top:12px}
+.top{position:sticky;top:0;z-index:20;background:rgba(33,29,23,.97);border-bottom:1px solid rgba(255,255,255,.14);backdrop-filter:blur(12px);color:#e9e1cd}
+.top-inner{max-width:1360px;margin:auto;padding:0 26px;min-height:58px;display:flex;gap:24px;align-items:center;justify-content:space-between}
+.brand{font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;font-size:15px;font-weight:750;white-space:nowrap}
+.brand small{font-family:inherit;font-size:11px;color:#e0b46a;font-weight:550;margin-left:8px}
+nav{display:flex;align-items:center;gap:3px;overflow-x:auto;scrollbar-width:thin;max-width:75vw}
+nav a{padding:8px 10px;border-radius:3px;text-decoration:none;color:#cfc5ab;font-size:12px;white-space:nowrap}
+nav a:hover,nav a:focus-visible{background:rgba(224,180,106,.14);color:#fff}
+main{max-width:1280px;margin:auto;padding:32px 28px 70px}
+.eyebrow{text-transform:uppercase;color:var(--green);font-size:11px;font-weight:760}
+h1{max-width:940px;font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;font-size:34px;line-height:1.22;margin:8px 0 10px;font-weight:760}
+h2{font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;font-size:23px;line-height:1.3;margin:0 0 12px}
+h3{font-family:"Noto Serif SC","Source Han Serif SC","STSong","SimSun",serif;font-size:17px;line-height:1.4;margin:0 0 9px}
+p{margin:8px 0}
+.lede{max-width:950px;color:var(--muted);font-size:16px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 20px;color:var(--muted);font-size:12px;margin:14px 0 22px}
+.meta strong{color:var(--ink)}
+.verdict{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:24px;padding:22px 24px;border:1px solid rgba(61,107,79,.36);border-left:5px solid var(--green);background:rgba(61,107,79,.08);border-radius:4px;box-shadow:var(--shadow)}
+.verdict p{margin:0}
+.verdict-side{padding-left:20px;border-left:1px solid rgba(61,107,79,.28)}
+.verdict-side b{display:block;margin:2px 0 5px}
+.verdict-side p{font-size:13px;color:var(--muted)}
+.statline{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+.statline span{padding:4px 8px;border:1px solid #cadbd1;border-radius:3px;font-size:11px;color:var(--slate)}
+.scope{margin-top:22px;padding:14px 16px;background:rgba(181,56,44,.06);border-left:3px solid var(--red);box-shadow:var(--shadow);font-size:13px}
+section{padding-top:42px;scroll-margin-top:72px}
+.section-head{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--ink);padding-bottom:9px;margin-bottom:16px}
+.section-head .num{font-variant-numeric:tabular-nums;color:var(--red);font-family:ui-monospace,Consolas,monospace;font-weight:750}
+.section-head p{margin-left:auto;color:var(--muted);font-size:12px}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.diagram{padding:18px 0 6px}
+.flow{display:grid;grid-template-columns:repeat(5,minmax(130px,1fr));gap:24px;align-items:stretch}
+.node{position:relative;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--green);border-radius:4px;padding:13px 13px 12px;min-height:136px;box-shadow:var(--shadow)}
+.node:nth-child(2){border-top-color:var(--teal)}
+.node:nth-child(3){border-top-color:var(--amber)}
+.node:nth-child(4){border-top-color:var(--slate)}
+.node:nth-child(5){border-top-color:var(--blue)}
+.node:not(:last-child)::after{content:"→";position:absolute;right:-21px;top:47%;font-size:18px;font-weight:700;color:var(--green)}
+.node b{display:block;margin:0 0 7px;font-size:14px}
+.node p{font-size:12px;color:var(--muted);margin:0}
+.stage{font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:7px}
+.branch{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;position:relative;margin-top:20px}
+.branch::before{content:"";position:absolute;left:50%;top:-21px;height:17px;border-left:1px solid var(--line)}
+.branch-item{padding:13px 15px;border:1px solid var(--line);background:var(--surface)}
+.branch-item.primary{border-left:4px solid var(--green)}
+.branch-item.secondary{border-left:4px solid var(--amber)}
+.branch-item h3{font-size:14px}
+.branch-item p{font-size:12px;color:var(--muted);margin:2px 0}
+.layer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:20px}
+.layer-grid>div{background:var(--surface);padding:14px}
+.layer-grid b{display:block;font-size:13px;margin-bottom:5px}
+.layer-grid span{display:block;font-size:12px;color:var(--muted)}
+.schema{margin-top:16px;background:#f3f6f3;border:1px solid var(--line);padding:14px 16px}
+.schema-title{font-size:12px;font-weight:750;margin-bottom:6px}
+pre{max-inline-size:100%;overflow:auto;background:#1e2c2b;color:#e9f2ed;padding:15px;border-radius:3px;font-size:12px;line-height:1.6}
+pre code{white-space:pre}
+.table-shell{width:100%;overflow-x:auto;border:1px solid var(--line);background:#fff}
+table{width:100%;border-collapse:collapse;min-width:840px;font-size:12px;line-height:1.55}
+caption{text-align:left;padding:10px 12px;font-weight:750;background:#f2f5f2}
+th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--line);padding:9px 10px}
+thead th{position:static;background:#e9e4d6;font-weight:740}
+tbody tr:hover{background:#f8faf8}
+th:first-child{width:18%}
+.tag{display:inline-block;font-size:10px;padding:2px 6px;border-radius:2px;margin:0 3px 3px 0;background:var(--slate-soft);color:var(--slate);white-space:nowrap}
+.tag.high{background:var(--green-soft);color:#13543f}
+.tag.mid{background:var(--amber-soft);color:#81480c}
+.tag.low{background:var(--red-soft);color:#803b38}
+.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:10px 0}
+.toolbar label{font-size:12px;font-weight:700}
+select{border:1px solid #aebbb4;background:#fff;color:var(--ink);padding:6px 9px;border-radius:3px;min-width:205px}
+details{border-top:1px solid var(--line);padding:10px 0}
+details:last-child{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;font-weight:700;list-style:none;padding-right:26px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:4px;color:var(--green);font-weight:800}
+details[open]>summary::after{content:"−"}
+.detail-content{padding:10px 2px 0;color:var(--muted);font-size:13px}
+.detail-content p{margin:6px 0}
+.detail-content strong{color:var(--ink)}
+.recommend-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.recommend-grid article{padding:16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--surface)}
+.recommend-grid article:nth-child(1){border-top:3px solid var(--green)}
+.recommend-grid article:nth-child(2){border-top:3px solid var(--teal)}
+.recommend-grid article:nth-child(3){border-top:3px solid var(--amber)}
+.recommend-grid h3{font-size:15px}
+.recommend-grid p{font-size:12px;color:var(--muted)}
+.rubric{display:grid;grid-template-columns:200px 1fr;gap:14px;padding:10px 0;border-bottom:1px solid var(--line)}
+.rubric b{font-size:13px}
+.rubric div{font-size:13px;color:var(--muted)}
+.checklist{counter-reset:test;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 28px}
+.checklist li{counter-increment:test;position:relative;padding:10px 12px 10px 42px;border-bottom:1px solid var(--line);font-size:13px}
+.checklist li::before{content:counter(test,decimal-leading-zero);position:absolute;left:4px;top:9px;color:var(--green);font-size:11px;font-weight:750}
+.source-list{columns:2;column-gap:32px;margin:0;padding-left:22px}
+.source-list li{break-inside:avoid;margin:0 0 9px;padding-left:4px;font-size:12px;color:var(--muted)}
+.source-list li strong{color:var(--ink)}
+.source-list a{overflow-wrap:anywhere}
+footer{margin-top:50px;border-top:1px solid var(--line);padding:16px 0;color:var(--muted);font-size:11px}
+.inference{padding:12px 14px;background:var(--blue-soft);border-left:3px solid var(--blue);margin:14px 0;font-size:12px}
+.warning{padding:12px 14px;background:var(--amber-soft);border-left:3px solid var(--amber);font-size:12px}
+.statusline{font-size:12px;color:var(--muted)}
+@media(max-width:850px){.top-inner{align-items:flex-start;flex-direction:column;gap:3px;padding:10px 18px}.top{position:static}nav{max-width:100%;width:100%}main{padding:23px 18px 48px}.verdict{grid-template-columns:1fr}.verdict-side{border-left:0;border-top:1px solid rgba(61,107,79,.28);padding:12px 0 0}.flow{grid-template-columns:1fr;gap:10px}.node{min-height:auto;padding-left:15px}.node:not(:last-child)::after{content:"↓";top:auto;right:49%;bottom:-17px;z-index:1;background:var(--paper);padding:0 4px}.branch{grid-template-columns:1fr;gap:10px}.branch::before{display:none}.layer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.recommend-grid{grid-template-columns:1fr}.checklist{grid-template-columns:1fr}.source-list{columns:1}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.top{position:static}main{max-width:none;padding:0 10mm}.flow{grid-template-columns:repeat(5,1fr);gap:12px}.node:not(:last-child)::after{right:-12px}a{color:var(--ink)}details>*:not(summary){display:block}section{break-inside:avoid}.table-shell{overflow:visible}table{min-width:0}thead th{position:static}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">跳到报告正文</a>
+<header class="top"><div class="top-inner"><div class="brand">骨架生成引擎选型 <small>2026.11 · 研究报告</small></div><nav aria-label="报告目录"><a href="#decision">结论</a><a href="#requirements">需求边界</a><a href="#architecture">推荐架构</a><a href="#engines">平台比较</a><a href="#languages">DSL 与验证</a><a href="#config">配置建议</a><a href="#poc">PoC 验收</a><a href="#sources">来源</a><a href="全链路流程与数据流转图_2026-11-20.html">全链路图集</a></nav></div></header>
+<main id="main">
+<header>
+<div class="eyebrow">面向 LLM 可修订扩展的人生事件图</div>
+<h1>人生骨架引擎选型</h1>
+<p class="lede">LLM 根据用户选项查询资料与规则，提交声明式骨架规格并调度仿真工具。仿真器按选定总体、参数与事件规则生成条理可查的人生事件图（LifeGraph）。用户可在骨架断点亲自编辑或用自然语言指示 LLM 修订，再确认版本并继续细节生成。</p>
+<div class="meta"><span>资料核验截至 <strong>2026-11-20</strong></span><span>平台覆盖 GitHub、PyPI、CRAN、Maven Central、crates.io、Gitee 与官方项目文档</span><span>本报告无引擎性能实测，适配评价为设计审查结论</span></div>
+<section id="decision" style="padding-top:0">
+<div class="verdict">
+<div><div class="eyebrow">首轮概念验证配置</div><h2>OpenM++ case-based 候选 + 项目图契约 + PostgreSQL 版本账本</h2><p>先以独立人物和必要关联亲属组成的 case 验证连续时间与竞争事件。项目定义工具接口、骨架规格和修订事务。用户及获准的 LLM 可直接修订子分支，系统重算后继并自动检查，同时保留可回放的父版。引擎准入取决于能否从校验后的修订和锚点重新推进，并保持未受影响的父版轨迹。 <a href="全链路设计复核与统一契约.md">全链路统一契约</a></p><div class="statline"><span>OpenM++ · 首轮候选</span><span>CUE 编写 · JSON 交换</span><span>PostgreSQL · 事务账本</span><span>LLM 工具编排 · 子分支修订</span></div></div>
+<div class="verdict-side"><b>引擎承担随机过程</b><p>OpenM++ 运行可信开发者编译的模型。项目把人口入口、经验证的参数和修订约束传给适配器，收集结构化事件及参与者状态增量。</p><b>项目掌握可回放版本</b><p>项目保存事件、证据、图版本和随机输入。任意人生时点恢复、条件前史与局部重算都需用本项目用例验证。</p></div>
+</div>
+<div class="scope"><p><strong>引擎评估</strong>核对人口入口、家庭关联、竞争风险、历史规则、图修订与依赖重算。项目承担 LLM 工具编排、声明式输入校验、持久骨架断点与事务发布。</p><p><a href="#architecture">查看 LLM 与引擎职责</a> · <a href="LLM人生生成与数字人问答设计.md">查看细节生成、全链路审查和档案问答设计</a></p></div>
+</section>
+</header>
+
+<section id="requirements">
+<div class="section-head"><span class="num">01</span><h2>从设计得到的骨架要求</h2><p>项目基线：55 维度族、69 历史节点</p></div>
+<div class="table-shell" tabindex="0" role="region" aria-label="人生骨架生成器验收要求表，可横向滚动"><table><caption>把已有设计翻译为可执行内核验收条件</caption><thead><tr><th scope="col">要求</th><th scope="col">引擎必须能表达</th><th scope="col">错误类型</th><th scope="col">来源于设计</th></tr></thead><tbody>
+<tr><th scope="row">出生与存活截面入口</th><td>从出生队列向前抽样，或在存活至参照日、满足入框资格及匹配已知属性的条件下生成前史。明确分母、权重、条件生成或筛选算法。</td><td>把无条件路径筛掉早逝者后直接用于任意截面；遗漏入框或选择过程</td><td><a href="虚拟人生成系统研究型设计基线_v3.0.md#5-人口数据与来源治理">设计基线 §5</a></td></tr>
+<tr><th scope="row">关联生命</th><td>person、family/household、region/organization 实体，稳定关系边，共同事件能更新多人。</td><td>亲属同时在两地；同一资金/照料重复结算</td><td><a href="跨学科依据与机制补全.md#310-从亲属标签生成有时窗的照料支持与家庭分工">家庭共享事件契约</a></td></tr>
+ <tr><th scope="row">时间事件图</th><td>事件以部分序组织，支持区间、并行、重叠和未定先后；因果假设、参与关系、证据和时间边类型分开。</td><td>把未知时间强排成顺序；把相关边误当因果；细节父子节点重复计数</td><td><a href="虚拟人生成系统研究型设计基线_v3.0.md#311-人生事件图与节点细化">LifeGraph</a></td></tr>
+<tr><th scope="row">节点拆分与细化</th><td>粗粒度事件保留原 <code>event_id</code> 作为汇总锚点，子事件使用独立标识并记录分解关系。每项状态增量由唯一事件或明确分段负责。</td><td>细化后丢失原节点引用，或重复计算事件和资源</td><td><a href="虚拟人生成系统研究型设计基线_v3.0.md#311-人生事件图与节点细化">节点细化约定</a></td></tr>
+<tr><th scope="row">竞争风险与条件重排</th><td>离岗、婚育、迁移、照护、疾病和死亡可竞争或依赖；有关状态改变后重算受影响候选风险。</td><td>先写死线性剧情；旧风险在状态改变后仍生效</td><td><a href="虚拟人生成系统研究型设计基线_v3.0.md#711-并行轨迹竞争事件与推进">推进规范 §7.1.1</a></td></tr>
+<tr><th scope="row">不确定性和未知</th><td>参数化 hazard/概率、时间区间、未知供给/资格、未观测和冲突分开。</td><td>把缺证当零、未发生或自动取平均</td><td><a href="维度体系说明.md#102-一组维度可以有四类独立判断">维度不确定性语义</a></td></tr>
+<tr><th scope="row">分支对照</th><td>共享分支前历史，变更有限的节点/参数；复跑和多线程顺序不能任意改变无关选择。</td><td>优化器修补或共享 RNG 让两个分支完全脱钩</td><td><a href="虚拟人生成系统研究型设计基线_v3.0.md#8-动态人生与反事实运行">反事实运行规范</a></td></tr>
+<tr><th scope="row">骨架断点与直接修订</th><td>交互任务持久保存骨架等待用户继续。手动操作和获准的 LLM 调用使用同一图写入接口，以固定父版本和幂等键直接写入子分支。确认继续时核对并固定当前校验通过的修订。</td><td>覆盖父版、重复写入事件，或旧页面确认后扩写了未经查看的新修订</td><td><a href="LLM人生生成与数字人问答设计.md">骨架断点与生产流程</a></td></tr>
+<tr><th scope="row">依赖后继重算</th><td>按规则、输入区间、候选风险、资源、关系与已读状态定位失效项。沿依赖传播至收敛，保留可证无影响的前缀和独立轨迹引用。</td><td>仅按时间批量覆盖，或漏掉原先未入选和新近变为可用的候选</td><td><a href="全链路设计复核与统一契约.md">依赖重算契约</a></td></tr>
+<tr><th scope="row">骨架输出</th><td>机器可读的人物、家户、经历、事件与状态增量，附支持规则、时间粒度和人口权重。经断点确认的骨架修订作为后续扩写的固定输入。</td><td>把统计合成值冒充观测事实，或细节生成读取到未固定的骨架</td><td><a href="虚拟人生成系统研究型设计基线_v3.0.md#9-面向下游-agent-的问卷受访者契约">下游契约 §9</a></td></tr>
+</tbody></table></div>
+<p class="small muted">共涵盖 55 个维度族和 69 个历史节点的设计面。事件目录规模不决定事件概率；仿真引擎也不会自动补齐未取得的联合分布与转移参数。</p>
+</section>
+
+<section id="architecture">
+<div class="section-head"><span class="num">02</span><h2>推荐架构与职责</h2><p>从用户选项到可继续的骨架断点</p></div>
+<div class="diagram">
+<div class="flow">
+<article class="node"><b>用户选项与 LLM 编排</b><p>用户选定目标人群、年代、区域、约束和用途。LLM 查询授权的数据、历史与规则工具，整理输入和仍需确认的条件。</p></article>
+<article class="node"><b>声明式骨架规格</b><p>LLM 提交受限 JSON，引用抽样框、已登记参数和规则。工具按 CUE 导出的模式及领域规则验证，再交给仿真适配器。</p></article>
+<article class="node"><b>仿真与抽样</b><p>参数由数据估计并版本化。首轮接入 OpenM++ case-based，按固定参数推进风险、抽样事件并计算多人状态增量。</p></article>
+<article class="node"><b>校验并保存骨架</b><p>核对事件、关系、资源和证据。共享事实通过一次事务保存，工作版本附诊断和可比较的父版本。</p></article>
+<article class="node"><b>骨架审阅断点</b><p>用户手动编辑或用自然语言请 LLM 直接修订。系统重算和校验，用户查看差异后明确选择“继续”。</p></article>
+</div>
+<div class="inference"><strong>断点与版本修订。</strong>LLM 可以直接把修订写入新子分支。项目用固定父图版本计算失效的候选、事件、状态和关联人物账目。仿真适配器从已验证的检查点恢复，或固定输入并从锚点重跑相关 case。两条路径均按生效时间注入编辑约束并沿用可证无影响的父版记录。断点持久保存，用户可以退出后再回来。按下“继续”时系统核对用户看过的确切修订，校验中、存在阻断或已更新的版本先在断点处理。</div>
+<h3>锁定骨架后的流程</h3>
+<ol>
+<li><strong>扩写细节。</strong>LLM 按时间段与事件生成结构化细节、人物所知、回忆及叙事。每批产物引用同一确认修订，冲突状态和未获支持的信息可以保留为未知。</li>
+<li><strong>独立审查与修复。</strong>规则检查硬约束，独立审查核对证据、跨批一致性和人物视角。局部内容可以定向重生成并复验，改变骨架假设或关键事件时回到断点确认新的修订。</li>
+<li><strong>签发到档案库。</strong>校验通过后事务保存发布清单及产物引用。读投影按发布版本构建，就绪后向用户开放该版本的问答。</li>
+<li><strong>第一人称问答。</strong>用户从档案库选择人物，LLM 只读检索该发布版、角色权限和提问时点内的经历、关系与记忆，再用人物的语气作答。对话记录与人生事件账本各自保存。</li>
+</ol>
+<p class="small muted"><a href="LLM人生生成与数字人问答设计.md">查看各阶段工具、产物和审查边界</a></p>
+<div class="branch">
+<div class="branch-item primary"><h3>个体与家户验证</h3><p>焦点人物和必要亲属可组成一个独立 case。整户样本先建立统一人物与家户身份，再模拟共享事件。需要在多个 case 间同步更新同一实际关系时，重新定义模拟边界并核验权重。历史机会经人物活动地点、关系和具体验证转为个人暴露。</p></div>
+<div class="branch-item secondary"><h3>群体互动专项</h3><p>当研究要求跨独立 case 同时作用，如邻里支持网络或共享劳动力市场，另行评估 OpenM++ time-based 模型。该模型需要独立实现和校准互动机制，仍交付相同的项目图契约。</p></div>
+</div>
+<div class="layer-grid"><div><b>固定运行输入</b><span>固定用户选项、引擎、模式与规则版本、参数包、人口框及随机策略。</span></div><div><b>模型代码由开发者维护</b><span>仿真器运行预编译模型，LLM 通过工具提交受限声明式输入和图操作。</span></div><div><b>运行可查</b><span>记录工具、选项来源、图版本、父版、提交操作、随机策略和实际产物。</span></div><div><b>共享事件统一记账</b><span>一次多人物事件共用 <code>event_id</code>，保存参与角色与各自状态增量。</span></div></div>
+<div class="schema"><div class="schema-title">项目交换结构示意</div><pre role="region" aria-label="项目骨架规范结构示意" tabindex="0"><code>schema_version: skeleton-ir/2
+frame:
+  frame_id: reference-frame
+  entry: birth_cohort | alive_at_reference_date | deaths_in_period | mechanism_scenario
+  reference_date: date-or-interval
+  observation_end: observation-cutoff
+  geography_version: geography-release
+run:
+  run_id: immutable-run-id
+  input_manifest: data-rule-parameter-model-and-seed-refs
+  case_id: simulation-unit-id
+graph:
+  graph_id: stable-graph-id
+  graph_revision_id: immutable-graph-revision
+  parent_revision_id: prior-revision-or-null
+  branch_id: graph-branch
+  events:
+    - event_id: stable-life-event-id
+      valid_time: date-or-interval-with-precision
+      recorded_at: archive-commit-time
+      participants: [person-role-and-state-delta-refs]
+      provenance: [versioned-evidence-and-run-refs]
+  edges: [typed-temporal-decomposition-and-evidence-refs]
+  dependencies: [versioned-read-write-and-candidate-refs]
+history:
+  - historical_node_id: stable-world-catalogue-id
+    historical_node_version: historical-record-revision
+    exposure_resolution: province | county | point | unknown
+candidates:
+  - candidate_id: pending-alternative-id
+    inputs: [rule-parameter-and-state-refs]
+snapshot:
+  snapshot_id: pinned-projection-id
+  graph_revision_id: immutable-graph-revision
+  release_id: optional-published-release-id
+  as_of: effective-query-time
+  archive_as_of: record-cutoff</code></pre><p class="small muted">示意字段用于区分人口抽样框、模拟运行、人生事件、历史环境节点、候选和查询快照。参与者获知时间 <code>known_at</code> 随其信息关系保存。字段的完整约束见统一契约。</p></div>
+</div>
+</section>
+
+<section id="engines">
+<div class="section-head"><span class="num">03</span><h2>主模拟内核比较</h2><p>按人物轨迹骨架贴合度，不按通用知名度排名</p></div>
+<div class="toolbar"><label for="engineFilter">按平台类别筛选</label><select id="engineFilter"><option value="all">显示所有候选</option><option value="micro">微观人口仿真</option><option value="agent">Agent/事件/状态机平台</option><option value="domain">专用生命/健康模型与制度规则</option><option value="workflow">外层工作流/恢复</option></select><span class="statusline" id="filterStatus" role="status" aria-live="polite"></span></div>
+<div class="table-shell" tabindex="0" role="region" aria-label="仿真内核候选比较表，可横向滚动"><table id="engineTable"><caption>跨 GitHub、PyPI、CRAN、Maven、Gitee/AtomGit 及项目官方平台的筛选结果。成熟度综合公开发行历史、测试/文档、治理与实际项目模型，不代表已做性能基准。</caption><thead><tr><th scope="col">平台/类别</th><th scope="col">截至 2026-11-20 的状态与许可</th><th scope="col">适配骨架的独特能力</th><th scope="col">主要不适配点</th><th scope="col">建议定位</th></tr></thead><tbody>
+<tr data-kind="micro"><th scope="row"><strong>OpenM++</strong><br><span class="tag high">首轮 PoC 候选</span><span class="tag">MIT</span></th><td>支持 time-based 与 case-based 模型。核对版本 v1.17.15（2026-10-01）。</td><td>可按事件时间推进，编译器可在依赖属性变化后重新求候选事件时间，支持关联实体、实体本地随机流和可配置追踪与微数据输出。</td><td>.mpp/.ompp 中的 C++ 由开发者维护。case-based 的交互限于单个 case。官方运行级重启续算未完成的 sub-values，人生中段恢复需要另测队列、实体状态和随机状态。</td><td>验证出生推进、存活截面条件前史、共享事件适配及中段约束注入。项目保存图版本并核验后继重算。 <a href="https://openmpp.org/libopenm_doxygen/html/classopenm_1_1_restart_controller.html">重启语义</a></td></tr>
+<tr data-kind="micro"><th scope="row"><strong>SimPaths / JAS-mine</strong><br><span class="tag high">生命历程参考</span><span class="tag">EUPL-1.2</span></th><td>Java 离散事件微观仿真，SimPaths 最新正式版为 2026.11.08。</td><td>包含教育、家庭、健康、社护、就业、收入和消费等过程。新版新增财富及继承规则，并更新健康、照护、伴侣和消费模型。</td><td>Java 模型采用年度主调度，英国及欧洲各模型的参数口径和维护情况各异。项目需要重新估计中国数据与模型。</td><td><strong>家户联动与模块覆盖对照</strong>。参考财富、继承、照护和伴侣关系在年龄、事件与家庭结构之间的联动。 <a href="https://github.com/simpaths/SimPaths/releases/tag/2026.11.08">2026.11.08 发行说明</a></td></tr>
+<tr data-kind="micro"><th scope="row"><strong>DYNAMIS-POP</strong><br><span class="tag mid">可移植模型参考</span></th><td>OpenM++/Modgen 交互人口连续时间应用框架；公开案例如毛里塔尼亚、尼泊尔与塞内加尔。</td><td>官方教程从加权微观人口开始，人员与家庭/户主链接、出生死亡迁移、地区覆盖、个体和面板输出都有实际建模示范。</td><td>它是国家/项目模型，不是通用发行版。某国 setup/risk data 必须重建，且不等同中国历史政策事件目录。DYNAMIS 文件重用/分发许可应随实际代码包逐项核实。</td><td><strong>第一个 OpenM++ family population 模板</strong>值得查阅。沿用结构，重新估计/验证中国参数。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>LIAM2</strong><br><span class="tag mid">年度模型候选</span><span class="tag">GPL-3.0</span></th><td>YAML 模型输入；v0.13.0 发布于 2026-07-29。</td><td>偏微观人口特征/时期推进，表达周期性的个体与家户状态变化，输入文件直观。</td><td>典型步长是时期/年度演进，不是 OpenM++ 式不规则竞态事件队列；精确同年次序、共同行动与单事件 trace 要自建。</td><td>做年度情景、基线分布或快速 DSL 对照。若验收必需当日与竞争风险事件，不宜主引擎。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>ML3 · Linked Lives</strong><br><span class="tag mid">语义最贴近</span><span class="tag low">维护较弱</span></th><td>Java + ANTLR；Maven Central 稳定版 0.2.8，末次发布 2022-04-25；Apache-2.0（来源包/旧版本核实）。</td><td>领域语言专为 linked lives 设计；连续时间/随机竞态、年龄依赖和关联个体，模型概念与人生历程直接吻合。</td><td>稳定版和维护活跃度较旧；Rust 学术重写不是已核实的持续维护替代包。接手即要负责 parser/compiler/runtime、版本兼容、随机流和测试。</td><td><strong>研究语义与语言设计参照</strong>；除非团队明确接受维护 fork，不建议新系统押注其现有 runtime。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>OpenM++ case-based</strong><br><span class="tag high">与个体样本匹配</span></th><td>OpenM++ 一种模型模式：每个 case 可以是独立人或小型相关群体（如家庭/家系）；case 之间不互相作用。</td><td>复杂 case 可保留 family network、个人事件及状态；同一总体许多独立 case 可做分层抽样，并能并行运行。</td><td>case 不能自发形成跨 case 邻里/伴侣/劳动市场互动；控制多人共享事务和外部邻居统计仍由 schema/账本完成。</td><td><strong>本报告主推的出生/个人骨架模式</strong>，其 family 小网络边界须在 PoC 定清楚。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>OpenM++ time-based</strong><br><span class="tag mid">群体交互模式</span></th><td>OpenM++ 另一种模型模式：同一模拟复本中的人口实体相互作用。</td><td>适合开放人口、跨人影响、疾病/迁移网络等群体路径，并可由异体实体/链接描述人群环境。</td><td>每个人、每个事件都需排队，占用与运行成本随 population/状态复杂度增长；复杂性和规模有取舍。本地 RNG 也要注意更新实体键造成的变化。</td><td><strong>互动人口标定侧车</strong>。若不建跨 case 的社会网络，不要默认所有生成任务都走它。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>Modgen / LifePaths</strong><br><span class="tag mid">出生到死亡方法参照</span></th><td>Statistics Canada 的微观模拟语言与 archived LifePaths 模型；LifePaths 是出生起步的连续时间 competing-risk 模型。</td><td>显示从出生推进、开放人口、个体生活事件竞争及政策情境分析的长期应用先例。</td><td>LifePaths 页被标为 archive。Modgen可免费下载，但没有在本轮确认可修改/再分发的开源许可证，不能当作已清权运行时。</td><td><strong>关键方法校准/测试基准</strong>；对可直接改造的开源内核选 OpenM++。 <a href="https://www.statcan.gc.ca/en/microsimulation/lifepaths/overview">LifePaths 概述</a> · <a href="https://www.statcan.gc.ca/en/microsimulation/modgen/new/modgen-intro-eng.pdf">Modgen 引介</a></td></tr>
+<tr data-kind="micro"><th scope="row"><strong>MicSim</strong><br><span class="tag mid">学术研究引擎</span><span class="tag">GPL ≥2</span></th><td>R continuous-time multi-state microsimulation 3.0 系列。</td><td>适合解释/试验给定的状态空间、多状态转移率、连续时间 life course 轨迹。</td><td>重点是已定义的多状态转移及研究设计，不等于带家庭关系、政策目录、共享事件账本和验证器的完整工程生成器。</td><td>作为 competing risk 研究模块、hazard 模拟和结果统计基准。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>SOCSIM / rsocsim</strong><br><span class="tag mid">人口亲缘专用</span><span class="tag">GPL-3</span></th><td>2026-06-05 rsocsim 1.9.18（R 包）。</td><td>为人口学 kinship simulation 按率表生成生育、死亡、婚配和亲属网络；多年维护背景及 family topology 有价值。</td><td>不是通用教育/工作/政治/地区政策轨迹 DSL；缺少项目要求的通用事件出处、多态取值与问卷时点约束。</td><td>家庭树/人口学反例测试；不用作全部人生事件主模型。</td></tr>
+<tr data-kind="micro"><th scope="row"><strong>PopulationSim</strong><br><span class="tag mid">人口入口</span><span class="tag">BSD-3-Clause</span></th><td>2025-11-03 0.10.0，ActivitySim Python 工具集。</td><td>基于 household/person seed microdata 与多地区控制总量进行 weighted synthetic population/reweighting。</td><td>生成某一基准时点合成人口，不是从出生开始推进的生命历程事件引擎。需授权/取得有效 seed microdata 和控制总量。</td><td>人口入口/家庭横截面合成，可为 OpenM++ 初始人口提供候选样本。</td></tr>
+<tr data-kind="domain"><th scope="row"><strong>Gitee「人口模拟」</strong><br><span class="tag low">汇总预测代码样例</span><span class="tag">Apache-2.0</span></th><td>Python 仓库介绍为多元回归、时间序列、灰色模型；页面没有正式 release。</td><td>可作汇总人口数量预测的教学和方法对照。</td><td>不含 person/household/event/relationship DSL 或生命周期事件调度。</td><td>不列为骨架平台候选；保留在中文代码托管抽查。 <a href="https://gitee.com/howie_wang/population-simulation">仓库说明与许可</a></td></tr>
+<tr data-kind="domain"><th scope="row"><strong>OpenFisca-Core</strong><br><span class="tag mid">政策计算</span><span class="tag low">AGPL-3.0+</span></th><td>Python，45.0.4（2026-09-24）。</td><td>个人/家户/角色实体及按日期版本化的税收福利变量计算，可返回公式与输入 trace。</td><td>制度 eligibility/payable calculation 不是随机人口或 lifespan simulator。缺字段常被公式映射为 false/0，必须单独阻断或保留 unknown。</td><td>地区政策计算适配器；商用部署先核 AGPL 条款与目标国家的法律来源包。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>AgentTorch</strong><br><span class="tag mid">大规模群体 ABM</span></th><td>MIT Media Lab large population model 框架；空间和关系模型可批量执行。代码树有 v0.6.0 标识。</td><td>GPU/张量化和多百万个体交互定位，适合传染病/宏观 Agent 动态；PyTorch 语境或许能接外部 population pipeline。</td><td>不是连续人生事件 DSL；主要按步骤/模型组件运行；公开 README 声明 AGPL-3.0，但 pyproject 有 MIT 字样，许可事实冲突需权利方澄清。</td><td>大规模群体影响的研究性备选，不列为已清权生产依赖或个人 lifecourse engine。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Agent-Kernel · ZJU-LLMs</strong><br><span class="tag mid">中文 Agent 环境内核</span><span class="tag">Apache-2.0</span></th><td>ZJU 多 Agent 环境组件/插件框架；公开发行 v1.1.0。</td><td>可扩展 environment component、运行时 intervention、关系/环境机制，适合作为插件接口参考。</td><td>校园、医院等 Agent arena 并不是按人口风险生成的全生命周期 event queue。</td><td>用于社会环境和规则插件的设计对照，不作为 skeleton generator。 <a href="https://github.com/ZJU-LLMs/Agent-Kernel">仓库</a> · <a href="https://github.com/ZJU-LLMs/Agent-Kernel/releases">发行</a></td></tr>
+<tr data-kind="agent"><th scope="row"><strong>SocioVerse2 / AgentSociety 2 / GPLab</strong><br><span class="tag mid">中文 LLM 社会模拟平台</span></th><td>SocioVerse2 v0.2.0（2026-09-24，Apache-2.0）以 panel/branch 方式运行。清华 AgentSociety 2 与 GPLab 各有单独仓库。</td><td>可参考持久 agent ID、环境干预、panel 输出、stepwise counterfactual replay、LLM Agent 实验平台。</td><td>固定人群按步执行或 LLM 行为模拟，不是开人口/竞争风险/事件时间微观引擎；仿真人格/决策主体与 skeleton generator 不是同一阶段。</td><td>只作分支、panel、LLM研究运行器的边界对照。SocioVerse2 首版较新，需单独验证稳定性。 <a href="https://github.com/sii-research/SocioVerse2/releases/tag/v0.2.0">SocioVerse2 v0.2.0</a> · <a href="https://github.com/tsinghua-fib-lab/AgentSociety">AgentSociety 2</a> · <a href="https://github.com/SmartLegislation/GPLab">GPLab</a></td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Ixa</strong><br><span class="tag high">离散事件备选</span><span class="tag">Apache-2.0</span></th><td>CDC Rust 仿真框架，核对版本 3.1.0。</td><td>提供事件计划、实体和扩展组件 API，可通过适配器实现项目的过程接口。</td><td>家庭关系、风险率模型、稳定随机地址、事件账本和图版本由项目实现。中段状态恢复与吞吐需通过同一组概念验证用例。</td><td>OpenM++ 的约束注入或恢复成本超标时评估。与小型参考离散事件实现对照。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Mesa</strong><br><span class="tag high">Python 快速原型</span><span class="tag">Apache-2.0</span></th><td>3.5.1，2026-03-15；事件调度已进入稳定模块。</td><td>绝对/相对一次与重复调度、priority、`run_until`、cancel，Python生态快速建模。</td><td>核心是 ABM code framework，需自行提供 population/person schemas、linked lives、life event hazards 和 persistent ledger。</td><td>小规模可运行对照原型、验证调度与场景。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Agents.jl</strong><br><span class="tag high">竞争风险研究型 PoC</span><span class="tag">MIT</span></th><td>7.0.4，2026-09-15；EventQueueABM 提供 propensity/scheduler。</td><td>从多候选 propensity 表达 Gillespie 风格竞争事件十分自然；适合校验 death/retirement/union 等竞争。</td><td>代码接口非 DSL；EventQueueABM 还未支持 save_checkpoint。年龄和跨人变化后让 propensity 失效重排、RNG及跨时间回放要项目自做。</td><td>数学 PoC/风险过程对照，而非业务骨架接口。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>GAMA / GAML</strong><br><span class="tag mid">空间模拟 DSL</span><span class="tag low">GPL-3</span></th><td>2026.09.0（2026-09-08，Alpha）。Eclipse/GAMA 集成式 Agent 社会和地理平台。</td><td>外部 GAML、space/species/map/层级代理、GIS图层、环境、行为、调度、workspace保存恢复较成熟。</td><td>生态核心是空间显式 ABM，常见是 tick/步式 Agent 行为；非人口历程的连续竞态 DSL。GUI/插件平台重；跨代理原子账本与记录双时间需自建。</td><td>地区迁移/城乡空间过程专项对照；作为全流程主骨架要重建核心语义。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>NetLogo + Time Extension</strong><br><span class="tag mid">研究/教学 ABM</span><span class="tag low">GPL-2</span></th><td>NetLogo 7.0.4（2026-05-01），社区成熟，Time 扩展支持日历和定时事件。</td><td>外部 Logo 语言和图形交互，使人口/规则演示或领域专家共同讨论较直观。</td><td>扩展可排入未来匿名行为，但缺少 OpenM++ 式依赖属性自动重排/多状态风险建模；丢失 agent 会跳过计划；输出和领域 schema 需另建。</td><td>使用者参与式模型和展示，不适合作稳定的骨架生产内核。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>SimPy / salabim</strong><br><span class="tag mid">通用排事件</span><span class="tag">MIT</span></th><td>SimPy 4.1.2 于 2026-05-24；salabim 26.0.8 于 2026-06-24。</td><td>Python heap/queue/并发过程、事件和资源排程。业务团队可快速构建小模型。</td><td>SimPy generator 对象不是可交换的持久事件 IR。两库不内含人口抽样、家庭/人生本体或转移校准。</td><td>周/日程冲突的小 PoC；多十年/多百万人口仍需大量自建。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Vivarium Engine</strong><br><span class="tag mid">可复用随机机制</span><span class="tag">BSD-3-Clause</span></th><td>5.11.0（2026-09-24）；旧 PyPI `vivarium` 冻结，与现用 engine 分开。</td><td>组件化模拟、按时间步推进、CRN 随机数在分支之间保持可比，适合作为 variance reduction 的设计参考。</td><td>主要为 health/disease burden 定步长模型。不能把 timestep history 直接当不规则人生事件账本；具体数据转换需校验。</td><td>CRN实现和component contract 对照，非 OpenM++ 类事件引擎替代品。</td></tr>
+<tr data-kind="domain"><th scope="row"><strong>QLExpress / LiteFlow</strong><br><span class="tag mid">中文规则工具</span><span class="tag">Apache-2.0</span></th><td>Alibaba 业务表达式 DSL 与 Dromara 组件规则链；Java 生态持续发布。</td><td>国内开发者熟悉，可实现资格计算表达式、模块调用与串并行工作流。</td><td>表达式引擎/规则编排而非社会人口随机模型；串并行流程事件没有生命有效时间、风险集与随机人口分布语义。</td><td>作为中国政策规则维护 adapter 可以评估，不能把“规则流 DSL”选成生命周期核心。 <a href="https://github.com/alibaba/QLExpress/releases/tag/v4.1.3">QLExpress</a> · <a href="https://github.com/dromara/liteflow/releases/tag/v2.16.2">LiteFlow</a></td></tr>
+<tr data-kind="domain"><th scope="row"><strong>Synthea</strong><br><span class="tag mid">健康子域</span><span class="tag">Apache-2.0</span></th><td>4.0.0（2026-03-05）为最新编号版；rolling master 2026-10-21 更新。Generic Module Framework 为 JSON state/transition。</td><td>guard、延迟、condition/care pathway、可视化模块编辑器及临床输出/数据词典。</td><td>模块为疾病或医疗流程，主流程按患者/time-step处理；人口采用美国医疗语境。曾有公开 issue 反馈 4.0.0 jar 中自报版本与 release tag 不一致。</td><td>健康事件模块的语言/编辑器参考；实验须锁定源码 commit 并自己构建，勿 fork 全生命周期生成器。 <a href="https://github.com/synthetichealth/synthea/releases">发行页</a> · <a href="https://github.com/synthetichealth/synthea/issues/1698">artifact 版本问题</a></td></tr>
+<tr data-kind="agent"><th scope="row"><strong>GAML / MASON / Mesa等时空 ABM</strong><br><span class="tag low">平台大类</span></th><td>GAMA、NetLogo、MASON、Mesa 各适用社会空间/多 Agent 交互。</td><td>适合城市、迁移、市场、社会扩散或集体行动模型。</td><td>大多需把历程本体、个体风险、事件时间精度、记录/获知视角另写。世界模拟功能宽广不是人口模拟的证据。</td><td>具体的群体交互专题，不按平台影响力主观推为骨架引擎。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Scenic / pyRDDLGym / Artificial Life</strong><br><span class="tag low">研究目标不同</span></th><td>概率情境、关系 MDP 或人工生命系统各有成熟平台。</td><td>验证空间场景可行性、离散策略优化或生态涌现机制。</td><td>固定 step、scenery constraints、状态命令或演化目标与目标人口 life-course skeleton 不同。</td><td>仅当研究具体子问题时选，不用“数字生命”这个词当作适配证据。</td></tr>
+<tr data-kind="agent"><th scope="row"><strong>Sismic / XState</strong><br><span class="tag mid">状态图 DSL</span></th><td>Sismic YAML，LGPL-3.0；XState 5.33.2，MIT（2026-09-15）。</td><td>正交/嵌套状态机、guards、状态 transition 和 snapshot/restore；适合一个 life spell 子流程或审批状态。</td><td>不估计人口风险、连续竞争风险率和微观人口。XState wall-clock timer 持久化也不是仿真时间语义。</td><td>子过程/参数流程图；不要将一生建成一个巨大业务状态机。 <a href="https://github.com/AlexandreDecan/sismic/releases/tag/1.6.13">Sismic</a> · <a href="https://github.com/statelyai/xstate/releases/tag/xstate%405.33.2">XState</a></td></tr>
+<tr data-kind="workflow"><th scope="row"><strong>Temporal / DBOS / Argo</strong><br><span class="tag low">运行编排</span></th><td>Temporal v1.32.0、DBOS Python 3.2.0、Argo 4.1.4，均于 2026-09 发布。</td><td>长批次重试、worker 故障恢复、批次工作流和部署层 DAG。</td><td>执行 wall clock 与 workflow history 不等于 person valid_time、家庭事务或政策反事实；activity 重试需外部幂等。</td><td>只做批次 runner/发布外层，不作为人生内核。 <a href="https://github.com/temporalio/temporal/releases/tag/v1.32.0">Temporal</a> · <a href="https://github.com/dbos-inc/dbos-transact-py/releases/tag/3.2.0">DBOS</a> · <a href="https://github.com/argoproj/argo-workflows/releases/tag/v4.1.4">Argo</a></td></tr>
+</tbody></table></div>
+<p class="small muted">类别可选：主引擎、life-course model、开源仿真库、指定子领域。使用项目页、官方文档、许可证、PyPI/CRAN/Maven/GitHub release 查看日期；release activity 表示项目活动，不表示中国样本已有效。</p>
+</section>
+
+<section id="languages">
+<div class="section-head"><span class="num">04</span><h2>DSL、约束与规则工具比较</h2><p>数据描述、资格判定、概率轨迹、可行性求解语义不同</p></div>
+<div class="table-shell" tabindex="0" role="region" aria-label="DSL和辅助引擎比较表，可横向滚动"><table><caption>可组成骨架生成工具链的语言/验证/推理组件</caption><thead><tr><th scope="col">组件</th><th scope="col">版本、许可证、平台</th><th scope="col">擅长</th><th scope="col">不负责</th><th scope="col">建议</th></tr></thead><tbody>
+<tr><th scope="row"><strong>CUE</strong></th><td>Go 生态，0.17.1（2026-07-16），Apache-2.0。</td><td>schema、类型推断、unification、跨字段约束、导出 JSON/YAML。</td><td>无 simulation time、hazard queue 或 stochastic population sampler。</td><td>对项目 IR 做结构校验的首选层。 <a href="https://github.com/cue-lang/cue/releases/tag/v0.17.1">发行</a></td></tr>
+<tr><th scope="row"><strong>CEL</strong></th><td>Go cel-go 0.32.0（2026-08-19，Apache-2.0）；C++ Python wrapper cel-expr-python 0.1.3（2026-06-25）。</td><td>类型受限、无通用循环/副作用的条件表达式；适合资格、范围和暴露判断。</td><td>不表达生命周期依赖图、随机风险和事件执行。</td><td>可用作模型参数中的 predicates。要固定缺失/unknown/error mapping 和跨语言一致性。 <a href="https://github.com/cel-expr/cel-go/releases/tag/v0.32.0">发行</a> · <a href="https://pypi.org/project/cel-expr-python/0.1.3/">Python</a></td></tr>
+<tr><th scope="row"><strong>KCL / Nickel / Pkl</strong></th><td>KCL 0.13.0（2026-09-25，Apache-2.0）；Nickel 1.18.0（2026-09-19，MIT）；Pkl 0.32.1（2026-07-23，Apache-2.0）。</td><td>强类型配置、contracts、值组合、模板化导出 JSON/YAML。</td><td>都没有人口转移引擎、概率事件队列或关系事务语义。</td><td>CUE 已覆盖当前 IR 验证目标；如确需更强 config contracts 再选一种，避免同时维护数套 DSL。 <a href="https://github.com/kcl-lang/kcl/releases/tag/v0.13.0">KCL</a> · <a href="https://github.com/nickel-lang/nickel/blob/1.18.0/RELEASES.md">Nickel</a> · <a href="https://github.com/apple/pkl/releases/tag/0.32.1">Pkl</a></td></tr>
+<tr><th scope="row"><strong>GoRules ZEN</strong></th><td>Rust 核心，Python/Node 等绑定；2.1.1（2026-09-29）；MIT。</td><td>JDM 决策图、trace、表达式与一次决策分支图。</td><td>不是 lifetime clock/hazard scheduler；上游当前限制除文档/测试以外的代码贡献。</td><td>若政策专家需要图形化资格树可纳入插件评估，不 fork graph runtime。 <a href="https://github.com/gorules/zen/releases/tag/python-v2.1.1">发行</a> · <a href="https://github.com/gorules/zen/blob/python-v2.1.0/README.md#contribution">贡献规则</a></td></tr>
+<tr><th scope="row"><strong>OpenL Tablets</strong></th><td>Java，6.4.0（2026-08-19）；LGPL-3.0。</td><td>Excel 表格规则和 effectiveDate/expirationDate 版本化，可给政策业务专家编辑。</td><td>政策有效/请求日期不等于个人实际获知或事件入账时态；不运行人生队列。</td><td>适合规则源数据通道；每版规则需代码审查、差异测试和权限。 <a href="https://github.com/openl-tablets/openl-tablets/releases/tag/6.4.0">发行</a></td></tr>
+<tr><th scope="row"><strong>Apache KIE / Drools DMN</strong></th><td>10.2.0（2026-04-29），Apache-2.0 / Apache Incubating。</td><td>决策表 hit policies 和 FEEL；静态发现表格 gap/overlap，利于可审计制度资格映射。</td><td>DMN 决策表只算一次输入的结果，不是 stochastic life-course engine；议程顺序/规则触发也不是人生 event time。</td><td>Java 团队可作独立制度表，与 OpenL/CEL 对照。 <a href="https://github.com/apache/incubator-kie/releases/tag/10.2.0">发行</a> · <a href="https://kie.apache.org/drools/dmn/">DMN 能力</a></td></tr>
+<tr><th scope="row"><strong>OpenFisca-Core</strong></th><td>Python，45.0.4（2026-09-24）；AGPL-3.0-or-later。</td><td>税收/福利、person/household/role、带日期政策参数与变量 trace。</td><td>缺字段可能回退 false/0，需包 unknown-safe wrapper；不是人口随机事件引擎。</td><td>规则计算适配器，先确认开源许可与各地区制度代码来源。 <a href="https://pypi.org/project/OpenFisca-Core/45.0.4/">包</a></td></tr>
+<tr><th scope="row"><strong>Catala</strong></th><td>1.3.2（2026-11-16）；Apache-2.0；OCaml 工具链。</td><td>把法规条款和例外优先级编译成可执行计算，强调形式化规则与错误检查。</td><td>政策法规求值，不是抽样或随机生命周期 runtime；专业语言与编译链会增加规则团队门槛。</td><td>单独法规工程值得评估时再用；不作为出生至死亡 DSL。 <a href="https://opam.ocaml.org/packages/catala/catala.1.3.2/">1.3.2 包与许可</a> · <a href="https://book.catala-lang.org/en/2-2-conditionals-exceptions.html">语言指南</a></td></tr>
+<tr><th scope="row"><strong>MiniZinc</strong></th><td>2.11.0（2026-11-18）；MPL-2.0；可选多种 solver。</td><td>可选 interval、disjunctive/cumulative scheduling、寻找不可满足约束线索。</td><td>可行调度不表达某路径在人群中的概率。`<>` optional 表示未排/缺席，不代表“来源未知”。</td><td>用于校验已生成候选。底层 solver license 随具体打包核对。 <a href="https://github.com/MiniZinc/libminizinc/releases/tag/2.11.0">发行</a></td></tr>
+<tr><th scope="row"><strong>OR-Tools CP-SAT</strong></th><td>9.15（2026-01-12）；Apache-2.0；多语言 API。</td><td>区间排班、离散整数约束、可行/冲突诊断。</td><td>离散化日期精度并有 UNKNOWN 状态；假设核心可能只是 sufficient，不一定最小。</td><td>硬约束执行器；不能替代人口转移模型。 <a href="https://github.com/google/or-tools/releases/tag/v9.15">发行</a></td></tr>
+<tr><th scope="row"><strong>Gen.jl</strong></th><td>0.4.9（2026-10-31）；Apache-2.0；Julia。</td><td>可编程概率程序、random-choice trace、条件生成/trace 更新与重生。</td><td>无人口/家庭 life-course domain model，也不替用户校准社会分布和规则机会。</td><td>可独立对比随机骨架 trace 和条件分支。模型 importance weight 不等同实证人口权重。 <a href="https://github.com/probcomp/Gen.jl/releases/tag/v0.4.9">发行</a> · <a href="https://www.gen.dev/docs/stable/ref/core/gfi/">GFI</a></td></tr>
+<tr><th scope="row"><strong>GenJAX</strong></th><td>1.0.14（2026-09-27）；Apache-2.0；Python/JAX。</td><td>类似可追踪随机程序，Python 工作流集成。</td><td>PyPI 首个 1.x，API 从 0.x 断代且依赖 tfp-nightly，变动风险高。</td><td>探索/对照位；不因语言较熟就推断更成熟。 <a href="https://github.com/a-tiny-project/genjax/releases/tag/v1.0.14">发行</a></td></tr>
+<tr><th scope="row"><strong>Clingo / ProbLog</strong></th><td>clingo 5.8.3（2026-11-03，MIT）；ProbLog 2.3.0（2026-09-09，Apache-2.0）。</td><td>ASP 关系/规则可满足性，或显式概率知识上的局部推断。</td><td>可满足模型数不等于人口抽样概率；铺开完整生命历程和亲属图容易组合膨胀。</td><td>规则片段 oracle 或属性验证，不是整个人生的采样器。 <a href="https://github.com/potassco/clingo/releases/tag/v5.8.3">clingo</a> · <a href="https://github.com/ML-KULeuven/problog/releases/tag/v2.3.0">ProbLog</a></td></tr>
+<tr><th scope="row"><strong>Z3 / PyMC / NumPyro</strong></th><td>Z3 5.4.1（2026-11-11，MIT）；PyMC 6.4、NumPyro 0.22（Apache-2.0）。</td><td>Z3 做约束核心；PyMC/NumPyro 用纵向资料离线估 transition/hazard parameters。</td><td>都不等同人生模拟 DSL。离线风险估计和单人事件执行是两个阶段。</td><td>参数校准与时序一致性工具。 <a href="https://github.com/Z3Prover/z3/releases/tag/z3-5.4.1">Z3</a> · <a href="https://www.pymc.io/">PyMC</a> · <a href="https://num.pyro.ai/">NumPyro</a></td></tr>
+<tr><th scope="row"><strong>Langium / textX</strong></th><td>Langium 4.4.0（2026-09-21，MIT）；textX 4.4.0（2026-07-08，MIT）。</td><td>TypeScript 或 Python 定义外部 DSL grammar、AST、语义检查和 IDE 支持。</td><td>提供的是“自己造语言”的 parser/tooling，不带模拟内核或人口语义。</td><td>当专家手写 schema 无法满足需求后再建立 DSL 前端。 <a href="https://github.com/eclipse-langium/langium/releases/tag/v4.4.0">Langium</a> · <a href="https://github.com/textX/textX/releases/tag/4.4.0">textX</a></td></tr>
+</tbody></table></div>
+<p class="small muted">“不适配”并非项目不成熟；这列只说明它不能承担完整骨架生成。可行性求解、资格判定、概率推断和人物时间线是不同功能。编辑器也只是语法工具，不会自动提供公平的人口概率。</p>
+</section>
+
+<section id="config">
+<div class="section-head"><span class="num">05</span><h2>推荐组件配置</h2><p>LLM 通过项目工具调用声明式输入、仿真与图修订能力</p></div>
+<div class="recommend-grid">
+<article><h3>微观仿真适配器</h3><p>先接入 OpenM++ case-based 验证关联人物、事件竞争与可追溯输出。固定适配器接口，传入抽样框、过程参数、可用锚点和限定写入的编辑约束，返回事件、状态增量、候选失效和诊断信息。</p><p><a href="https://github.com/openmpp/openmpp.github.io/wiki/Population-Size-and-Scaling">模型组合与规模</a> · <a href="https://github.com/openmpp/openmpp.github.io/wiki/Local-Random-Streams">实体本地随机流</a></p></article>
+<article><h3>CUE 建模与 JSON 交换</h3><p>项目在 CUE 维护声明式骨架规格，从受支持的子集导出 JSON Schema。LLM 通过工具提交 JSON 及已登记的规则和参数引用，服务端验证后交给适配器。默认值及其来源在输入定型时显式记录。用同一组有效和无效样例比较两端的结构判断。图引用、区间互斥、时序环、共享资源和最小披露由项目程序检查。</p><p><a href="https://cuelang.org/docs/concept/how-cue-works-with-json-schema/">CUE 与 JSON Schema 转换</a></p></article>
+<article><h3>制度谓词与约束求解</h3><p>用确定性规则判断版本、适用期、行政范围和办理资格。若需独立维护纯谓词，限定 CEL 的输入、函数和未知值语义。CP-SAT 或 MiniZinc 用于有界日程、预算和关系硬约束，保存可行性判断及修订结果。频率和概率由抽样模型估计。</p><p><a href="https://github.com/cel-expr/cel-go">CEL-Go</a> · <a href="https://developers.google.com/optimization/cp/cp_solver">OR-Tools CP-SAT</a></p></article>
+<article><h3>PostgreSQL 版本账本</h3><p>事件、共享参与者、状态增量、关系、修订与来源使用事务保存。审查通过的完整档案在同一事务中签发发布清单并写入待投递事件（transactional outbox）。投影、检索和通知按发布版本及消息 ID 去重。该版读投影就绪后，开放绑定同一发布清单的工具查询。</p><p>单写者原型可用 SQLite。JSONL 用于导出和离线对账。 <a href="https://www.postgresql.org/docs/current/tutorial-transactions.html">数据库事务</a> · <a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html">事务发件箱模式</a></p></article>
+<article><h3>任务状态与重试</h3><p>任务执行器保存当前阶段、清单、种子、候选失败和实际产物。交互式骨架审阅以持久任务状态暂停，确认同一图修订后继续。并发写入用父版本、请求幂等键和条件更新处理。跨长任务、多个工作进程与故障恢复有实测需求时，评估持久工作流工具。</p><p><a href="https://github.com/temporalio/temporal">Temporal</a> · <a href="https://github.com/dbos-inc/dbos-transact-py">DBOS</a> · <a href="https://github.com/argoproj/argo-workflows">Argo</a></p></article>
+<article><h3>子分支重算与回放</h3><p>用户与获准的 LLM 都可直接创建持久化的子分支工作修订。项目从最早可能受影响的有效时间之前恢复完整状态，或按固定输入回算到锚点。适配器注入修订约束，重算候选、参与者和状态，并在新旧条件下传播影响至收敛。校验包含未受影响记录的引用与前缀摘要。校验通过的修订供用户在断点审阅。</p><p>档案回放读取已存产物。确定性复算需固定版本、数值环境、约束和随机输入。反事实对照可对语义相同的抽样地址共享随机数，实测是否降低估计方差。OpenM++ 的实体本地随机流顺序取样，同一流中增删抽取会改变后续值。计数器式随机数可用于项目自有过程。 <a href="https://github.com/openmpp/openmpp.github.io/wiki/Local-Random-Streams">实体本地随机流</a> · <a href="https://www.thesalmons.org/john/random123/papers/random123sc11.pdf">Random123 原论文</a></p></article>
+</div>
+<div class="table-shell" style="margin-top:16px" tabindex="0" role="region" aria-label="不同使用场景的推荐执行配置，可横向滚动"><table><caption>按实际交互范围选择模型执行模式</caption><thead><tr><th scope="col">模式</th><th scope="col">模型单元</th><th scope="col">组合</th><th scope="col">适用问题</th><th scope="col">主限制</th></tr></thead><tbody>
+<tr><th scope="row">独立人物或家户</th><td>人物及必要关联关系构成 case</td><td>OpenM++ case-based 候选、图契约、版本账本和依赖重算</td><td>按用户选项创建骨架，在审阅断点手动编辑或由 LLM 直接修订子分支。</td><td>共同事件限于 case 边界，历史条件和可执行修订能力须实测。</td></tr>
+<tr><th scope="row">群体交互研究</th><td>一个相互交互的人口世界</td><td>OpenM++ time-based（独立 model definition）+ 相同概念 IR + 人口权重输出</td><td>病毒/社区网络/跨人物供需这类相互作用不可通过外部节点表近似时。</td><td>事件队列与对象内存随人口复杂度增长；总体稳定不自动代表个体前史有效。</td></tr>
+<tr><th scope="row">模型语义探索</th><td>局部风险/trace 分支样本</td><td>Gen.jl 0.4.9 作为概率生成对照；以同一 IR 输入、schema 和参数版本对比 OpenM++</td><td>小样本测试“加入某风险条件后 trace 如何更新”并比较分支前路径稳定性。</td><td>不附带人口数据、社会机制率表或家庭仿真本体，不独立用于生产生成。</td></tr>
+<tr><th scope="row">年度人口投影</th><td>基准截面后按年或时期推进的微观人口</td><td>LIAM2 或同类时期型微观模拟 + 权重/纵向数据，之后映射为 skeleton ledger</td><td>年度规模/岗位/家庭和保障变量的中长期投影。</td><td>精确事件日期、同日竞争和照料排班不是其首要语义。</td></tr>
+</tbody></table></div>
+<div class="inference"><strong>两类模型各自验证。</strong>独立人物和家户用 case-based 做首轮 PoC。跨 case 同步交互需要独立的 time-based 模型、行为与权重验证，并核对共享身份和跨家庭事件的输出。 <a href="https://github.com/openmpp/openmpp.github.io/wiki/Population-Size-and-Scaling">OpenM++ 模型组合说明</a></div>
+</section>
+
+<section id="selection">
+<div class="section-head"><span class="num">06</span><h2>引擎准入与替换条件</h2><p>共用用例、数据、度量和预算</p></div>
+<div class="rubric"><b>准入 OpenM++</b><div>确认前史条件生成符合目标抽样分布，项目可在明确时间边界注入编辑约束，捕获所有参与者受影响状态，并验证中段恢复或确定性重跑的语义与成本。先在模型与适配器层实现。</div></div>
+<div class="rubric"><b>评估 Ixa 或独立离散事件内核</b><div>用同一运行清单、图输入和验收数据验证排程、随机数、状态与候选输出。小型参考离散事件实现提供可穷举或可解析的对照，另测完整替代时的新增领域代码、参数维护和运维成本。</div></div>
+<div class="rubric"><b>用 LIAM2 年度模式</b><div>问题被定义为年度 population projection，日/月事件、多人共享时段和分支前随机状态不是验收重点。年度前推不能偷换为连续人生引擎。</div></div>
+<div class="rubric"><b>需要真 DSL 编辑器</b><div>模型作者确实需要书写新的语法和模块引用/跨文件检验，再加 Langium（TS）或 textX（Python）做 parser/IDE；早期让 CUE/JSON 生成人生配置更容易校验、部署和迁移。</div></div>
+<div class="rubric"><b>评估引擎补丁</b><div>适配器验证定位到明确的底层阻断后，对比上游改动、长期 fork 和替代引擎。选型记录包含阻断复现、受影响范围、版本迁移费用与回退依据。</div></div>
+<div class="rubric"><b>商业许可门槛</b><div>OpenM++ MIT/CUE Apache/MiniZinc MPL/OR-Tools Apache 较适合评估产品集成；EUPL/GPL/AGPL/LGPL/国内外数据集许可逐项审阅。AgentTorch 的 README 与 pyproject 对许可出现 AGPL/MIT 不一致，取得权利方澄清前不纳入商业基线。</div></div>
+</section>
+
+<section id="poc">
+<div class="section-head"><span class="num">07</span><h2>筛选平台的概念验证</h2><p>先用可验证的家庭 case，再扩大规模</p></div>
+<div class="table-shell" tabindex="0" role="region" aria-label="引擎准入验收表，可横向滚动"><table><caption>首轮引擎与参考实现使用同一语义用例</caption><thead><tr><th scope="col">验收项</th><th scope="col">验证方式</th><th scope="col">通过依据</th></tr></thead><tbody>
+<tr><th scope="row">存活截面前史</th><td>用有解析解的小模型比较出生入口与已存活且已知属性的前史条件分布。保留入框条件、筛选率、权重和有效样本量。</td><td>前史满足参照日事实，经验条件分布符合预登记误差限。已故档案和出生队列各用自己的分母。</td></tr>
+<tr><th scope="row">关联输出与竞争风险</th><td>一次家庭陪诊事件影响多位人物。另加先决条件变化取消待决候选，并在已知风险率的小模型检查累计发生率。</td><td>单一 <code>event_id</code> 捕获全部参与者增量，任何一方失败则整笔未发布。事件顺序、风险与参考结果相符。</td></tr>
+<tr><th scope="row">编辑约束进入引擎</th><td>移动签约日期并撤销一项共享照护。以同一父版对照完整重算与依赖重算，检查新增可用和原未入选的候选。</td><td>修订实际改变受影响后继，父版前缀和独立轨迹保持一致。核对所有关联人物账目和状态增量。</td></tr>
+<tr><th scope="row">重启与中段恢复</th><td>分别演练中断批次重启、保存并恢复待办队列和随机状态，以及从固定父版锚点重新执行。三者独立记录。</td><td>检查点或锚定重跑至少一条路径可完整复算，经独立前缀和结果核对通过，重跑成本满足预算。仅有运行级补算不构成中段恢复证据。</td></tr>
+<tr><th scope="row">回放、复算与分支配对</th><td>从存档回放实际产物。用同一输入复算并改变线程数与调度。分支对照再以不同随机重复检验共同随机数的方差效果。</td><td>同环境的规范化事件和状态一致。跨分支按语义相同的抽样地址配对，记录哪些过程解耦及其对方差的影响。</td></tr>
+<tr><th scope="row">并发发布与回滚</th><td>并发修订同一父版，在写入、发布及消息投递边界注入失败，重复请求及重复投递。</td><td>每个请求产生唯一可回查结果。两份并发子分支仍可查询，默认读只看到经发布的完整版本，消费者按版本和消息 ID 去重。</td></tr>
+</tbody></table></div>
+<ol class="checklist">
+<li><strong>证据与精度。</strong>只知出生年时输出年龄区间。仅有省级灾情时保留个人县级暴露、资格、供给、申请和到账的未知。</li>
+<li><strong>发生、获知与记录时间。</strong>2001 年离岗、2012 年回忆错年、2025 年才补录。旧问卷按原快照回放，新档案与当时人物可见事实分别核验。</li>
+<li><strong>节点细化。</strong>把“迁居”拆成找房、签约、搬迁、入住。保留汇总锚点和来源，检查迁居、支出与状态增量各归其主。</li>
+<li><strong>冲突纠偏。</strong>LLM 直接撤销冲突的合成事件，子分支保留操作和自动诊断。外部资料冲突保留原始断言与待解状态。</li>
+<li><strong>生命终止。</strong>死亡之后只剩关联人物或机构的后续事件，未观察到死亡的在世截面保留右删失标识。</li>
+<li><strong>校验对样本的影响。</strong>按目标群体保留失败、重抽、修订及发布权重，检查约束过滤是否改变入样分布。</li>
+<li><strong>运行成本。</strong>比较单个 case、千人批次及独立总体切片，报告吞吐、尾部延迟、峰值内存、复算代价和版本存储增量。</li>
+<li><strong>骨架断点恢复。</strong>保存骨架后关闭界面并恢复。用两个页面并发提交手动和 LLM 修改，检查差异及重算。仅当确认指向当前通过校验的确切修订时，系统才启动扩写。</li>
+<li><strong>审查返工与归档问答。</strong>分别注入局部叙事矛盾和关键时间冲突。前者按单元修复复验，后者进入新骨架修订并再次审阅。检查发布前的版本读取、投影恢复和发布后第一人称问答所绑定的快照。</li>
+</ol>
+<div class="warning"><strong>通过判断。</strong>先预登记容许误差、性能预算、硬约束及例外状态，再报告各项实测结果和失败样例。通过工程 PoC 可准入该仿真模式。人口转移分布与问卷使用范围各需匹配的独立数据验收。 <a href="全链路设计复核与统一契约.md">全链路验收契约</a></div>
+</section>
+
+<section id="sources">
+<div class="section-head"><span class="num">08</span><h2>资料来源与核验边界</h2><p>以官方仓库、项目文档、包元数据和同行评审为主</p></div>
+<p class="small muted">成熟度依据公开发行记录、文档、模型样例、许可证和社区治理。适配度是当前设计判断，核对 case、关系、时间、风险、分支和可解释输出的项目要求。工程性能、历史参数适用性和真实微观数据许可各待实测或复核。</p>
+<ol class="source-list">
+<li><strong>OpenM++ 平台与许可。</strong><a href="https://openmpp.org/">平台官网</a> · <a href="https://github.com/openmpp/main/releases">正式发行</a> · <a href="https://github.com/openmpp/openmpp.github.io/wiki/Population-Size-and-Scaling">case/time-based 的正式定义</a></li>
+<li><strong>OpenM++ 事件语义。</strong><a href="https://github.com/openmpp/openmpp.github.io/wiki/Model-Code">模型代码、事件重排和种子</a> · <a href="https://github.com/openmpp/openmpp.github.io/wiki/Event-Trace">事件追踪</a> · <a href="https://github.com/openmpp/openmpp.github.io/wiki/Microdata-Output">微数据输出限制</a> · <a href="https://github.com/StatCan/stcopenmpp/releases">加拿大统计局发行分支</a></li>
+<li><strong>恢复与发布。</strong><a href="https://openmpp.org/libopenm_doxygen/html/classopenm_1_1_restart_controller.html">运行级补算</a> · <a href="https://www.postgresql.org/docs/current/transaction-iso.html">PostgreSQL 事务隔离</a> · <a href="https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html">事务发件箱模式</a></li>
+<li><strong>DYNAMIS-POP。</strong><a href="https://www.microsimulation.pub/articles/00205">dynamic microsimulation 跨国模型论文</a> · <a href="https://dynamis.ihsn.org/guide/Model/DYNAMIS-POP-Code-Step01.html">微观入口与家庭链接教程</a></li>
+<li><strong>SimPaths。</strong><a href="https://github.com/simpaths/SimPaths/releases/tag/2026.11.08">2026.11.08 正式版</a> · <a href="https://simpaths.org/overview/model-description/">模型描述</a> · <a href="https://simpaths.org/developer-guide/internals/simpaths-model/">全局事件队列与年度调度</a> · <a href="https://github.com/simpaths/SimPaths/blob/main/license.txt">EUPL 许可</a> · <a href="https://www.microsimulation.pub/articles/00318">同行评审模型论文</a></li>
+<li><strong>LIAM2。</strong><a href="https://liam2.plan.be/">官方项目与 GPL-3</a> · <a href="https://liam2.readthedocs.io/en/0.13.0/changes.html">0.13.0 改动与 2026-07-29 发布</a></li>
+<li><strong>ML3。</strong><a href="https://doi.org/10.1145/3486634">linked-lives DSL 的语义论文</a> · <a href="https://repo.maven.apache.org/maven2/org/jamesii/ml3/maven-metadata.xml">Maven 中央版本/最后更新时间</a> · <a href="https://zenodo.org/records/5414747">固定 0.2.6 源码存档</a></li>
+<li><strong>Ixa。</strong><a href="https://docs.rs/ixa/3.1.0/">3.1.0 公共 API</a> · <a href="https://ixa.rs/book/">官方 Book</a> · <a href="https://github.com/CDCgov/ixa/releases">Rust 发行历史</a></li>
+<li><strong>Mesa。</strong><a href="https://github.com/mesa/mesa/releases/tag/v3.5.1">3.5.1 与事件调度变化</a> · <a href="https://mesa.readthedocs.io/stable/tutorials/3_event_scheduling.html">事件调度接口</a></li>
+<li><strong>Agents.jl。</strong><a href="https://github.com/JuliaDynamics/Agents.jl/releases/tag/v7.0.4">7.0.4</a> · <a href="https://juliadynamics.github.io/Agents.jl/stable/api/#Agents.EventQueueABM">EventQueueABM 公共 API</a></li>
+<li><strong>GAMA/GAML、NetLogo。</strong><a href="https://gama-platform.org/wiki/GamlLanguage">GAML</a> · <a href="https://github.com/gama-platform/gama/releases/tag/2026.09.0">GAMA 2026.09.0</a> · <a href="https://docs.netlogo.org/7.0.4/time">NetLogo Time extension</a></li>
+<li><strong>SimPy 与 Synthea。</strong><a href="https://pypi.org/project/simpy/4.1.2/">SimPy 4.1.2</a> · <a href="https://simpy.readthedocs.io/en/stable/topical_guides/time_and_scheduling.html">离散时间/事件队列说明</a> · <a href="https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework">Synthea JSON modules</a> · <a href="https://github.com/synthetichealth/synthea/releases/tag/v4.0.0">4.0.0</a></li>
+<li><strong>AgentTorch。</strong><a href="https://github.com/AgentTorch/AgentTorch">README 的 AGPL 声明及人口建模说明</a> · <a href="https://github.com/AgentTorch/AgentTorch/blob/master/pyproject.toml">pyproject 的 MIT 声明</a>。两文件有许可证冲突，需向权利方确认。</li>
+<li><strong>概率/规划。</strong><a href="https://github.com/probcomp/Gen.jl/releases/tag/v0.4.9">Gen.jl 0.4.9</a> · <a href="https://www.gen.dev/docs/stable/ref/core/gfi/">Generative Function Interface</a> · <a href="https://github.com/MiniZinc/libminizinc/releases/tag/2.11.0">MiniZinc 2.11.0</a> · <a href="https://github.com/google/or-tools/releases/tag/v9.15">OR-Tools v9.15</a> · <a href="https://github.com/Z3Prover/z3/releases/tag/z3-5.4.1">Z3 5.4.1</a></li>
+<li><strong>随机规则/校验。</strong><a href="https://github.com/cue-lang/cue/releases">CUE releases</a> · <a href="https://github.com/cel-expr/cel-go/releases/tag/v0.32.0">CEL-Go 0.32.0</a> · <a href="https://pypi.org/project/cel-expr-python/0.1.3/">CEL Python wrapper</a> · <a href="https://github.com/gorules/zen/releases">ZEN releases</a> · <a href="https://github.com/openl-tablets/openl-tablets/releases/tag/6.4.0">OpenL 6.4.0</a></li>
+<li><strong>运行编排。</strong><a href="https://github.com/temporalio/temporal/releases/tag/v1.32.0">Temporal v1.32.0</a> · <a href="https://github.com/dbos-inc/dbos-transact-py/releases/tag/3.2.0">DBOS 3.2.0</a> · <a href="https://github.com/argoproj/argo-workflows/releases/tag/v4.1.4">Argo Workflows 4.1.4</a></li>
+<li><strong>小领域工具。</strong><a href="https://cran.r-project.org/package=MicSim">MicSim 3.0.0</a> · <a href="https://cran.r-project.org/package=rsocsim">rsocsim 1.9.18</a> · <a href="https://activitysim.github.io/populationsim/">PopulationSim 0.10.0</a> · <a href="https://github.com/PolicyEngine/microcosm-dynamics">Microcosm Dynamics（截至报告日仍为规划/验证仓库）</a></li>
+<li><strong>中文平台抽查。</strong><a href="https://gitee.com/howie_wang/population-simulation">Gitee 人口预测案例库</a>为回归/时间序列/灰色预测的低活跃案例，不是动态个体事件 DSL。<a href="https://github.com/alibaba/QLExpress">QLExpress</a>与<a href="https://github.com/dromara/liteflow">LiteFlow</a>是活跃业务表达式/流程规则引擎，不是微观人口事件队列。<a href="https://github.com/sii-research/SocioVerse2/releases/tag/v0.2.0">复旦 SocioVerse2</a>、<a href="https://github.com/tsinghua-fib-lab/AgentSociety">清华 AgentSociety</a>、<a href="https://github.com/SmartLegislation/GPLab">GPLab</a>适合参考 LLM 社会模拟与政策实验；其 fixed-population / stepwise agent 行为模型不是出生 cohort、死亡风险、开人口家庭变动或竞争事件引擎。<a href="https://github.com/ZJU-LLMs/Agent-Kernel">浙大 Agent-Kernel</a>提供可扩展的 agent/environment 架构，不等于经过人口风险校准的生平模拟器。<a href="https://www.cpdrc.org.cn/ztlj/sherwu/201507/t20150708_756.html">中国人口与发展综合数学模型项目（2015）</a>有重要国内研究实践，但其公开摘要未提供可核验的通用可安装 DSL/runtime。</li>
+<li><strong>测量与评价视角。</strong><a href="https://doi.org/10.1073/pnas.2538145123">跨七项社会调查的合成统计真实性评测</a>表明人口分布、关联、多变量结果与事件序列需分别验收。<a href="https://doi.org/10.1177/25152459261461505">LLM 合成样本配置灵活性研究</a>强调配置变化会影响拟合结论。</li>
+</ol>
+</section>
+
+<footer>选型评估 · 2026-11-20 · 版本发行与许可在资料日截止时核验。候选的实际性能、在中国数据上的有效性、数据库/数据许可，以及现成源码编译和 Windows 安装尚未由本报告实测。</footer>
+</main>
+<script>
+const filter=document.getElementById('engineFilter');
+const rows=[...document.querySelectorAll('#engineTable tbody tr')];
+const count=document.getElementById('filterStatus');
+function applyFilter(){
+ const selection=filter.value;
+ let visible=0;
+ for(const row of rows){
+  const show=selection==='all'||row.dataset.kind===selection;
+  row.hidden=!show;
+  if(show)visible++;
+ }
+ count.textContent='显示 '+visible+' / '+rows.length+' 个平台候选';
+}
+filter.addEventListener('change',applyFilter);
+applyFilter();
+</script>
+</body>
+</html>

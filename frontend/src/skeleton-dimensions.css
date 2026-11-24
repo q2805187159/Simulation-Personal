@@ -1,0 +1,89 @@
+.skeleton-dimensions {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.skeleton-dimensions-heading {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: .75rem 1rem;
+}
+
+.skeleton-dimensions-heading h2 { margin: 0; }
+.skeleton-dimensions-heading p,
+.dimension-results {
+  margin-block: .45rem 0;
+  color: var(--muted);
+  font-size: .78rem;
+}
+
+.dimension-export { min-block-size: 2.75rem; text-decoration: none; }
+.skeleton-dimensions a:focus-visible { outline: 3px solid #e1a33b; outline-offset: 2px; }
+
+.dimension-counts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(7rem, 100%), 1fr));
+  gap: .65rem;
+  margin-block: .95rem;
+}
+
+.dimension-counts > div { border-block-start: 1px solid var(--line); padding-block-start: .4rem; }
+.dimension-counts dt { color: var(--muted); font-size: .75rem; }
+.dimension-counts dd { margin: .15rem 0 0; font-size: .88rem; font-weight: 650; }
+
+:is(.dimension-browser, .dimension-families, .dimension-definition, .dimension-event-updates) summary {
+  cursor: pointer;
+  padding-block: .65rem;
+  color: var(--green);
+  font-size: .82rem;
+}
+
+.dimension-browser { border-block-start: 1px solid var(--line); }
+.dimension-browser > summary { font-weight: 650; }
+.dimension-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: .65rem;
+  margin-block: .3rem .65rem;
+}
+.dimension-filters input, .dimension-filters select { min-block-size: 2.75rem; font-size: .86rem; }
+.dimension-filters label { display: block; margin-block-end: .25rem; font-size: .76rem; }
+.dimension-families { margin-block-start: .55rem; }
+.dimension-families > details { border-block-start: 1px solid var(--line); }
+.dimension-families > details:last-child { border-block-end: 1px solid var(--line); }
+.dimension-families > details > summary { min-block-size: 2.75rem; }
+.dimension-families summary small { color: var(--muted); margin-inline-start: .35rem; }
+.skeleton-dimensions code, .dimension-event-updates code { color: var(--muted); font-size: .75rem; }
+
+.dimension-entries, .dimension-anchors { list-style: none; margin: 0; padding: 0; }
+.dimension-entries { margin-inline-start: .95rem; }
+.dimension-entry {
+  padding-block: .65rem;
+  color: var(--muted);
+  font-size: .78rem;
+  line-height: 1.6;
+  border-block-start: 1px solid var(--line);
+}
+.dimension-entry-title, .dimension-anchors { display: flex; flex-wrap: wrap; align-items: center; gap: .25rem .55rem; }
+.dimension-entry-title strong { color: var(--ink); font-size: .86rem; }
+.dimension-status { background: #e6eadf; color: #405146; border-radius: .25rem; padding: 0 .4rem; font-size: .71rem; }
+.dimension-status:is([data-status="derived"], [data-status="event_anchored"]) { background: #dbe9de; color: #205644; }
+.dimension-entry > p { margin-block-start: .3rem; }
+.dimension-anchors { margin-block-start: .2rem; }
+.dimension-anchors a { display: inline-block; padding-block: .25rem; color: var(--green); text-underline-offset: .2em; }
+.dimension-definition summary { padding-block: .35rem; }
+.dimension-definition p { margin-block: .2rem; }
+.dimension-definition dl { margin-block: .45rem 0; }
+.dimension-definition dt, .dimension-values dt { color: var(--ink); font-weight: 600; }
+.dimension-definition dd, .dimension-values dd { margin-inline-start: .75rem; }
+.dimension-values { display: grid; gap: .2rem; margin-block: .35rem; }
+ul.dimension-values { padding-inline-start: 1.1rem; }
+.dimension-event-updates { border-block-start: 1px solid var(--line); font-size: .78rem; }
+.dimension-event-updates :is(dd, code) { overflow-wrap: anywhere; }
+
+@media (max-width: 440px) {
+  .dimension-filters { grid-template-columns: minmax(0, 1fr); }
+  .dimension-entries { margin-inline-start: .45rem; }
+}

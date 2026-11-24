@@ -1,0 +1,190 @@
+model_type case_based;
+time_type double;
+version 1, 0, 0, 0;
+
+languages { EN };
+
+use "common.ompp";
+use "random/random_lcg41.ompp";
+use "case_based/case_based_lcg41.ompp";
+use "case_based/case_based_core.ompp";
+use "case_based/case_based_cases_per_run_exogenous.ompp";
+use "case_based/case_based_scaling_none.ompp";
+use "common_modgen.ompp";
+use "case_based/case_based_modgen.ompp";
+
+actor Person
+{
+    logical active = {TRUE};
+    logical career_disrupted = {FALSE};
+    logical health_changed = {FALSE};
+    logical care_started = {FALSE};
+    logical partnered = {FALSE};
+    TIME health_day = {0.0};
+
+    void Start();
+    void Finish();
+
+    // Death wins a tie. Cutoff follows every eligible event at the same time.
+    event timeDeath, Death, 100;
+    event timeJobExit, JobExit, 60;
+    event timeRelocation, Relocation, 50;
+    event timeHealthTransition, HealthTransition, 40;
+    event timeSharedCare, SharedCare, 30;
+    event timePartnership, Partnership, 20;
+    event timeCutoff, Cutoff, 1;
+};
+
+actor Caregiver
+{
+    logical committed = {FALSE};
+
+    void Start();
+    void Finish();
+};
+
+link Person.caregiver Caregiver.recipient;
+
+table Person Cases
+{
+    { value_in(active), value_out(care_started) }
+};
+
+table Caregiver CaregiverOutcomes
+{
+    { value_out(committed) }
+};
+
+void Simulation_start(case_info& ci)
+{
+    ReadCase(ci);
+}
+
+void CaseSimulation(case_info& ci)
+{
+    auto* person = new Person();
+    person->Start();
+    SimulateEvents();
+}
+
+void Simulation_end(case_info& ci)
+{
+    WriteEvents(ci);
+}
+
+void Person::Start()
+{
+    initialize_attributes();
+    age = 0.0;
+    time = 0.0;
+    const auto& care = CaseInfo()->risks[static_cast<std::size_t>(Risk::SharedCare)];
+    if (care.rate > 0.0 || care.forced >= 0.0) {
+        auto* supporter = new Caregiver();
+        supporter->Start();
+        caregiver = supporter;
+    }
+    enter_simulation();
+}
+
+void Person::Finish()
+{
+    if (!caregiver.is_nullptr()) {
+        caregiver->Finish();
+    }
+    active = FALSE;
+    exit_simulation();
+}
+
+void Caregiver::Start()
+{
+    initialize_attributes();
+    age = 0.0;
+    time = 0.0;
+    enter_simulation();
+}
+
+void Caregiver::Finish()
+{
+    exit_simulation();
+}
+
+TIME Person::timeDeath()
+{
+    return CaseInfo()->scheduled_day(Risk::Death);
+}
+
+void Person::Death()
+{
+    CaseInfo()->events.emplace_back(Risk::Death, time);
+    Finish();
+}
+
+TIME Person::timeJobExit()
+{
+    return career_disrupted ? TIME_INFINITE : CaseInfo()->scheduled_day(Risk::JobExit);
+}
+
+void Person::JobExit()
+{
+    career_disrupted = TRUE;
+    CaseInfo()->events.emplace_back(Risk::JobExit, time);
+}
+
+TIME Person::timeRelocation()
+{
+    return career_disrupted ? TIME_INFINITE : CaseInfo()->scheduled_day(Risk::Relocation);
+}
+
+void Person::Relocation()
+{
+    career_disrupted = TRUE;
+    CaseInfo()->events.emplace_back(Risk::Relocation, time);
+}
+
+TIME Person::timeHealthTransition()
+{
+    return health_changed ? TIME_INFINITE : CaseInfo()->scheduled_day(Risk::HealthTransition);
+}
+
+void Person::HealthTransition()
+{
+    health_day = time;
+    health_changed = TRUE;
+    CaseInfo()->events.emplace_back(Risk::HealthTransition, time);
+}
+
+TIME Person::timeSharedCare()
+{
+    if (!health_changed || care_started || caregiver.is_nullptr()) {
+        return TIME_INFINITE;
+    }
+    return CaseInfo()->scheduled_day(Risk::SharedCare, health_day);
+}
+
+void Person::SharedCare()
+{
+    care_started = TRUE;
+    caregiver->committed = TRUE;
+    CaseInfo()->events.emplace_back(Risk::SharedCare, time);
+}
+
+TIME Person::timePartnership()
+{
+    return partnered ? TIME_INFINITE : CaseInfo()->scheduled_day(Risk::Partnership);
+}
+
+void Person::Partnership()
+{
+    partnered = TRUE;
+    CaseInfo()->events.emplace_back(Risk::Partnership, time);
+}
+
+TIME Person::timeCutoff()
+{
+    return CaseInfo()->cutoff;
+}
+
+void Person::Cutoff()
+{
+    Finish();
+}

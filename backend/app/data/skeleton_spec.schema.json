@@ -1,0 +1,399 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+        "BirthYearSampling": {
+            "anyOf": [
+                {
+                    "const": {
+                        "source": "provided"
+                    }
+                },
+                {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "range": {
+                            "type": "array",
+                            "prefixItems": [
+                                {
+                                    "$ref": "#/$defs/Year"
+                                },
+                                {
+                                    "$ref": "#/$defs/Year"
+                                }
+                            ],
+                            "maxItems": 2,
+                            "minItems": 2
+                        },
+                        "source": {
+                            "const": "sampled"
+                        }
+                    },
+                    "required": [
+                        "range",
+                        "source"
+                    ]
+                }
+            ]
+        },
+        "CatalogCode": {
+            "type": "string",
+            "maxLength": 2,
+            "pattern": "^[0-9]{2}$"
+        },
+        "Detail": {
+            "enum": [
+                "standard",
+                "rich"
+            ]
+        },
+        "Entry": {
+            "enum": [
+                "birth_cohort",
+                "living_at_as_of"
+            ]
+        },
+        "EthnicityCode": {
+            "type": "string",
+            "maxLength": 48,
+            "pattern": "^([0-9]{2}|(cn|hk|mo|tw)-[a-z0-9]+(-[a-z0-9]+)*)$"
+        },
+        "HistorySelection": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "$ref": "#/$defs/RuleID"
+                },
+                "label": {
+                    "$ref": "#/$defs/Text"
+                },
+                "reason": {
+                    "$ref": "#/$defs/Text"
+                }
+            },
+            "required": [
+                "id",
+                "label",
+                "reason"
+            ]
+        },
+        "Household": {
+            "enum": [
+                "individual",
+                "family"
+            ]
+        },
+        "ISODate": {
+            "type": "string",
+            "maxLength": 10,
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "LifeStatus": {
+            "enum": [
+                "living",
+                "deceased"
+            ]
+        },
+        "Population": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "analysis_weight": {
+                    "type": "null"
+                },
+                "birth_year": {
+                    "$ref": "#/$defs/BirthYearSampling"
+                },
+                "birth_year_selection_probability": {
+                    "$ref": "#/$defs/Probability"
+                },
+                "cohort_survival_probability": {
+                    "$ref": "#/$defs/Probability"
+                },
+                "conditioning": {
+                    "enum": [
+                        "unconditional",
+                        "survived_through_as_of",
+                        "died_by_as_of"
+                    ]
+                },
+                "frame": {
+                    "$ref": "#/$defs/Entry"
+                },
+                "frame_birth_year_count": {
+                    "type": "number",
+                    "minimum": 1,
+                    "multipleOf": 1
+                },
+                "frame_inclusion_probability": {
+                    "$ref": "#/$defs/Probability"
+                },
+                "frame_log_inclusion_probability": {
+                    "type": "number",
+                    "maximum": 0
+                },
+                "frame_population_size": {
+                    "type": "null"
+                },
+                "model_version": {
+                    "const": "synthetic-population/1"
+                },
+                "right_censored": {
+                    "type": "boolean"
+                },
+                "risk_class": {
+                    "enum": [
+                        "lower",
+                        "middle",
+                        "higher"
+                    ]
+                },
+                "risk_class_selection_probability": {
+                    "$ref": "#/$defs/Probability"
+                },
+                "synthetic": {
+                    "const": true
+                }
+            },
+            "required": [
+                "analysis_weight",
+                "birth_year",
+                "birth_year_selection_probability",
+                "cohort_survival_probability",
+                "conditioning",
+                "frame",
+                "frame_birth_year_count",
+                "frame_inclusion_probability",
+                "frame_log_inclusion_probability",
+                "frame_population_size",
+                "model_version",
+                "right_censored",
+                "risk_class",
+                "risk_class_selection_probability",
+                "synthetic"
+            ]
+        },
+        "Probability": {
+            "type": "number",
+            "maximum": 1,
+            "minimum": 0
+        },
+        "RuleID": {
+            "type": "string",
+            "not": {
+                "pattern": "[\\r\\n]"
+            },
+            "pattern": "^[A-Z0-9]+(-[A-Z0-9]+)*$"
+        },
+        "Seed": {
+            "type": "number",
+            "description": "GenerationOptions enforces the exact signed 64-bit upper bound on input.",
+            "minimum": 0,
+            "multipleOf": 1
+        },
+        "Text": {
+            "type": "string",
+            "minLength": 1
+        },
+        "Year": {
+            "type": "number",
+            "maximum": 2100,
+            "minimum": 1880,
+            "multipleOf": 1
+        }
+    },
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+        "as_of": {
+            "$ref": "#/$defs/ISODate"
+        },
+        "birth_year": {
+            "$ref": "#/$defs/Year"
+        },
+        "death_date": {
+            "anyOf": [
+                {
+                    "$ref": "#/$defs/ISODate"
+                },
+                {
+                    "type": "null"
+                }
+            ]
+        },
+        "detail": {
+            "$ref": "#/$defs/Detail"
+        },
+        "entry": {
+            "$ref": "#/$defs/Entry"
+        },
+        "ethnicity": {
+            "$ref": "#/$defs/EthnicityCode"
+        },
+        "ethnicity_label": {
+            "$ref": "#/$defs/Text"
+        },
+        "history_selection": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/HistorySelection"
+            }
+        },
+        "household": {
+            "$ref": "#/$defs/Household"
+        },
+        "life_status": {
+            "$ref": "#/$defs/LifeStatus"
+        },
+        "population": {
+            "$ref": "#/$defs/Population"
+        },
+        "population_selection": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "cell_count": {
+                    "allOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "integer",
+                            "exclusiveMinimum": 0
+                        }
+                    ]
+                },
+                "eligible_population": {
+                    "allOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "integer",
+                            "exclusiveMinimum": 0
+                        }
+                    ]
+                },
+                "filters": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "ethnicity": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/$defs/EthnicityCode"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        },
+                        "region": {
+                            "anyOf": [
+                                {
+                                    "$ref": "#/$defs/CatalogCode"
+                                },
+                                {
+                                    "type": "null"
+                                }
+                            ]
+                        }
+                    },
+                    "required": [
+                        "ethnicity",
+                        "region"
+                    ]
+                },
+                "frame_id": {
+                    "$ref": "#/$defs/Text"
+                },
+                "frame_population": {
+                    "allOf": [
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "integer",
+                            "exclusiveMinimum": 0
+                        }
+                    ]
+                },
+                "selection_probability": {
+                    "$ref": "#/$defs/Probability"
+                },
+                "version": {
+                    "$ref": "#/$defs/Text"
+                }
+            },
+            "required": [
+                "cell_count",
+                "eligible_population",
+                "filters",
+                "frame_id",
+                "frame_population",
+                "selection_probability",
+                "version"
+            ]
+        },
+        "region": {
+            "$ref": "#/$defs/CatalogCode"
+        },
+        "region_label": {
+            "$ref": "#/$defs/Text"
+        },
+        "sampling": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "birth_year": {
+                    "$ref": "#/$defs/BirthYearSampling"
+                },
+                "household": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "source": {
+                            "enum": [
+                                "provided",
+                                "sampled"
+                            ]
+                        }
+                    },
+                    "required": [
+                        "source"
+                    ]
+                }
+            },
+            "required": [
+                "birth_year",
+                "household"
+            ]
+        },
+        "seed": {
+            "$ref": "#/$defs/Seed"
+        },
+        "themes": {
+            "type": "array",
+            "items": {
+                "$ref": "#/$defs/RuleID"
+            }
+        }
+    },
+    "required": [
+        "as_of",
+        "birth_year",
+        "detail",
+        "entry",
+        "ethnicity",
+        "ethnicity_label",
+        "history_selection",
+        "household",
+        "life_status",
+        "region",
+        "region_label",
+        "sampling",
+        "seed",
+        "themes"
+    ]
+}

@@ -1,0 +1,12 @@
+**
+!backend/
+!backend/requirements.txt
+!backend/app/
+!backend/app/**
+backend/app/**/__pycache__/
+!skeleton/
+!skeleton/openmpp/
+!skeleton/openmpp/**
+!docs/
+!docs/v3/
+!docs/v3/维度字典.csv

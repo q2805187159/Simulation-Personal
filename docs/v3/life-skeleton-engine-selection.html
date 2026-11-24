@@ -1,0 +1,485 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:,">
+  <title>早期平台比较资料 | 人生骨架生成</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #17221f;
+      --muted: #5c6a66;
+      --paper: #ffffff;
+      --wash: #f2f6f4;
+      --line: #d5dfda;
+      --teal: #087e70;
+      --teal-dark: #075c52;
+      --coral: #b84e3c;
+      --amber: #926016;
+      --blue: #365d85;
+      --green: #17694e;
+      --gray: #6b7773;
+      --sans: "Inter", "Segoe UI", "Microsoft YaHei UI", sans-serif;
+      --serif: "Source Serif 4", "Noto Serif SC", Georgia, serif;
+      --mono: "IBM Plex Mono", "Cascadia Code", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font: 15px/1.68 var(--sans);
+    }
+    a { color: #075e6c; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--coral); }
+    a:focus-visible, summary:focus-visible, .scroll-table:focus-visible {
+      outline: 3px solid var(--coral);
+      outline-offset: 3px;
+    }
+    .masthead { color: #f0f6f3; background: #172622; border-bottom: 5px solid var(--teal); }
+    .masthead-inner, main, footer { width: min(1260px, 100%); margin-inline: auto; }
+    .masthead-inner { padding: 30px 30px 28px; }
+    .kicker, .eyebrow, .mono { font-family: var(--mono); }
+    .kicker, .eyebrow { font-size: 11px; text-transform: uppercase; }
+    .kicker { color: #9dd3c7; }
+    h1, h2, h3, h4 { line-height: 1.25; margin-top: 0; }
+    h1 { max-width: 940px; margin: 11px 0 12px; font: 40px/1.2 var(--serif); }
+    h2 { margin: 0 0 12px; font: 28px/1.25 var(--serif); }
+    h3 { margin: 21px 0 8px; font-size: 18px; }
+    h4 { margin: 16px 0 6px; font-size: 15px; }
+    p { margin: 8px 0 13px; }
+    .subtitle { max-width: 970px; margin: 0; color: #c9d7d1; font-size: 17px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 7px 23px; margin-top: 22px; color: #b6c7c0; font-size: 12px; }
+    .meta strong { color: #fff; font-weight: 650; }
+    .skip { position: absolute; left: 12px; top: -70px; padding: 10px; background: #fff; color: #000; z-index: 8; }
+    .skip:focus { top: 10px; }
+    nav.contents {
+      position: sticky; top: 0; z-index: 4;
+      display: flex; overflow-x: auto; gap: 2px; padding: 0 18px;
+      background: rgba(255,255,255,.98); border-bottom: 1px solid var(--line);
+      scrollbar-width: thin;
+    }
+    nav.contents a { flex: 0 0 auto; padding: 11px 12px; color: var(--muted); text-decoration: none; font-size: 12px; white-space: nowrap; border-bottom: 2px solid transparent; }
+    nav.contents a:hover { color: var(--teal-dark); border-color: var(--teal); }
+    main { padding: 27px 30px 55px; }
+    section { padding: 29px 0 34px; border-bottom: 1px solid var(--line); scroll-margin-top: 58px; }
+    .eyebrow { margin: 0 0 6px; color: var(--teal-dark); }
+    .lede { max-width: 1000px; color: #354440; font-size: 16px; }
+    .decision { margin: 18px 0; padding: 17px 19px; background: #edf5f2; border-left: 5px solid var(--teal); }
+    .decision strong { color: var(--teal-dark); }
+    .decision p:last-child { margin-bottom: 0; }
+    .summary-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 19px 0; border-block: 1px solid var(--line); }
+    .summary-item { padding: 14px 16px 15px 0; }
+    .summary-item + .summary-item { padding-left: 17px; border-left: 1px solid var(--line); }
+    .summary-item strong { display: block; font-size: 14px; }
+    .summary-item p { margin: 5px 0 0; color: var(--muted); font-size: 13px; }
+    .note, figcaption { color: var(--muted); font-size: 12px; }
+    .callout { padding: 10px 13px; background: #fff7e8; border-left: 4px solid #c78b2c; }
+    .diagram-wrap { margin: 19px 0; padding: 15px 0 8px; border-block: 1px solid var(--line); }
+    .diagram { display: block; width: 100%; height: auto; }
+    figcaption { margin-top: 8px; }
+    .two-col { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 0 27px; }
+    .rule-row { padding: 12px 0; border-top: 1px solid var(--line); }
+    .rule-row h3 { margin: 0 0 4px; font-size: 15px; }
+    .rule-row p { margin: 0; color: var(--muted); font-size: 13px; }
+    .scroll-table { max-width: 100%; overflow-x: auto; background: #fff; border: 1px solid var(--line); }
+    .scroll-table:focus-visible { outline-offset: 2px; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    caption { padding: 10px 12px; color: var(--muted); background: var(--wash); text-align: left; font-size: 12px; }
+    th, td { padding: 10px 11px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+    thead th { position: sticky; inset-block-start: 0; z-index: 1; color: #f2f7f4; background: #293b35; font-weight: 650; }
+    tbody th { background: #f8faf9; font-weight: 650; }
+    tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+    .wide { min-width: 1030px; }
+    .wide-xl { min-width: 1160px; }
+    .fit { color: var(--green); font-weight: 700; white-space: nowrap; }
+    .conditional { color: var(--amber); font-weight: 700; }
+    .weak { color: var(--gray); }
+    .scope-tag { display: inline-block; padding: 1px 6px; color: var(--teal-dark); border: 1px solid #8bb4aa; font: 11px/1.55 var(--mono); }
+    .platform { padding: 15px 0; border-top: 1px solid var(--line); }
+    .platform h3 { margin: 0 0 4px; font-size: 16px; }
+    .platform-meta { color: var(--muted); font: 11px/1.5 var(--mono); }
+    .platform p { margin: 6px 0 8px; }
+    details { padding: 8px 0; border-top: 1px dashed var(--line); }
+    details summary { cursor: pointer; color: var(--teal-dark); font-weight: 650; }
+    details > div { padding: 6px 0 3px; }
+    ol.tests { list-style: none; padding: 0; counter-reset: test; }
+    .tests li { position: relative; padding: 12px 0 12px 47px; border-top: 1px solid var(--line); counter-increment: test; }
+    .tests li::before { position: absolute; left: 0; top: 12px; color: var(--coral); font: 12px var(--mono); content: "T" counter(test, decimal-leading-zero); }
+    code { color: #813f31; font: .92em var(--mono); overflow-wrap: anywhere; }
+    ul.refs { padding-left: 19px; }
+    ul.refs li { padding: 3px 0; }
+    footer { padding: 20px 30px 32px; color: var(--muted); font-size: 12px; }
+    footer p { margin: 4px 0; }
+    @media (max-width: 760px) {
+      .masthead-inner { padding: 24px 18px; }
+      h1 { font-size: 31px; }
+      .subtitle { font-size: 15px; }
+      main { padding: 18px 17px 39px; }
+      footer { padding-inline: 17px; }
+      .summary-grid { grid-template-columns: 1fr; }
+      .summary-item { padding: 11px 0; }
+      .summary-item + .summary-item { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+      .two-col { grid-template-columns: 1fr; }
+      .diagram-wrap { overflow-x: auto; }
+      .diagram { min-width: 750px; }
+    }
+    @media print {
+      nav.contents { position: static; flex-wrap: wrap; }
+      nav.contents a { white-space: normal; }
+      .masthead { color: var(--ink); background: #fff; border-bottom: 2px solid var(--teal); }
+      .subtitle, .meta, .kicker { color: var(--muted); }
+      .scroll-table { overflow: visible; }
+      .wide, .wide-xl { min-width: 0; }
+      section, details { break-inside: avoid; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#report">跳至报告正文</a>
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="kicker">PLATFORM REVIEW ARCHIVE · 2026-11-20</div>
+      <h1>早期平台比较资料</h1>
+      <p class="subtitle">只比较如何从人口入口生成一条有起止、有关系、有竞争事件、可复现的结构化人生骨架。叙事记忆、口吻与 LLM 后续扩写不纳入评分。</p>
+      <div class="meta">
+        <span>分析对象 <strong>人口模拟内核 / 骨架 DSL</strong></span>
+        <span>使用边界 <strong>研究设计与概念验证</strong></span>
+        <span>检索截点 <strong>2026 年 11 月 20 日</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="contents" aria-label="报告目录">
+    <a href="骨架生成DSL与仿真平台选型报告_2026-11-20.html">当前选型</a><a href="#decision">历次结论</a><a href="#criteria">评估标准</a><a href="#architecture">早期配置</a><a href="#matrix">候选总览</a><a href="#domain">领域平台</a><a href="#ecosystems">其他生态</a><a href="#fork">源码修改</a><a href="#poc">PoC 验证</a><a href="#refs">参考来源</a>
+  </nav>
+
+  <main id="report">
+    <aside class="callout" aria-label="资料状态">
+      <p><strong>早期调研归档。</strong> 本页保留当时的候选平台、模型样例与对照依据。现行设计优先验证 OpenM++ case-based，另用 time-based 验证跨案例互动。具备写权限的 LLM 直接修订子分支，项目层沿依赖重算并保留父修订。 <a href="骨架生成DSL与仿真平台选型报告_2026-11-20.html">当前选型报告</a> · <a href="全链路设计复核与统一契约.md">现行统一契约</a></p>
+    </aside>
+    <section id="decision" aria-labelledby="decision-heading">
+      <div class="eyebrow">01 / executive decision</div>
+      <h2 id="decision-heading">早期选型结论</h2>
+      <p class="lede">截至本报告检索日，未发现一个可直接安装、持续维护、完整覆盖“所有地区与民族 + 出生或存活人口入口 + 家庭互动 + 连续生命事件 + 双时间回放”的单一开源 DSL。建议先按层组合，而不是把通用工作流、状态机或某个欧洲/美国人口模型误当成完整的中国人生成器。</p>
+      <div class="decision">
+        <p><strong>当时的首选 PoC 组合</strong> 用 CUE + JSON 表达经过约束的 <code>SkeletonSpec</code>；OpenM++ time-based 模型作为连续风险与人口事件内核候选；CEL 只判定明确的资格和规则谓词；MiniZinc 或 OR-Tools CP-SAT 检查短时窗、日程和资源硬约束；项目自有共享事件账本保存参与者状态差分、版本 lineage、时间精度及运行凭据。</p>
+        <p>OpenM++ 内核代码有受信任的 C++ 部分；LLM 只提供数据候选，不输出、编译或执行模型源码。这个组合是高匹配度的待验证配置，不代表上述项目已替本系统完成了参数、模型或外部效度校准。 <a href="https://openmpp.org/">OpenM++ 平台与许可</a> · <a href="https://github.com/cue-lang/cue/releases/tag/v0.17.1">CUE 发行</a></p>
+      </div>
+      <div class="summary-grid">
+        <div class="summary-item"><strong>先跑两种总体入口</strong><p>从出生队列模拟到死亡，和从某日存活人口入口回溯/续推，是不同条件总体。</p></div>
+        <div class="summary-item"><strong>把共享人生事件做成一等数据</strong><p>怀孕/生育、共同迁居、婚姻、照料与共享资金可以同时影响多人。</p></div>
+        <div class="summary-item"><strong>接受“分层复合”作为最佳选项</strong><p>业界成熟组件分别擅长人口事件、结构校验、政策判定和局部约束，不在同一层竞争。</p></div>
+      </div>
+      <p class="note">适配等级是依据项目需求和所查公开功能作出的定性工程判断。并非速度测试、人类真实性分数或开发工作量承诺。</p>
+    </section>
+
+    <section id="criteria" aria-labelledby="criteria-heading">
+      <div class="eyebrow">02 / first principles</div>
+      <h2 id="criteria-heading">骨架内核的评估标准</h2>
+      <p>骨架定义一组有关联的、带时间位置的结构化轨迹事件。它的用途是支持下游查询和判断，不能把所有维度先压成一条年表，也不能把人口标签单独用来确定个人结局。现有基线已定义并行 LifeSpell、个体/关系对象、Decision/Attempt、竞争事件、死亡删失、<code>valid_time</code>、<code>recorded_at</code> 和 <code>known_at</code>。 [设计基线的对象模型与生成顺序](虚拟人生成系统研究型设计基线_v3.0.md) · [具体历史到个体推演约定](历史暴露推演与个人路径机制规范_v1.md)</p>
+      <div class="two-col">
+        <article class="rule-row"><h3>时间与人生入口</h3><p>时间单位要匹配目标过程，年龄/时期/风险集不能靠下游文案补精度。起始入口分出生队列、存活截面与已故历史人口。</p></article>
+        <article class="rule-row"><h3>并行轨迹与竞争风险</h3><p>居住、工作、关系、教育、健康、照料与资源持续时间可以交错。退休、死亡、迁居和工作变化需正确结束或重算待决事件。</p></article>
+        <article class="rule-row"><h3>关联个体与共享事件</h3><p>共同事实以一个逻辑事件 ID 连接多参与者。家庭内支付、耗时、共同孩子及居住变化必须守恒，不应分开人再最后用文字“对齐”。</p></article>
+        <article class="rule-row"><h3>程序化描述的可信边界</h3><p>LLM 可以给受限的事件候选，但不能给模型进程任意执行码。概率参数必须来自逐总体/时期校准，unknown 不等于填 0。</p></article>
+        <article class="rule-row"><h3>可复现与双时态查询</h3><p>保存种子、模型与参数版本、实际随机抽值或可重放流、执行入口和结果哈希。之后发现的事实不修改早先运行和人物认知。</p></article>
+        <article class="rule-row"><h3>审核输出</h3><p>接受路径、失败候选、被拒绝原因及适用约束均可回查。引擎日志不能替代经授权、去重的项目人生账本。</p></article>
+      </div>
+      <p class="callout"><strong>入口关键决定</strong> 出生队列和参照日存活样本不能只传一个 flag。若研究人员分别要已故史实和当前可交互人物，也应显式使用不同的 inclusion frame 和 target denominator。</p>
+    </section>
+
+    <section id="architecture" aria-labelledby="architecture-heading">
+      <div class="eyebrow">03 / proposed design</div>
+      <h2 id="architecture-heading">早期配置示意图</h2>
+      <figure class="diagram-wrap">
+        <svg class="diagram" viewBox="0 0 1200 565" role="img" aria-labelledby="flow-title flow-description" xmlns="http://www.w3.org/2000/svg">
+          <title id="flow-title">早期人生骨架生成架构</title>
+          <desc id="flow-description">早期设计中，人口抽样框、历史世界版本和骨架声明通过结构校验及确定性规则进入 OpenM++ 事件内核。内核产生候选并连结参与者，验证后将共享事件和三类时间写入可回放账本，再向当时的下游 LLM 提供只读快照。现行的直接修订流程见当前选型报告。</desc>
+          <defs>
+            <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#087e70"/></marker>
+            <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#3d6689"/></marker>
+            <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="#bb4e3c"/></marker>
+          </defs>
+          <g font-family="Segoe UI, Microsoft YaHei UI, sans-serif" fill="#17221f">
+            <text x="40" y="30" font-family="IBM Plex Mono, Consolas, monospace" font-size="12" fill="#5c6a66">INPUT FRAMES → TIME-BASED EVENTS → VALIDATED LIFE SKELETON</text>
+            <rect x="40" y="66" width="214" height="106" rx="5" fill="#f0f6f3" stroke="#87b5aa" stroke-width="1.5"/>
+            <text x="58" y="96" font-weight="700" font-size="16">人口入口</text>
+            <text x="58" y="122" font-size="12">出生队列 / 存活截面</text>
+            <text x="58" y="145" font-size="12">死亡历史 / 机制测试组</text>
+            <rect x="305" y="66" width="220" height="106" rx="5" fill="#eaf3f1" stroke="#087e70" stroke-width="2"/>
+            <text x="323" y="96" font-weight="700" font-size="16">SkeletonSpec</text>
+            <text x="323" y="122" font-size="12">CUE 类型约束 + JSON 数据</text>
+            <text x="323" y="145" font-size="12">稳定 event type / 来源 / 版本</text>
+            <rect x="582" y="66" width="250" height="106" rx="5" fill="#edf2f8" stroke="#6888a7" stroke-width="1.5"/>
+            <text x="601" y="96" font-weight="700" font-size="16">规则与风险参数</text>
+            <text x="601" y="122" font-size="12">CEL deterministic predicates</text>
+            <text x="601" y="145" font-size="12">校准率表 / 未知范围 / effective date</text>
+            <rect x="889" y="66" width="270" height="106" rx="5" fill="#f6f3e9" stroke="#af9865" stroke-width="1.6"/>
+            <text x="908" y="96" font-weight="700" font-size="16">OpenM++ 模拟模型</text>
+            <text x="908" y="122" font-size="12">time-based entity event queue</text>
+            <text x="908" y="145" font-size="12">受信任模型代码；人口和参数按版本</text>
+            <path d="M254 119H296M525 119H572M832 119H879" fill="none" stroke="#087e70" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+            <rect x="305" y="226" width="220" height="94" rx="5" fill="#fff3ee" stroke="#bd785d" stroke-width="1.5"/>
+            <text x="323" y="256" font-weight="700" font-size="15">事件候选</text>
+            <text x="323" y="282" font-size="12">时间区间 / 多参与者 / 作用</text>
+            <text x="323" y="303" font-size="12">触发理由 / 风险来源 / uncertainty</text>
+            <rect x="582" y="226" width="250" height="94" rx="5" fill="#eff6f2" stroke="#78aa95" stroke-width="1.5"/>
+            <text x="601" y="256" font-weight="700" font-size="15">家庭级局部验证</text>
+            <text x="601" y="282" font-size="12">CP-SAT 或 MiniZinc</text>
+            <text x="601" y="303" font-size="12">时空日程 / 占用 / 账目平衡</text>
+            <rect x="889" y="226" width="270" height="94" rx="5" fill="#eef5f7" stroke="#7196a3" stroke-width="1.5"/>
+            <text x="908" y="256" font-weight="700" font-size="15">依赖事件更新</text>
+            <text x="908" y="282" font-size="12">一个事件更新每名参与者 delta</text>
+            <text x="908" y="303" font-size="12">发生后取消或重采竞争候选</text>
+            <path d="M1019 172V216" fill="none" stroke="#3d6689" stroke-width="1.7" marker-end="url(#arrow-blue)"/>
+            <path d="M832 273H879" fill="none" stroke="#3d6689" stroke-width="1.7" marker-end="url(#arrow-blue)"/>
+            <path d="M889 302C868 342 830 349 805 349" fill="none" stroke="#bb4e3c" stroke-width="1.6" marker-end="url(#arrow-red)"/>
+            <text x="837" y="368" font-size="11" fill="#bb4e3c">infeasible → 保留失败诊断，不静默改履历</text>
+
+            <rect x="305" y="395" width="527" height="94" rx="5" fill="#f4f7f5" stroke="#81958d" stroke-width="1.5"/>
+            <text x="324" y="426" font-weight="700" font-size="15">共享事件账本 / 可重复运行登记</text>
+            <text x="324" y="453" font-size="12">一个 event_id · participant_role[] · state_delta[] · lineage</text>
+            <text x="324" y="474" font-size="12">valid_time · recorded_at · known_at · model/rate/data version · seeds</text>
+            <rect x="889" y="395" width="270" height="94" rx="5" fill="#faf3e9" stroke="#bd9b5d" stroke-width="1.5"/>
+            <text x="908" y="426" font-weight="700" font-size="15">下游读取接口</text>
+            <text x="908" y="453" font-size="12">freeze target_as_of + archive_as_of</text>
+            <text x="908" y="474" font-size="12">核准后再交给 LLM 补充表达</text>
+            <path d="M832 442H879" fill="none" stroke="#bb4e3c" stroke-width="2" stroke-dasharray="6 5" marker-end="url(#arrow-red)"/>
+            <path d="M439 320V385" fill="none" stroke="#3d6689" stroke-width="1.6" marker-end="url(#arrow-blue)"/>
+            <text x="40" y="534" font-size="11" fill="#5c6a66">实线 = 生成 / 检查路径　虚线 = 只读交付　随机数按“模型 × 个体或事件域 × 决策地址”拆流</text>
+          </g>
+        </svg>
+        <figcaption>图中规则层负责有限、可校验的运行条件，不包括叙事文字生成。生命周期、风险参数和共享账本仍是项目的正式模型责任。</figcaption>
+      </figure>
+
+      <div class="scroll-table" tabindex="0" role="region" aria-label="推荐组合配置的责任边界">
+        <table>
+          <caption>早期候选配置与各层输出</caption>
+          <thead><tr><th scope="col">层</th><th scope="col">组件建议</th><th scope="col">责任</th><th scope="col">验收边界</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">数据描述</th><td>CUE + serialized JSON skeleton IR</td><td>总体框架、稳定 ID、时钟域、轨迹、event catalog、状态增量类型、概率参数引用、来源、版本和未知范围。</td><td>无 C++、Python 等任意可执行 LLM 输入。</td></tr>
+            <tr><th scope="row">约束求值</th><td>CEL；规则过多时可插 OpenL/DMN</td><td>明确身份 × 地区 × 日期的 deterministic eligibility、事件触发条件及策略依据。</td><td>非适用、不可知、值缺失、冲突、solver error 必须 distinct statuses。</td></tr>
+            <tr><th scope="row">过程推进</th><td>OpenM++ event kernel；以 DYNAMIS-POP/RiskPaths 参考模块作 bootstrap</td><td>入口采样、未来/过去 risk-set、时钟、事件计划、竞争、关联 Person/Household/entity。</td><td>时间与分母精度充分；参照日存活样本不得直接当出生 cohort 运行。</td></tr>
+            <tr><th scope="row">约束检查</th><td>OR-Tools CP-SAT / MiniZinc</td><td>只对局部人-家户时间窗口和资源变化检查日程/唯一交易/最小资源守恒。</td><td>可行组合不当作社会规范或总体抽样权重。</td></tr>
+            <tr><th scope="row">项目账本</th><td>自行维护 versioned immutable event log/projections</td><td>事务事件键、origin/provenance、参与者增量、双时间/获知时间、分支父链、失败诊断、模型运行输入和输出。</td><td>使用来源权利符合发布范围；修订靠新版本，不能擦掉旧运行。</td></tr>
+            <tr><th scope="row">批次调度</th><td>先 CLI / batch manifest，规模化再选 Durable Workflow</td><td>种群批次、随机 stream、运算失败与重试、事务幂等提交。</td><td>流程执行历史与模拟中的人物时间不互相替代。</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="matrix" aria-labelledby="matrix-heading">
+      <div class="eyebrow">04 / platform screening</div>
+      <h2 id="matrix-heading">主候选对比</h2>
+      <p>这里优先比较实际执行“人口 skeleton”的领域引擎。适配词标记是证据型判断，并非 benchmark。生态声誉/社区人数不能替代时间模型、关系模型和可校准数据。</p>
+      <div class="scroll-table" tabindex="0" role="region" aria-label="主候选适配矩阵，可横向滚动">
+        <table class="wide">
+          <caption>主候选之间的强项和骨架生成缺口</caption>
+          <thead><tr><th scope="col">平台</th><th scope="col">产品性质 / 最新参考版本</th><th scope="col">时间模型</th><th scope="col">个体与多人关系</th><th scope="col">可描述语言</th><th scope="col">对本项目结论</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">OpenM++</th><td>MIT 微观人口模拟平台；v1.17.15，2026-10-01</td><td>case-based / time-based；事件时间与 time/event-like attributes</td><td>Person 等实体与链接；人物增减可随事件发生</td><td>.mpp/.ompp + C++ 模型实现</td><td><span class="scope-tag">P1 内核 PoC</span> 领域接近；用受信任静态内核执行受限 SkeletonSpec。</td></tr>
+            <tr><th scope="row">SimPaths / JAS-mine</th><td>EUPL-1.2 人生模型框架；2026.11.08</td><td>年时间表可加入 dynamic event</td><td>人 / benefit unit / household 成型</td><td>Java API 与 country-model code</td><td><span class="scope-tag">P1 对照</span> 研究 lifespan 模块组织，直接迁移英国规则不可取。</td></tr>
+            <tr><th scope="row">DYNAMIS-POP</th><td>跨国人口发展模型，逐国配置；工具链使用 OpenM++ 与 R</td><td>连续时间 interacting population</td><td>教育、结合、出生、死亡、健康可建关系</td><td>实体模块代码 + R 估参</td><td><span class="scope-tag">P1 参考模型</span> 可拆人口初始化与模块化参数生成；需要合适中国微观数据。</td></tr>
+            <tr><th scope="row">LIAM2</th><td>GPL-3 YAML 微观模型框架；0.13.0 于 2026-07-29</td><td>逐 period 转移；解读 period 单位由模型指定</td><td>person / household links 和过程排序</td><td>YAML 方言</td><td><span class="scope-tag">P2 年度模型</span> DSL 易于研究者书写，但细时序竞争事件要另写架构。</td></tr>
+            <tr><th scope="row">ML3</th><td>Apache-2.0 linked lives 研究语言，稳定版 0.2.8 于 2022-04-25</td><td>连续时间离散事件 / 随机竞争</td><td>个体与 dynamic social network</td><td>正式 domain DSL，基础语义高度相关</td><td><span class="scope-tag">参考设计 / Fork 高风险</span> 学术语义极贴合，公开稳定 release 久未更新。</td></tr>
+            <tr><th scope="row">Ixa</th><td>Apache-2.0 Rust agent-based DES；crates 3.1.0 于 2026-08-27</td><td>EventQueueABM / Gillespie 选项</td><td>框架需自建并声明对象与链接</td><td>Rust API 不是外部 DSL</td><td><span class="scope-tag">自研内核备选</span> 可编译/可测，但编写事件语义、持久化和编辑工具由项目负责。</td></tr>
+            <tr><th scope="row">SOCSIM / rsocsim</th><td>C demographic kernel；R 包 1.9.18 于 2026-06-05，GPL-3</td><td>按月 piecewise-exponential 风险竞争</td><td>亲属识别和死亡后的 kin availability 强</td><td>参数文件 / R wrapper</td><td><span class="scope-tag">生命统计参考</span> 婚育死亡与亲缘校验很好，不足以建 education/work 全生涯骨架。</td></tr>
+            <tr><th scope="row">MicSim</th><td>R continuous-time multi-state package；GPL ≥2</td><td>基于转移强度/多状态</td><td>可以构造个体多状态；家庭联动不是核心</td><td>R functions 和转移表</td><td><span class="scope-tag">校验参照</span> 性能和轨迹实验有用，需外建共享事件层。</td></tr>
+            <tr><th scope="row">GAMA / GAML</th><td>GPL-3 空间 Agent simulation platform；2026.09 发行系 alpha</td><td>主要周期推进 / step based</td><td>空间 agent 和多层 Agent 可自建</td><td>专用 GAML</td><td><span class="scope-tag">环境专题工具</span> 做迁移、可达和暴露面丰富；总体人口风险不直接可用。</td></tr>
+            <tr><th scope="row">Synthea</th><td>Apache-2.0 合成病人和临床记录；v4.0.0 于 2026-03-05</td><td>GMF JSON state/transition 与 delay</td><td>patient / encounter / provider health relationships</td><td>GMF JSON 和 Java 插件</td><td><span class="scope-tag">health 子域参考</span> 适合健康/服务模块与可视编辑，不是社会 life course engine。</td></tr>
+            <tr><th scope="row">LIAM2 vs socsim 不能互相取代</th><td>一个偏经济生活周期；一个偏 demographic kinship</td><td>年 vs 月级随机 event 模型</td><td>家户变量 vs kinship lineage</td><td>YAML vs 参数 R</td><td><span class="scope-tag">双 oracle</span> 可为骨架不同子过程做对照输出，不将任何一方当总引擎。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">表中的发布日期按 2026-11-20 截止。SimPaths、OpenM++ 仍更新，模型入口文档和发行记录均以仓库当前公开版本为准。 [OpenM++ v1.17.15](https://github.com/openmpp/main/releases/tag/v1.17.15) · [SimPaths v2026.11.08](https://github.com/simpaths/SimPaths/releases/tag/2026.11.08) · [LIAM2 v0.13.0](https://github.com/liam2/liam2/releases/tag/0.13.0)</p>
+    </section>
+
+    <section id="domain" aria-labelledby="domain-heading">
+      <div class="eyebrow">05 / life course and synthetic-population platforms</div>
+      <h2 id="domain-heading">最接近骨架任务的现成模型</h2>
+      <article class="platform">
+        <h3>OpenM++ · 通用事件微观模拟平台</h3>
+        <div class="platform-meta">MIT · 1.17.15 (2026-10-01) · case-based / time-based / event trace</div>
+        <p>按个体维护下一事件时间，更新其状态并为依赖属性重算候选；可以建 linked entities，含 time-like 与 event-like 属性机制。time-based population model 适合大量互相关联个体。其同点事件有 event time、优先级和次级顺序；必须证明 tie-order 独立于编译意外。</p>
+        <p><strong>核心缺点</strong> 编译模型包括项目可信代码，不能把 C++ source DSL 直接暴露给 LLM。OpenM++ microdata 输出有 event trace，但跨实体变动不自动等于跨人物原子业务账本。测试必须在项目共享 event layer 上验证一次入账、退出和链接双方后果。event queue 大小也会随每个实体排队的事件数变大。</p>
+        <p><a href="https://openmpp.org/">OpenM++ 首页和 MIT 许可</a> · <a href="https://github.com/openmpp/main/releases/tag/v1.17.15">v1.17.15 release</a> · <a href="https://github-wiki-see.page/m/openmpp/openmpp.github.io/wiki/Event-Trace">事件 trace</a> · <a href="https://github-wiki-see.page/m/openmpp/openmpp.github.io/wiki/Microdata-Output">微数据输出注意项</a> · <a href="https://github-wiki-see.page/m/openmpp/openmpp.github.io/wiki/time-like-and-event-like-attributes">time-like/event-like 语义</a></p>
+      </article>
+      <article class="platform">
+        <h3>SimPaths / JAS-mine · 生命周期领域参照模型</h3>
+        <div class="platform-meta">SimPaths EUPL-1.2 · 2026.11.08 发行 · 11 个 UK life-course modules</div>
+        <p>包含年龄、教育、健康、家庭构成、social care、收入、消费、心理健康、显示表等模块，明确家庭个人关联、变量依赖和基线初始人群。动态事件在全局 Java event list 管理，年度 recurring schedules 可按 event group sequencing。</p>
+        <p>它比通用内核提供更多可复用的生活历程模块，然而主要版本参数和 country data 面向 UK / Europe，一些在途地区版本并非都能运行；年步顺序与福利过程依赖需迁移重算。适合把模块和测试情景搬到研究库，不适合作为“中国人通用参数”直接部署。</p>
+        <p><a href="https://github.com/simpaths/SimPaths/releases/tag/2026.11.08">最新发行：财富和遗赠模块说明</a> · <a href="https://simpaths.org/overview/model-description/">country model 与 domain modules</a> · <a href="https://simpaths.org/developer-guide/internals/simpaths-model/">调度、随机 stream、实体初始化与事件机制</a> · <a href="https://simpaths.org/developer-guide/jasmine/model-and-schedule/">显式运行顺序说明</a></p>
+      </article>
+      <article class="platform">
+        <h3>LIAM2 · YAML 年度微模拟</h3>
+        <div class="platform-meta">GPL-3.0 · 0.13.0 2026-07-29 · persons / households / links</div>
+        <p>作为 YAML dialect DSL 明确 persons / household entities、links、fields、period process 和执行顺序，可通过 repeats/assignment 和 period tables 实现年度人群演进。如果模型目标是“每年输出完整状态切片”，它是有力的 DSL-only 参照。</p>
+        <p>它的计算语义是某一期的 processes，哪怕 period 的数字可表不同单位，模型仍然对齐一个同步时期运行。错峰时间、日内照护、连续竞争风险、刚发生的事件精准重算，需要额外仿真与事件日志。</p>
+        <p><a href="https://github.com/liam2/liam2/releases/tag/0.13.0">LIAM2 0.13.0 release</a> · <a href="https://liam2.readthedocs.io/en/stable/model.html">DSL model syntax 与 entity links</a> · <a href="https://liam2.readthedocs.io/en/stable/processes.html">process semantics</a></p>
+      </article>
+      <article class="platform">
+        <h3>DYNAMIS-POP · 受人口分布约束的个体骨架生成参考</h3>
+        <div class="platform-meta">OpenM++ time-based model + R parameter scripts · 已发布可移植模型程序</div>
+        <p>连续时间 interacting population；目标是先复现 cohort-component aggregate，再额外生成教育、schooling、ethnicity、partnership、fertility 和 health 等个人 careers。文献列出毛里塔尼亚、尼泊尔和塞内加尔 case，要求 initial population microdata 和适用时空率表；R 管估计/后处理，OpenM++ 编译模型。</p>
+        <p><strong>选用方式</strong> 用它细读如何把人口宏观目标绑定个体转移、如何按国家调参、模块如何明确初始 population。切勿把“generic code”误读为“对所有国家无需校准”。文献有说明 DYNAMIS 分组件可取；对本项目的可分发许可责任仍须看每个 repository/data license。</p>
+        <p><a href="https://www.microsimulation.pub/articles/00205">发表设计与三国适配</a> · <a href="https://dynamis.ihsn.org/guide/">DYNAMIS-POP User Guide</a> · <a href="https://dynamis.ihsn.org/guide/Model/DYNAMIS-POP-Code-Step01.html">加载/生成初始人口</a></p>
+      </article>
+      <article class="platform">
+        <h3>Modgen / LifePaths / Demosim · 统计机构的成熟模拟范式</h3>
+        <div class="platform-meta">Modgen 免费可用但不是 open source · LifePaths 已 discontinued · Demosim 旧方法页标注 archive</div>
+        <p>LifePaths 展示人口、家庭和职业轨迹如何共同服务长期政策模拟；2013 technical overview 明确包含 parallel careers、continuous-time competing events 和 household context，后续 microsimulation 论文记载该模型已 discontinued。Demosim 的公开方法说明则给出连续时间、等待时间和竞争事件顺序。它们是高价值的运行语义参照，但不能被列作可任意 fork 的同等开放运行时。2025 年统计局 Demosim 介绍报告提到，未来 Demosim 将改编到与 Modgen 跨兼容的 OpenM++。</p>
+        <p><a href="https://www.statcan.gc.ca/en/microsimulation/lifepaths/lifepaths/lifepaths-overview-vuedensemble-eng.pdf">LifePaths technical overview PDF</a> · <a href="https://www.microsimulation.pub/articles/00228">later paper noting LifePaths discontinuation</a> · <a href="https://www150.statcan.gc.ca/n1/pub/91-621-x/2015001/sec-4-eng.htm">Demosim continuous time and waiting-time methods (archived)</a> · <a href="https://publications.gc.ca/collections/collection_2025/statcan/172000012025001-eng.pdf">Demosim 2025 methods report</a> · <a href="https://www.jasss.org/17/3/9.html">Modgen is freeware but not open source</a></p>
+      </article>
+      <article class="platform">
+        <h3>ML3 · 最贴近 linked lives 的论文级 DSL</h3>
+        <div class="platform-meta">ML3 0.2.8 (2022-04-25) · Apache-2.0 artifact · 原 Java 语言仓库更新缓慢</div>
+        <p>研究成果直接提出 Modeling Language for Linked Lives。群体用 agents/entities 链接彼此生命轨迹；支持时间相关 rates、任意时间 event scheduling 与依赖触发。它是这个任务的最佳“学习领域抽象”。公开稳定版版本历史止于 2022 年，加入生产栈时要面对 grammar、runtime、seed、schema migration、build 与 security 的自行维护。</p>
+        <p><a href="https://doi.org/10.1145/3486634">ML3 形式化语言与语义论文</a> · <a href="https://repo.maven.apache.org/maven2/org/jamesii/ml3/maven-metadata.xml">Maven release metadata</a> · <a href="https://zenodo.org/records/5414747">ML3 version 0.2.6 archive</a></p>
+      </article>
+      <article class="platform">
+        <h3>DEMOS · 依托 US panel 的 annual lifecycle models</h3>
+        <div class="platform-meta">BSD-3-Clause · Python · yearly agent changes</div>
+        <p>十余个人口生命周期模型覆盖教育、婚姻和交通/土地使用相关决策，模块以 US long panels 和 housing/activity datasets 估计。很适合作为 property/event inventory 和交互回归测试样例。</p>
+        <p>起始数据、美国生活地理和车辆/工作地 choice 是建设重点，不应将这些行为方程作为一般家庭生命周期事实迁移。</p>
+        <p><a href="https://github.com/NatLabRockies/DEMOS">DEMOS source, license and model description</a></p>
+      </article>
+      <article class="platform">
+        <h3>Longitudinal Synthetic Population Framework · 研究型 sequence sampler</h3>
+        <div class="platform-meta">MIT · 2026 v1.0.0 · EPFL research code · prior sampling + posterior population update</div>
+        <p>它把 existence、教育、工作等 life-course dimensions 建成 prior populations，并通过加权观察资料做 posterior updates，是本轮检索里直接讨论 longitudinal synthetic population 的新近开源实现。发布包含可复现的合成示例数据和 prior/posterior sampling notebooks，适合与项目的“配置率生成”“条件化在数据上生成”流程对照。</p>
+        <p>这仍是首版研究 framework，不是部署型离散事件 scheduler。其两个 synthetic example datasets 不属于真实中国代表性数据，而且示例/paper context 为交通 population trajectories。可借鉴接口概念，需先对 license notices、采样偏差和 longitudinal validation 另作审查。 <a href="https://github.com/candicebaud/longitudinal_synthetic_population">仓库与 MIT license</a> · <a href="https://github.com/candicebaud/longitudinal_synthetic_population/releases/tag/v1.0.0">v1.0.0 固定版本</a></p>
+      </article>
+      <article class="platform">
+        <h3>SOCSIM / rsocsim 与 MicSim · 生命统计 gold standard 候选</h3>
+        <div class="platform-meta">R wrappers + C core · Competing risks / fertility / death / kinship</div>
+        <p>SOCSIM 模拟 population register 中所有曾经生活的个体，使用每月年龄别死亡率、fertility、marriage；能适合验证出生、死亡、婚姻和亲属网络结构及竞争等待时长。rsocsim 是近期维护的 R interface。MicSim 用多状态参数生成 continuous-time careers。两个模型都不能提供一个完整的中国社会履历事件目录、社会机会规则或问卷骨架。</p>
+        <p><a href="https://github.com/MPIDR/rsocsim">rsocsim source and scope</a> · <a href="https://cran.r-project.org/package=rsocsim">rsocsim CRAN release</a> · <a href="https://cran.r-project.org/package=MicSim">MicSim CRAN</a> · <a href="https://cran.r-project.org/package=VirtualPop">VirtualPop</a></p>
+      </article>
+    </section>
+
+    <section id="ecosystems" aria-labelledby="ecosystems-heading">
+      <div class="eyebrow">06 / technology ecosystems</div>
+      <h2 id="ecosystems-heading">多平台扫描：把实现环境与模型能力分开</h2>
+      <div class="scroll-table" tabindex="0" role="region" aria-label="跨平台和替代工具扫描表，可横向滚动">
+        <table class="wide-xl">
+          <caption>覆盖开源社区 / 平台生态 / 架构型 DSL / 单一能力工具；成熟不是面向当前目标的同义词</caption>
+          <thead><tr><th scope="col">生态</th><th scope="col">已核实候选</th><th scope="col">自然优势</th><th scope="col">当前骨架内核的缺口</th><th scope="col">定位</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">C++ / government modelling</th><td>OpenM++、Modgen、加拿大 Demosim / LifePaths</td><td>政府 / 大学长期微观模拟；life event、death/migration/fertility、population alignment 或 case cohorts。</td><td>Modgen 免费但非开源；LifePaths 已停用、旧 Demosim 资料已存档；OpenM++ 模型可含 C++，加拿大模型/data 不可自动移植。</td><td>内核和范式参考，逐项核对软件及数据许可</td></tr>
+            <tr><th scope="row">Java / JVM microsimulation</th><td>SimPaths, JAS-mine, OpenL, Apache KIE/DMN</td><td>社会政策 life-course 和组织过的同年 events；Excel/DMN policy management 比较成熟。</td><td>Java 模型 APIs/国家参数绑定。表驱动决策非随机生命周期；effective date/受理日期也不含 full person-known timeline。</td><td>领域模型 reference + 规则插件</td></tr>
+            <tr><th scope="row">Python</th><td>LIAM2, SimPy, Mesa, Vivarium Engine, Synthea, DEMOS</td><td>数理/人口研究包多，数据 ML/并行处理接入方便；SimPy 又轻又容易打 PoC。</td><td>有的 annual 有的 health only；多数是代码组件、非给 LLM/研究者配置的通用模型 DSL。</td><td>降低原型集成成本</td></tr>
+            <tr><th scope="row">R / Demography</th><td>rsocsim, MicSim, VirtualPop, DYNAMIS parameter scripts</td><td>生命统计估计、连续时间多状态和亲属研究工具可作为局部统计验证。</td><td>主要围绕 rates、fertility/death/kin，缺就学/就业/迁移/福利互动的全生涯人口骨架语义。</td><td>标定 / 独立 oracle</td></tr>
+            <tr><th scope="row">Rust / Julia</th><td>Ixa / Agents.jl / Gen.jl</td><td>编程 API 与可组合事件内核；概率编程工具可承载稳定地名的 trace/branch 更新。</td><td>目前需自编实体模型语言、稳定的 serialization/bitemporal ledger和开箱校准采样器。</td><td>有内核研发能力时的 route B</td></tr>
+            <tr><th scope="row">spatial ABM platforms</th><td>GAMA/GAML, NetLogo, Mesa, MASON</td><td>空间暴露、地点资源、可达性和 Agent 行为交互模型。</td><td>通用/空间 ABM step schedule 主导；continuous time / competing risk / population conditioning 不属默认语义。</td><td>空间机制专题，不作为 total lifecycle engine</td></tr>
+            <tr><th scope="row">Population synthesis pipelines</th><td>PopulationSim, GenSynthPop, GeoPops, ActivitySim</td><td>从普查控制总量与微观种子生成某个时期的 households、people 和空间关系；部分可关联学校/工作网络。</td><td>产品一般只合成起始横截面。即使人口样本空间很细，也不会由此产生可信的几十年 life-course transition。</td><td>人口框架的 Stage-0 输入</td></tr>
+            <tr><th scope="row">statechart / workflow / health</th><td>XState, Sismic, Temporal, DBOS, Synthea</td><td>state transition graph 可视化、durable orchestration、clinical module guards/latency 有各自用处。</td><td>State machine 本身不提供人口概率生成。Workflow history 是系统任务状态而非个人事实时间。</td><td>局部工程角色</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>跨平台调研也发现 China-specific model papers 和 project code，但它们服务各自研究目标，如五年期人口教育劳动总体投影，或者 CHARLS 50 岁样本至 65 岁健康转移。报告不把单域研究模型包装为“全中国人 DSL”。 [中国人口低生育宏观模拟](https://doi.org/10.1073/pnas.2108900118) · [CHARISMA 50+ 健康年步模拟](https://www.nature.com/articles/s43856-025-01294-8)</p>
+    </section>
+
+    <section id="support" aria-labelledby="support-heading">
+      <div class="eyebrow">07 / composer DSL options</div>
+      <h2 id="support-heading">嵌套 DSL 是否真是“引擎”</h2>
+      <div class="scroll-table" tabindex="0" role="region" aria-label="骨架声明语言和决策工具比较">
+        <table>
+          <caption>分别评价配置结构、规则、硬约束、随机轨迹和工业级编排</caption>
+          <thead><tr><th scope="col">组件</th><th scope="col">截至版本 / licence</th><th scope="col">适合骨架接口的能力</th><th scope="col">核心缺口</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">CUE</th><td>0.17.1 · Apache-2.0 · Go</td><td>强结构类型、unknown / constraint unification、组合 config/JSON/YAML、跨字段 validation。</td><td>不是事件时间或概率过程。</td></tr>
+            <tr><th scope="row">CEL</th><td>cel-go 0.32.0 · Apache-2.0；cel-expr-python 0.1.3</td><td>封闭表达式用于条件、 eligibility filter 和数值派生，避免执行任意脚本。</td><td>项目需显式定义 missing/unknown/error 三态，跨语言 Decimal/Date/time zone 行为对齐。</td></tr>
+            <tr><th scope="row">MiniZinc / CP-SAT</th><td>MiniZinc 2.10.1 (MPL-2.0) / OR-Tools 9.15 (Apache-2.0)</td><td>约束排班、互斥事件、家庭资源、事件序约束，失败时提供冲突线索。</td><td>求出的合法解不等于按真实人生分布采样，切忌任意可行解替换个体。</td></tr>
+            <tr><th scope="row">Gen.jl / GenJAX</th><td>Gen.jl 0.4.8 (Apache-2.0)；GenJAX 1.0.14 (Apache-2.0)</td><td>trace-based probability, address random choices, conditioning/branch regeneration。</td><td>需外接生活领域中的 shared event log / transition kernels / calibrated source distributions。</td></tr>
+            <tr><th scope="row">OpenL / DMN Drools</th><td>OpenL 6.4.0 (LGPL-3.0)；Apache KIE/Drools DMN 10.2 (Apache-2.0)</td><td>政策资格矩阵、可视规则表、版本/eff date、gap-overlap analysis。</td><td>只返回 rules/decision outputs；没有人物随机事件调度。</td></tr>
+            <tr><th scope="row">Statechart / logic</th><td>XState v5 stable · MIT；Sismic LGPL-3；ProbLog Apache-2</td><td>个人局部 lifecycle states、transition guard、回归、proposition entailment。</td><td>缺 population sampler、链接互动的时序风险和连续随机仿真。在此局部不用当全 engine。</td></tr>
+            <tr><th scope="row">Language generator kit</th><td>Langium 4.4 (MIT)；textX 4.4 (MIT)</td><td>若未来要给项目研究员编写复杂可视 DSL 可生成 typed AST/LSP。</td><td>给当前阶段加 syntax, parsers, migration 和 editor，却不直接增加 simulation semantics。</td></tr>
+            <tr><th scope="row">Modern workflow</th><td>Temporal / DBOS / Argo</td><td>批量运行的重试、外部 API 失败、任务快照和排程。</td><td>编排任务，不代表有效时间线或人物知识视图；有额外部署和幂等事务成本。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>文档 DSL 不应因其能定义 <em>model configuration</em> 就声称能“随机生成可信人生”。把静态 schema 与过程引擎分开是合适的反依赖策略。其表达能力会影响开发者快速添加人物生涯模块，但不能凭声明语言替代研究者的 risk set 和 hazard estimates。</p>
+      <p class="note">Release/licence links: <a href="https://github.com/cue-lang/cue/releases/tag/v0.17.1">CUE</a> · <a href="https://github.com/cel-expr/cel-go/releases/tag/v0.32.0">CEL Go</a> · <a href="https://pypi.org/project/cel-expr-python/0.1.3/">CEL Python</a> · <a href="https://github.com/MiniZinc/libminizinc/releases/tag/2.10.1">MiniZinc</a> · <a href="https://github.com/google/or-tools/releases/tag/v9.15">OR-Tools</a> · <a href="https://github.com/probcomp/Gen.jl/releases/tag/v0.4.8">Gen.jl</a> · <a href="https://github.com/openl-tablets/openl-tablets/releases/tag/6.4.0">OpenL</a> · <a href="https://github.com/apache/incubator-kie/releases/tag/10.2.0">Drools/KIE</a></p>
+    </section>
+
+    <section id="fork" aria-labelledby="fork-heading">
+      <div class="eyebrow">08 / fork decision</div>
+      <h2 id="fork-heading">何时改现有引擎源码</h2>
+      <p>“尽可能改源码”不是默认优先级。先利用底层引擎暴露的 model/API 扩展点完成一次可测模型。若模型层适配能正确实现稳定 event key、linked identities、取消/重排依赖事件、参与者状态增量和 seed streams，便先验证研究样本和分支行为。</p>
+      <div class="two-col">
+        <article class="rule-row"><h3>不需要 fork runtime 的情形</h3><p>修正的是中国行政区划、民族分类、地方政策、灾害、source profile 或 event schema。将它们作为领域模型和版本数据，不混入内核。</p></article>
+        <article class="rule-row"><h3>增加模型 adapter 的情形</h3><p>需要新关系边/事件模块输出、稳定 person_id、跨实体记录合并、事件来源、内核重复运行凭据。先围绕公开 API 和共享数据库写 adapter。</p></article>
+        <article class="rule-row"><h3>可以评估 OpenM++ patch 的情形</h3><p>PoC 证明 event-time dependency 或链接实体的事件 invalidation 无法表达，且再调度正确性必须由 runtime 支持；或模型必须在一条 shared-event 中协调原子生死/多主体后果，内核无法提供钩子。</p></article>
+        <article class="rule-row"><h3>放弃 fork、换 kernel 的条件</h3><p>若需复制/恢复 event queue 的全部待决状态并做时态分支，OpenM++ 提供的 run-level seed/replay 不足以恢复中段 execution；先衡量改外层 checkpoint 还是改用 Ixa/自研 event store。若 fork 反复跟不上安全/平台升级，则薄 schema adapter 更现实。</p></article>
+      </div>
+      <p class="callout"><strong>早期建议</strong> 先通过模型适配验证，再评估源码改动。分开管理“OpenM++ model C++”和“LLM 产出的 JSON skeleton”，并在实验矩阵中验证模型源码权限与规则变更机制。</p>
+    </section>
+
+    <section id="poc" aria-labelledby="poc-heading">
+      <div class="eyebrow">09 / proof of concept</div>
+      <h2 id="poc-heading">同一批骨架用例打候选平台</h2>
+      <p>所有候选使用同一 <code>SkeletonSpec</code>、同一配置版本和适配数据。测试失败保留报告，不用 LLM 写一份看似合理叙述遮掩语义差异。</p>
+      <ol class="tests">
+        <li><strong>人口框条件</strong> 同时测试出生时抽样、2026 截面存活抽样和目标截止日前已死亡抽样。记录每次的 risk set 和 inclusion rule。</li>
+        <li><strong>并行轨迹约束</strong> 固定地点、通勤时长、工作排班和陪诊任务；尝试可接受路径、花费购买服务但没有真实供给的路径和时间冲突路径。</li>
+        <li><strong>共享事件一致性</strong> 同一次照护同时改变被照护人得到的时段、照护人劳动和家庭成本，并从双方轨迹切片读取。重复提交同 event_key 只入账一次。</li>
+        <li><strong>事件竞争</strong> 在同一工作 spell 内竞争裁员、主动离职、退休、死亡或保持；发生首个事件后重新计算事件资格和后续风险。</li>
+        <li><strong>发事件、记事件、获知事件</strong> 设置政策公布、生效、覆盖月、申请、批准、到账和当事人得知日期分别不同，逐一查询当时环境和 person view。</li>
+        <li><strong>年份与时间粒度</strong> 人物只知出生年与政策资格日期处于年龄界边时，事件区间不能被悄悄变成确切周岁和准确日。</li>
+        <li><strong>相同 seed 与分支公平性</strong> 固定同一 seed, model/data version 和 branch preconditions；优化 worker order 或加无关人物不改变已有个体决策流。</li>
+        <li><strong>可留出的人口验证</strong> 单变量、家户联合格、生命事件顺序/间距、无事件区间、死亡/截尾按 target time series 留出；清楚报告过采样样本和 rejection/repair rate。</li>
+      </ol>
+      <p><strong>早期验证条件</strong> 骨架 schema 可解析、底层模型输出稳定、共同事件可复查、异常和 unknown 保留、数据支持范围可核验，以及适配人员能解释模型中的随机参数与事件优先级。现行验证条件见<a href="全链路设计复核与统一契约.md">统一契约</a>。</p>
+    </section>
+
+    <section id="boundary" aria-labelledby="boundary-heading">
+      <div class="eyebrow">10 / project-specific finding</div>
+      <h2 id="boundary-heading">中国人口参数仍是单独的研究工作</h2>
+      <p>本次检索发现了覆盖生育、寿命、教育、家庭、工作、健康或政策子域的成熟平台，也发现了用中国数据开发的研究模型。未发现能立即对所有中国地区、民族、世代与交叉身份运行，并持续覆盖出生至死亡、家庭共享、持续风险和完整生命周期的一体化开放微观模型。这个观察来自本次公开平台调查，并不构成“其他项目均不存在”的严格证明。</p>
+      <p>已经有中国宏观—微观人口模拟研究使用年龄、性别、教育及劳动状态做情景预测，也有基于 CHARLS 的 50 岁以上队列健康/功能年步 simulation。它们可以帮助对应 population projection 或 aging health submodel，但研究窗口、抽样人口及状态变量都没有代表全生命周期。 [中国低生育率人口预测研究](https://doi.org/10.1073/pnas.2108900118) · [CHARISMA 人群年龄与步长例子](https://www.nature.com/articles/s43856-025-01294-8)</p>
+      <p>所以平台选型解决的是“按给定过程和参数推运行”；总人口结构、事件分布、家庭 joint distribution、流动和死亡必须从具体可用资料中估计。没有资料支持的地方可以表达为“情景骨架”，不能标为全国某类人的平均真实路径。</p>
+    </section>
+
+    <section id="refs" aria-labelledby="refs-heading">
+      <div class="eyebrow">11 / source register</div>
+      <h2 id="refs-heading">主要官方与一手出处</h2>
+      <details open><summary>人口模拟与生命周期模型</summary><div><ul class="refs">
+        <li><a href="https://openmpp.org/">OpenM++ platform and MIT license</a>; <a href="https://github.com/openmpp/main/releases/tag/v1.17.15">v1.17.15 release</a>.</li>
+        <li><a href="https://github.com/openmpp/openmpp.github.io/wiki/Model-Code">OpenM++ model code and C++ compile boundary</a>; <a href="https://github.com/openmpp/openmpp.github.io/wiki/Event-Trace">event trace</a>; <a href="https://github.com/openmpp/openmpp.github.io/wiki/Microdata-Output">microdata output</a>; <a href="https://github-wiki-see.page/m/openmpp/openmpp.github.io/wiki/time-like-and-event-like-attributes">time/event-like attribute semantics</a>.</li>
+        <li><a href="https://github.com/simpaths/SimPaths/releases/tag/2026.11.08">SimPaths 2026.11.08 release</a>; <a href="https://simpaths.org/overview/model-description/">modules and countries</a>; <a href="https://simpaths.org/developer-guide/internals/simpaths-model/">event queue and initialization</a>.</li>
+        <li><a href="https://www.microsimulation.pub/articles/00205">DYNAMIS-POP platform paper and validation countries</a>; <a href="https://dynamis.ihsn.org/guide/">DYNAMIS documentation</a>.</li>
+        <li><a href="https://www.statcan.gc.ca/en/microsimulation/lifepaths/lifepaths/lifepaths-overview-vuedensemble-eng.pdf">Archived LifePaths 2013 model documentation</a>; <a href="https://www.microsimulation.pub/articles/00228">later paper noting its discontinuation</a>; <a href="https://www150.statcan.gc.ca/n1/pub/91-621-x/2015001/sec-4-eng.htm">Archived Demosim event/wait-time description</a>; <a href="https://publications.gc.ca/collections/collection_2025/statcan/172000012025001-eng.pdf">Demosim 2025 methods report</a>.</li>
+        <li><a href="https://github.com/liam2/liam2/releases/tag/0.13.0">LIAM2 0.13.0</a>; <a href="https://liam2.readthedocs.io/en/stable/model.html">YAML, persons, entities and links</a>.</li>
+        <li><a href="https://doi.org/10.1145/3486634">ML3 linked lives DSL research paper</a>; <a href="https://repo.maven.apache.org/maven2/org/jamesii/ml3/maven-metadata.xml">Maven version metadata</a>.</li>
+        <li><a href="https://github.com/MPIDR/rsocsim">SOCSIM / rsocsim model boundary</a>; <a href="https://cran.r-project.org/package=rsocsim">CRAN release and license</a>; <a href="https://cran.r-project.org/package=MicSim">MicSim CRAN.</a></li>
+        <li><a href="https://pypi.org/project/simpy/">SimPy versions and MIT license</a>; <a href="https://github.com/CDCgov/ixa/releases/tag/ixa-v3.1.0">Ixa v3.1.0</a>; <a href="https://github.com/mesa/mesa/releases/tag/v3.5.1">Mesa 3.5.1</a>.</li>
+        <li><a href="https://github.com/synthetichealth/synthea/releases/tag/v4.0.0">Synthea 4.0.0</a>; <a href="https://github.com/synthetichealth/synthea/wiki/Generic-Module-Framework">Generic Module Framework</a>; <a href="https://github.com/synthetichealth/synthea/issues/1698">tag and packaged build version issue</a>.</li>
+        <li><a href="https://www150.statcan.gc.ca/n1/pub/91-621-x/2015001/sec-4-eng.htm">Statistics Canada archived Demosim waiting-time description</a>; <a href="https://www.statcan.gc.ca/en/microsimulation/lifepaths/lifepaths/lifepaths-overview-vuedensemble-eng.pdf">LifePaths detailed model overview</a>; <a href="https://www.jasss.org/17/3/9.html">Modgen and open-source status context in JASSS</a>.</li>
+        <li><a href="https://activitysim.github.io/populationsim/">PopulationSim</a>; <a href="https://github.com/GeoPopsHub/geopops">GeoPops</a>; <a href="https://github.com/A-Practical-Agent-Programming-Language/GenSynthPop-Python">GenSynthPop-Python</a>.</li>
+        <li><a href="https://github.com/NatLabRockies/DEMOS">DEMOS source/license/context</a>; <a href="https://github.com/candicebaud/longitudinal_synthetic_population/releases/tag/v1.0.0">Longitudinal Synthetic Population v1.0.0</a>.</li>
+      </ul></div></details>
+      <details><summary>表达语言、风险决策和验证</summary><div><ul class="refs">
+        <li><a href="https://github.com/cue-lang/cue/releases/tag/v0.17.1">CUE 0.17.1</a>; <a href="https://cuelang.org/docs/concept/how-cue-works-with-json-schema/">CUE and JSON schema</a>.</li>
+        <li><a href="https://github.com/cel-expr/cel-go/releases/tag/v0.32.0">CEL-Go</a>; <a href="https://pypi.org/project/cel-expr-python/0.1.3/">CEL Python C++ binding</a>.</li>
+        <li><a href="https://github.com/openl-tablets/openl-tablets/releases/tag/6.4.0">OpenL Tablets 6.4.0</a>; <a href="https://openl-tablets.github.io/openl-tablets/user-guides/reference-guide/02-working-with-openl-tables/04-table-properties/05-rule-versioning">versioning by effective date and request date</a>.</li>
+        <li><a href="https://github.com/apache/incubator-kie/releases/tag/10.2.0">Apache KIE 10.2</a>; <a href="https://kie.apache.org/drools/dmn/">DMN rule analysis</a>.</li>
+        <li><a href="https://github.com/MiniZinc/libminizinc/releases/tag/2.10.1">MiniZinc 2.10.1</a>; <a href="https://github.com/google/or-tools/releases/tag/v9.15">OR-Tools v9.15</a>.</li>
+        <li><a href="https://github.com/probcomp/Gen.jl/releases/tag/v0.4.8">Gen.jl</a>; <a href="https://www.gen.dev/docs/stable/ref/core/gfi/">trace interface</a>; <a href="https://www.stormchecker.org/news.html">Storm model checking releases</a>.</li>
+        <li><a href="https://www.isss.pku.edu.cn/cfps/en/">CFPS official Chinese family and individual longitudinal survey profile</a>.</li>
+      </ul></div></details>
+    </section>
+  </main>
+  <footer>
+    <p>本报告截止日期为 2026-11-20。开源许可证、发行版和文档会变化，真正立项或纳入依赖前应重新核实 tag、依赖树与数据授权。</p>
+    <p>判断边界：公开软件成熟不代表对应人口机制已由真实中国人口数据验证。项目目标数据适配、风险率估计、关系人口基线和可重复性须自行评测。</p>
+  </footer>
+</body>
+</html>
