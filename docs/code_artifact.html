@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数字人生生成工作台：目标架构、全前端视觉系统与参考项目调研报告</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* Utilitarian / Deep Research · Answer-first compact technical hero · 8-section architecture & UX spec · IBM Plex Sans + Noto Sans SC + IBM Plex Mono · Crisp white & cool slate technical palette · 0px radius · Emphasis verdict callout · Layered SVG architecture & tritemporal diagrams · Inline SVG + open tables */
+
+:root {
+  --paper: #FFFFFF;
+  --paper-alt: #F4F6F8;
+  --ink: #111827;
+  --ink2: #1F2937;
+  --mute: #4B5563;
+  --hair: #D1D5DB;
+  --accent: #0F766E;
+  --accent-text: #0B4F4A;
+  --accent-2: #1D4ED8;
+  --accent-2-text: #1E3A8A;
+  --warn-text: #854D0E;
+  --danger-text: #991B1B;
+  --ok-text: #14532D;
+}
+
+* { box-sizing: border-box; }
+html { font-size: 16px; color: var(--ink); background: var(--paper); }
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans", "Noto Sans SC", -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.68;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  padding: 56px clamp(20px, 6vw, 88px) 92px;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+h1, h2, h3, h4 {
+  font-family: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+  color: var(--ink);
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+  line-height: 1.18;
+  text-wrap: balance;
+  max-width: 28ch;
+}
+
+h2 {
+  font-size: clamp(1.45rem, 2.2vw, 1.9rem);
+  line-height: 1.28;
+  padding-top: 24px;
+  border-top: 2px solid var(--ink);
+  margin-bottom: 18px;
+}
+
+h3 {
+  font-size: 1.125rem;
+  line-height: 1.38;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+
+h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 16px;
+  margin-bottom: 6px;
+  color: var(--ink2);
+}
+
+p {
+  margin: 0 0 14px;
+  color: var(--ink2);
+  max-width: 74ch;
+}
+
+a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+}
+a:hover { color: var(--accent-2-text); }
+
+code, pre, .mono {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+code {
+  font-size: 0.875em;
+  background: var(--paper-alt);
+  padding: 1px 5px;
+  color: var(--ink);
+}
+
+pre {
+  font-size: 12.5px;
+  line-height: 1.55;
+  background: var(--paper-alt);
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  padding: 16px 18px;
+  overflow-x: auto;
+  color: var(--ink);
+  margin: 16px 0 22px;
+}
+
+.deck {
+  font-size: 1.08rem;
+  line-height: 1.65;
+  color: var(--mute);
+  max-width: 74ch;
+  margin-top: 16px;
+  margin-bottom: 28px;
+}
+
+.meta-line {
+  font-size: 0.875rem;
+  color: var(--mute);
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  padding: 10px 0;
+  margin-bottom: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+}
+
+.meta-line strong { color: var(--ink); font-weight: 600; }
+
+.sec { margin-top: 64px; }
+
+.kpi-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+  padding: 20px 0;
+  margin: 24px 0 36px;
+}
+
+.kpi-item .num {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--accent-text);
+  margin-bottom: 6px;
+}
+
+.kpi-item .lbl {
+  font-size: 0.875rem;
+  color: var(--ink2);
+  line-height: 1.45;
+}
+
+.split-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px 36px;
+  margin: 18px 0 24px;
+}
+
+.split-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px 28px;
+  margin: 18px 0 24px;
+}
+
+.col-item {
+  border-top: 1px solid var(--hair);
+  padding-top: 14px;
+}
+
+.col-item h3, .col-item h4 { margin-top: 0; }
+
+.band {
+  margin: 36px calc(-1 * clamp(20px, 6vw, 88px));
+  padding: 32px clamp(20px, 6vw, 88px);
+  background: var(--paper-alt);
+  border-top: 1px solid var(--hair);
+  border-bottom: 1px solid var(--hair);
+}
+
+.band p { max-width: 78ch; }
+
+.quote {
+  font-size: 1.25rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 3px solid var(--accent);
+  padding-left: 20px;
+  margin: 24px 0;
+  max-width: 66ch;
+  font-weight: 500;
+}
+
+ul, ol {
+  margin: 0 0 16px;
+  padding-left: 20px;
+  max-width: 76ch;
+}
+
+li {
+  margin-bottom: 8px;
+  color: var(--ink2);
+}
+
+li strong { color: var(--ink); }
+
+.tag {
+  display: inline-block;
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-bottom: 2px solid var(--hair);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.tag-code { border-bottom-color: var(--ok-text); color: var(--ok-text); }
+.tag-doc { border-bottom-color: var(--accent-2-text); color: var(--accent-2-text); }
+.tag-ext { border-bottom-color: var(--accent-text); color: var(--accent-text); }
+.tag-rec { border-bottom-color: var(--warn-text); color: var(--warn-text); }
+.tag-gap { border-bottom-color: var(--danger-text); color: var(--danger-text); }
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0 28px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+th {
+  font-family: "IBM Plex Mono", "Noto Sans SC", monospace;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ink);
+  border-top: 2px solid var(--ink);
+  border-bottom: 1.5px solid var(--ink);
+  padding: 10px 10px;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+
+td {
+  border-bottom: 1px solid var(--hair);
+  padding: 10px 10px;
+  vertical-align: top;
+  color: var(--ink2);
+}
+
+td.num, th.num {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+figure {
+  margin: 26px 0 32px;
+  padding: 0;
+}
+
+.fig-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+figcaption {
+  font-size: 12.5px;
+  color: var(--mute);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.swatch {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--ink);
+  vertical-align: -1px;
+  margin-right: 6px;
+}
+
+.spec-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px 24px;
+  border-top: 1px solid var(--hair);
+  padding: 14px 0;
+}
+
+.spec-key {
+  font-weight: 700;
+  color: var(--ink);
+  font-size: 0.95rem;
+}
+
+.spec-val {
+  font-size: 0.93rem;
+  color: var(--ink2);
+}
+
+.spec-val p { margin-bottom: 8px; max-width: none; }
+.spec-val p:last-child { margin-bottom: 0; }
+
+.sources-list {
+  column-count: 2;
+  column-gap: 36px;
+  font-size: 13px;
+  line-height: 1.55;
+  padding-left: 22px;
+  max-width: none;
+}
+
+.sources-list li { break-inside: avoid; margin-bottom: 8px; }
+
+@media (max-width: 960px) {
+  .kpi-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .split-2, .split-3 { grid-template-columns: 1fr; }
+  .spec-row { grid-template-columns: 1fr; gap: 6px; }
+  .sources-list { column-count: 1; }
+}
+</style>
+</head>
+<body>
+<main class="page">
+
+  <h1>数字人生生成工作台：目标架构、全前端视觉系统与参考项目调研</h1>
+  <p class="deck">基于公开仓库 <a href="https://github.com/q2805187159/Simulation-Personal" target="_blank" rel="noopener noreferrer">q2805187159/Simulation-Personal</a>（<code>main</code> 分支）代码、测试与 <code>docs/v3</code> 设计文档核查，结合 2026-11-24 在线检索的国际数据溯源、双时态建模、受控 LLM 编排、问卷效度标准与专业工作台案例形成的端到端演进规范。</p>
+
+  <div class="meta-line">
+    <span><strong>检索基准日：</strong>2026-11-24</span>
+    <span><strong>核查范围：</strong>GitHub 公开仓库 <code>main</code>（前端 25 文件 / 后端 23 文件 / 54 项核心测试 / 6 个验收脚本）</span>
+    <span><strong>证据标注约定：</strong><span class="tag tag-code">代码/测试证实</span> <span class="tag tag-doc">设计文档目标</span> <span class="tag tag-ext">外部研究</span> <span class="tag tag-rec">架构/设计建议</span></span>
+  </div>
+
+  <!-- 1. 结论摘要 -->
+  <section class="sec" id="sec-summary">
+    <h2>推荐以不可变修订账本演进当前工作台，并以证据边界定义全站体验</h2>
+    <p><span class="tag tag-rec">架构/设计建议</span> 针对现有 React + Vite + FastAPI + PostgreSQL 技术底座，推荐采用<strong>“状态化不可变父子修订账本 + 确定性仿真核 + 事务发件箱精确发布 + 独立审查隔离”</strong>架构（后文方案 B），而非迁移至纯事件溯源或专用图数据库。该路径直接复用了仓库已通过测试的 PostgreSQL 咨询锁、<code>GraphRevision</code> 哈希父子链、<code>PublishOutbox</code> 与 <code>ExactEventProjection</code> 读模型，可在不破坏单案确定性复现的前提下，平滑扩展至多角色视角与独立问卷引擎。</p>
+
+    <div class="kpi-strip">
+      <div class="kpi-item">
+        <div class="num">5 + 2</div>
+        <div class="lbl">核心工作流阶段（配置→骨架→血肉→审查→发布）外加两个独立只读域：<strong>发布限定问答</strong>与<strong>未来问卷施测</strong></div>
+      </div>
+      <div class="kpi-item">
+        <div class="num">55 / 440</div>
+        <div class="lbl">代码实证的维度目录（55 族 440 项）与 69 项历史推演规则；均为概念台账而非已校准心理量表</div>
+      </div>
+      <div class="kpi-item">
+        <div class="num">4 重时间</div>
+        <div class="lbl">严格分离 <code>valid_time</code>、<code>known_at</code>、<code>recorded_at</code> 与 <code>answered_at</code>，确保时点重放无未来泄漏</div>
+      </div>
+      <div class="kpi-item">
+        <div class="num">15 项参考</div>
+        <div class="lbl">核查用户所列 7 个站点（仅 2 强 1 中 4 弱）并补全 8 个专业科研/图谱/任务/问卷工作台标杆</div>
+      </div>
+    </div>
+
+    <div class="split-2">
+      <div class="col-item">
+        <h3>关键产品组织与视觉方向</h3>
+        <p><span class="tag tag-rec">架构/设计建议</span> 入口保持“配置先行、零虚构预览”的科研工作台范式：生成前仅呈现抽样框、口径差异与种子设置；提交任务后按阶段状态机展开审阅。视觉系统定调为<strong>“严谨纸墨与冷石板科研分析台”</strong>，延续仓库现有 <code>styles.css</code> 的纸墨克制基因，吸收 <a href="https://github.com/orgs/carbon-design-system/repositories" target="_blank" rel="noopener noreferrer">IBM Carbon</a> 固定比例高密度排版与 <a href="https://arena3d.org/" target="_blank" rel="noopener noreferrer">Arena3D 3.0</a> 色盲安全色板，用<strong>颜色 + 形状 + 线型</strong>三通道明确区隔“官方边际来源 / 工程合成骨架 / 历史背景候选 / LLM 叙事 / 外部断言 / 未知项”。坚决排除营销落地页动效与装饰性卡片。</p>
+      </div>
+      <div class="col-item">
+        <h3>最影响方案的三个证据与工程边界</h3>
+        <ul>
+          <li><strong>人口边际与过程参数边界</strong> <span class="tag tag-code">代码/测试证实</span>：<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/data/population_evidence.json" target="_blank" rel="noopener noreferrer"><code>population_evidence.json</code></a> 保留大陆七普（1,409,778,724 人）、港澳台各自独立分母不跨口径拼凑，但 <a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/data/process_parameters.json" target="_blank" rel="noopener noreferrer"><code>process_parameters.json</code></a> 明确标为 <code>synthetic_engineering_fixture</code>，<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/population.py" target="_blank" rel="noopener noreferrer"><code>population.py</code></a> 含合成风险率且分析权重为 <code>null</code>。界面绝不能将单案输出暗示为总体统计推断。</li>
+          <li><strong>历史暴露分层与个体证据边界</strong> <span class="tag tag-code">代码/测试证实</span>：69 项历史机制规则（<code>history_mechanisms.json</code>）与个人亲历必须分层；<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/history_assertions.py" target="_blank" rel="noopener noreferrer"><code>history_assertions.py</code></a> 与 <a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_history_assertions.py" target="_blank" rel="noopener noreferrer"><code>test_history_assertions.py</code></a> 明确拒绝用公共目录直接确认个体观察。</li>
+          <li><strong>问卷执行缺位与 V4 统计效度边界</strong> <span class="tag tag-doc">设计文档目标</span> <span class="tag tag-ext">外部研究</span>：当前 API、ORM 与前端均未见问卷执行实现且 <code>role_scope</code> 仅限 <code>"self"</code>。外部论文（<a href="https://www.cambridge.org/core/journals/political-analysis/article/synthetic-replacements-for-human-survey-data-the-perils-of-large-language-models/B92267DC26195C7F36E63EA04A47D2FE" target="_blank" rel="noopener noreferrer">Bisbee et al. 2024</a>、<a href="https://proceedings.mlr.press/v202/santurkar23a.html" target="_blank" rel="noopener noreferrer">Santurkar et al. 2023</a>）证实 LLM 合成样本存在方差坍缩、群体对齐偏差与时间漂移，问卷效度必须依赖独立真人留出集与预注册界值评估，不可由结构校验替代。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 现状与需求追踪矩阵 -->
+  <section class="sec" id="sec-matrix">
+    <h2>现状与需求追踪矩阵：核验代码与设计文档的三处关键差异</h2>
+    <p><span class="tag tag-code">代码/测试证实</span> 对公开仓库逐文件核查后，发现三处与调研提示词基线描述存在差异的实证事实，以下均以当前代码和测试为准：① <strong>外部历史断言持久化已在后端实现</strong>（<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/history_assertions.py" target="_blank" rel="noopener noreferrer"><code>history_assertions.py</code></a> + <code>POST /api/graphs/{id}/history-assertions</code> + 4 项单测），并非完全空白，仅缺前端完整纠偏工作流；② <strong>3D 人生图组件已存在</strong>（<code>frontend/src/LifeGraph3D.tsx</code> 与 <code>life-graph-3d.css</code>，在 <code>App.tsx</code> 懒加载并集成于 <code>ArchiveProfilePage.tsx</code>）；③ <strong>骨架运行器无 <code>MockRunner</code></strong>：<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/skeleton.py" target="_blank" rel="noopener noreferrer"><code>skeleton.py</code></a> 在配置 <code>OPENMPP_MODEL</code> 时调用 <code>OpenMppRunner</code>（OpenM++ 1.17.15），否则回退纯 Python <code>ReferenceRunner</code>（<code>reference-des</code>），而确定性 mock（<code>MockProvider</code>）位于 LLM 适配层 <a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/provider.py" target="_blank" rel="noopener noreferrer"><code>provider.py</code></a>。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>需求 / 能力域</th>
+            <th>当前状态</th>
+            <th>代码 / 测试 / 文档核查证据</th>
+            <th>推荐架构与产品处理</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>生成配置与空状态</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/App.tsx" target="_blank" rel="noopener noreferrer"><code>App.tsx</code></a>（<code>job_id: "PREVIEW"</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/WorkbenchPanels.tsx" target="_blank" rel="noopener noreferrer"><code>WorkbenchPanels.tsx</code></a>（<code>GenerationStartView</code>/<code>SpecPanel</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/schemas.py" target="_blank" rel="noopener noreferrer"><code>schemas.py</code></a>（<code>GenerationOptions</code> 严格校验）</td>
+            <td>保留“零虚构预览”约束；增加口径覆盖提示与参数影响说明抽屉，并支持一键克隆历史配置重跑。</td>
+          </tr>
+          <tr>
+            <td><strong>确定性骨架生成</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/skeleton.py" target="_blank" rel="noopener noreferrer"><code>skeleton.py</code></a>（<code>OpenMppRunner</code>/<code>ReferenceRunner</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/population.py" target="_blank" rel="noopener noreferrer"><code>population.py</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/scripts/openmpp_acceptance.py" target="_blank" rel="noopener noreferrer"><code>openmpp_acceptance.py</code></a>（384 次蒙特卡洛竞争风险差分）</td>
+            <td>维持与 LLM 的硬隔离；将 <code>engine_version</code>、<code>seed</code>、<code>process_parameters</code> 合成标记显式透出至骨架顶栏。</td>
+          </tr>
+          <tr>
+            <td><strong>LLM 细节填充</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/persona.py" target="_blank" rel="noopener noreferrer"><code>persona.py</code></a>（<code>build_profiles</code>/<code>DetailDraft</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/provider.py" target="_blank" rel="noopener noreferrer"><code>provider.py</code></a>（<code>MockProvider</code>/<code>OpenAICompatibleProvider</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/workflow.py" target="_blank" rel="noopener noreferrer"><code>workflow.py</code></a>（<code>continue_flesh</code>）</td>
+            <td>强化 JSON Schema 结构化输出与单事件失败局部降级重试；显式展示 <code>model_id</code>、<code>prompt_version</code> 及“POC 模拟参数非心理量表”声明。</td>
+          </tr>
+          <tr>
+            <td><strong>证据、维度与来源台账</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/dimensions.py" target="_blank" rel="noopener noreferrer"><code>dimensions.py</code></a>（55 族 440 项）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/evidence_data.py" target="_blank" rel="noopener noreferrer"><code>evidence_data.py</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_evidence_data.py" target="_blank" rel="noopener noreferrer"><code>test_evidence_data.py</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_dimensions.py" target="_blank" rel="noopener noreferrer"><code>test_dimensions.py</code></a></td>
+            <td>引入 W3C PROV-O 语义映射（<code>Entity/Activity/Agent</code>），在前端增加统一证据抽屉，分层展示官方边际、合成参数与历史背景候选。</td>
+          </tr>
+          <tr>
+            <td><strong>版本、分支、拆分与续写</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/domain.py" target="_blank" rel="noopener noreferrer"><code>domain.py</code></a>（<code>_split_event</code>/<code>apply_edits</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/artifacts.py" target="_blank" rel="noopener noreferrer"><code>artifacts.py</code></a>（不可变 <code>GraphRevision</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/scripts/skeleton_branch_smoke.py" target="_blank" rel="noopener noreferrer"><code>skeleton_branch_smoke.py</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/SplitEventPanel.tsx" target="_blank" rel="noopener noreferrer"><code>SplitEventPanel.tsx</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/SkeletonEvolution.tsx" target="_blank" rel="noopener noreferrer"><code>SkeletonEvolution.tsx</code></a></td>
+            <td>补充可视化版本树（DAG 分支切换）、结构化并排 Diff（节点/边/状态增量三栏对比）及基于父版本的非破坏性回滚（生成新修订指向旧状态）。</td>
+          </tr>
+          <tr>
+            <td><strong>图谱与时间线审阅</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/LifeGraphExplorer.tsx" target="_blank" rel="noopener noreferrer"><code>LifeGraphExplorer.tsx</code></a>（<code>timeline</code>/<code>relationships</code>）、<code>LifeGraph3D.tsx</code>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/LifeStatePanel.tsx" target="_blank" rel="noopener noreferrer"><code>LifeStatePanel.tsx</code></a></td>
+            <td>确立 2D 泳道时间线与结构化状态表为主审阅面，3D 图降级为可选高阶关系视图；增加画布-属性表双向联动与键盘无障碍导航。</td>
+          </tr>
+          <tr>
+            <td><strong>骨架与档案导出</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><code>GET /api/graphs/{id}/export</code>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_skeleton_export.py" target="_blank" rel="noopener noreferrer"><code>test_skeleton_export.py</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/SkeletonDimensions.tsx" target="_blank" rel="noopener noreferrer"><code>SkeletonDimensions.tsx</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/ArchiveProfilePage.tsx" target="_blank" rel="noopener noreferrer"><code>ArchiveProfilePage.tsx</code></a></td>
+            <td>保留 JSON 作为权威可复算导出；扩展 PROV-JSONLD 溯源清单头与版本哈希校验，确保导出包自包含数据与规则版本号。</td>
+          </tr>
+          <tr>
+            <td><strong>独立审查、局部修复与发布</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/workflow.py" target="_blank" rel="noopener noreferrer"><code>workflow.py</code></a>（<code>repair_loop</code>/<code>recheck=True</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/outbox.py" target="_blank" rel="noopener noreferrer"><code>outbox.py</code></a>（<code>PublishOutbox</code>/<code>ExactProjectionReceipt</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_publish_outbox.py" target="_blank" rel="noopener noreferrer"><code>test_publish_outbox.py</code></a></td>
+            <td>强化审查员与生成器的提示词/上下文隔离；在 UI 中清晰区分“阻断级结构问题（退回骨架）”与“可局部修复的叙事问题”，提供发件箱重试入口。</td>
+          </tr>
+          <tr>
+            <td><strong>格式化档案阅读</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/ArchiveProfilePage.tsx" target="_blank" rel="noopener noreferrer"><code>ArchiveProfilePage.tsx</code></a>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/frontend/src/ArchiveReleaseView.tsx" target="_blank" rel="noopener noreferrer"><code>ArchiveReleaseView.tsx</code></a></td>
+            <td>以格式化阅读页为默认视图，原始 JSON 退居次级抽屉/下载按钮；固定顶栏展示 <code>release_id</code>、<code>snapshot_id</code>、合成标记与允许用途。</td>
+          </tr>
+          <tr>
+            <td><strong>发布版本限定多轮问答</strong></td>
+            <td><span class="tag tag-code">已实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/chat.py" target="_blank" rel="noopener noreferrer"><code>chat.py</code></a>（只读追加 <code>ChatTurn</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/dialogue.py" target="_blank" rel="noopener noreferrer"><code>dialogue.py</code></a>（3 级披露/<code>points_to_hidden</code>/<code>traces</code>）、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_dialogue.py" target="_blank" rel="noopener noreferrer"><code>test_dialogue.py</code></a></td>
+            <td>新增问答区右侧可折叠“证据与检索轨迹抽屉”，将每条引用的事件时间、披露级别、截点屏蔽计数（隐藏未来事件数）直接可视化。</td>
+          </tr>
+          <tr>
+            <td><strong>外部历史断言与纠偏</strong></td>
+            <td><span class="tag tag-rec">部分实现</span></td>
+            <td>后端已实现 <a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/history_assertions.py" target="_blank" rel="noopener noreferrer"><code>history_assertions.py</code></a>、<code>POST /api/graphs/{id}/history-assertions</code>、<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_history_assertions.py" target="_blank" rel="noopener noreferrer"><code>test_history_assertions.py</code></a>（4 项测试）及 <code>api.ts</code> 封装；前端纠偏交互与冲突裁决界面需核实补全</td>
+            <td>在骨架审阅与状态面板中补齐外部断言录入表单、冲突值并排裁决与来源级别标注，严禁公共目录覆写个体记录。</td>
+          </tr>
+          <tr>
+            <td><strong>角色范围（多视角访问）</strong></td>
+            <td><span class="tag tag-rec">部分实现</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/app/schemas.py" target="_blank" rel="noopener noreferrer"><code>schemas.py</code></a> 限定 <code>ChatSessionRequest.role_scope: Literal["self"] = "self"</code>；<a href="https://github.com/q2805187159/Simulation-Personal/blob/main/backend/tests/test_workflow.py" target="_blank" rel="noopener noreferrer"><code>test_workflow.py</code></a> 验证拒绝其他角色；多视角过滤仅见 <a href="https://github.com/q2805187159/Simulation-Personal/blob/main/docs/v3/LLM%E4%BA%BA%E7%94%9F%E7%94%9F%E6%88%90%E4%B8%8E%E6%95%B0%E5%AD%97%E4%BA%BA%E9%97%AE%E7%AD%94%E8%AE%BE%E8%AE%A1.md" target="_blank" rel="noopener noreferrer"><code>docs/v3/LLM人生生成与数字人问答设计.md</code></a></td>
+            <td>当前 UI 明确标注“仅本人视角（self）”；预留 <code>respondent_person_id</code> 与关系可见性视图投影接口，待家庭多主体可见性规则落地后再开放代理应答。</td>
+          </tr>
+          <tr>
+            <td><strong>问卷执行与持久化</strong></td>
+            <td><span class="tag tag-doc">仅文档设计</span></td>
+            <td>仅见 <a href="https://github.com/q2805187159/Simulation-Personal/blob/main/docs/v3/%E9%97%AE%E5%8D%B7%E6%A8%A1%E6%8B%9F%E8%AF%81%E6%8D%AE%E4%B8%8E%E9%AA%8C%E6%94%B6%E6%96%B9%E6%A1%88.md" target="_blank" rel="noopener noreferrer"><code>docs/v3/问卷模拟证据与验收方案.md</code></a>；核查 <code>main.py</code> 24 个路由、<code>db.py</code> 16 张表与 <code>types.ts</code> 均未见问卷对象或接口</td>
+            <td>P3 阶段新增独立 <code>survey_*</code> 表与只读绑定引擎，引用 <code>release_id</code>/<code>snapshot_id</code>，独立持久化回答与 AAPOR 处置状态，严禁写回主档案。</td>
+          </tr>
+          <tr>
+            <td><strong>问卷效度（V4）与错年回忆</strong></td>
+            <td><span class="tag tag-doc">仅文档设计</span></td>
+            <td><a href="https://github.com/q2805187159/Simulation-Personal/blob/main/docs/v3/%E5%85%A8%E9%93%BE%E8%B7%AF%E8%AE%BE%E8%AE%A1%E5%A4%8D%E6%A0%B8%E4%B8%8E%E7%BB%9F%E4%B8%80%E5%A5%91%E7%BA%A6.md" target="_blank" rel="noopener noreferrer"><code>全链路设计复核与统一契约.md</code></a> 与 <code>问卷模拟证据与验收方案.md</code> 定义 V4 留出集（TVD/JSD/Brier/盲测）；未见代码实现</td>
+            <td>P4 阶段构建离线评估流水线与效度报告页，强制按“总体 × 波次 × 题组 × 语言 × 模式 × 模型版本”颗粒度展示验证状态与禁用边界。</td>
+          </tr>
+          <tr>
+            <td><strong>并行总体批次与权重校准</strong></td>
+            <td><span class="tag tag-gap">未见实现，需复核</span></td>
+            <td>核查 <code>main.py</code>、<code>workflow.py</code> 与 <code>population.py</code> 仅处理单 case/家庭生成；<code>docs/POC技术架构与骨架DSL实现说明.md</code> 注明 <code>analysis_weight</code> 为 <code>null</code></td>
+            <td>POC 阶段不声称总体代表性；规模化阶段引入异步批次调度器（如 Temporal/队列）、失败重抽审计表与分层校准权重模块。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3. 在线研究依据与参考项目 -->
+  <section class="sec" id="sec-research">
+    <h2>在线研究依据与 15 项真实参考项目横向评估</h2>
+    <p><span class="tag tag-ext">外部研究</span> 以下外部结论均基于 2026-11-24 可访问的 W3C/AAPOR/DDI 标准、学术论文与官方文档核验，明确区分标准/论文结论、官方特性与架构推断，并诚实标明适用限制。</p>
+
+    <h3>关键外部标准、论文与架构资料</h3>
+    <div class="split-2">
+      <div class="col-item">
+        <h4>溯源、双时态与持久化工作流</h4>
+        <ul>
+          <li><strong>W3C PROV-O / PROV-DM</strong>（W3C Recommendation, 2013-04-30；<a href="https://www.w3.org/TR/prov-o/" target="_blank" rel="noopener noreferrer">PROV-O</a> / <a href="https://www.w3.org/TR/prov-dm/" target="_blank" rel="noopener noreferrer">PROV-DM</a>）：以 <code>Entity</code>、<code>Activity</code>、<code>Agent</code> 及 <code>wasDerivedFrom</code>/<code>wasInvalidatedBy</code> 建模血缘与失效时间。<strong>支撑：</strong>统一人口源、骨架修订、LLM 叙述与人工断言的溯源契约。<strong>限制：</strong>属通用本体，需在关系表中做扁平化投影以保证查询性能。</li>
+          <li><strong>XTDB &amp; TerminusDB</strong>（官方文档，<a href="https://xtdb.com/" target="_blank" rel="noopener noreferrer">XTDB</a> / <a href="https://terminusdb.com/docs/terminusdb-explanation/" target="_blank" rel="noopener noreferrer">TerminusDB 2025</a>）：XTDB 提供自动双时态（有效时间 + 系统时间）审计查询；TerminusDB 提供 Git 式图谱分支、差异与合并。<strong>支撑：</strong>架构方案 A/B 对比及不可变修订+显式四重时间字段设计。<strong>限制：</strong>引入新数据库会增加 POC 运维复杂度，当前 PostgreSQL 17 已满足单案级分支。</li>
+          <li><strong>Transactional Outbox &amp; Temporal</strong>（Chris Richardson <a href="https://microservices.io/patterns/data/transactional-outbox.html" target="_blank" rel="noopener noreferrer">Microservices.io</a>；<a href="https://docs.temporal.io/web-ui" target="_blank" rel="noopener noreferrer">Temporal Web UI 文档</a>）：事务发件箱保障主写库与读模型投影的原子最终一致；持久化执行支持从历史检查点 <code>Reset</code> 与克隆重跑。<strong>支撑：</strong>沿用仓库 <code>PublishOutbox</code> 并在批次规模化时演进至持久化工作流。</li>
+        </ul>
+      </div>
+      <div class="col-item">
+        <h4>受控 LLM、问卷元数据与合成效度</h4>
+        <ul>
+          <li><strong>LangGraph Checkpointing &amp; ALCE Citation Benchmark</strong>（<a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents" target="_blank" rel="noopener noreferrer">LangGraph Workflows</a>；Gao et al., EMNLP 2023 <a href="https://aclanthology.org/2023.emnlp-main.398/" target="_blank" rel="noopener noreferrer">ALCE</a>）：Evaluator-Optimizer 隔离与人工中断检查点支持多日审阅恢复；ALCE 实证显示即便顶尖 LLM 在复杂问答中仍有约 49%–50% 生成内容缺乏完整引用支撑。<strong>支撑：</strong>强制独立审查员隔离、结构化输出与程序化引用 ID 校验，严禁信任模型自报引用。</li>
+          <li><strong>DDI-Lifecycle 3.3 / 4.0 &amp; AAPOR Standard Definitions (10th ed., 2023)</strong>（<a href="https://ddialliance.org/ddi-lifecycle" target="_blank" rel="noopener noreferrer">DDI Alliance</a>；<a href="https://aapor.org/standards-and-ethics/standard-definitions/" target="_blank" rel="noopener noreferrer">AAPOR 官网</a>）：DDI 规范纵向问卷题项版次、选项编码与跳转逻辑复用；AAPOR 第 10 版规范完整访谈、拒答、中断、无资格与未知资格的最终处置编码。<strong>支撑：</strong>问卷元模型与拒答/不知道/不适用/未呈现/执行阻断的独立编码设计。</li>
+          <li><strong>合成调查样本效度实证论文</strong>（<a href="https://www.cambridge.org/core/journals/political-analysis/article/out-of-one-many-using-language-models-to-simulate-human-samples/035D7C8A55B237942FB6DBAD7CAA4E49" target="_blank" rel="noopener noreferrer">Argyle et al. 2023</a>；<a href="https://proceedings.mlr.press/v202/santurkar23a.html" target="_blank" rel="noopener noreferrer">Santurkar et al. ICML 2023</a>；<a href="https://www.cambridge.org/core/journals/political-analysis/article/synthetic-replacements-for-human-survey-data-the-perils-of-large-language-models/B92267DC26195C7F36E63EA04A47D2FE" target="_blank" rel="noopener noreferrer">Bisbee et al. 2024</a>；<a href="https://huggingface.co/papers/2411.10109" target="_blank" rel="noopener noreferrer">Park et al. 2024</a>）：Argyle 提出条件化“硅基样本”概念验证；但 Santurkar 发现即便显式人口定向，模型对老年/丧偶等群体仍存在显著观点偏差；Bisbee 证实合成回答方差显著小于真人、回归系数偏离且同提示词跨三个月发生漂移；Park 基于深度真人访谈（而非纯人口标签）达到约 85% 真人重测一致率。<strong>适用限制：</strong>上述结论均以美国样本为主，不能外推至中文两岸四地合成骨架，必须执行独立留出集 V4 评估。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>参考项目横向比较表（含用户指定 7 项 + 8 项专业工作台标杆）</h3>
+    <p><span class="tag tag-ext">外部研究</span> 对用户列出的 7 个站点逐一实测后，仅 <strong>Arena3D 3.0</strong> 与 <strong>Vue Flow</strong> 属强参考，<strong>modern-web-guidance-src</strong> 属中参考（底层工程规范），其余 4 项（React Bits、StyleKit、Aura、MotionSites AI）偏营销落地页与视觉动效，明确归类为<strong>弱参考</strong>，不强行拔高。另补选 8 个覆盖图谱、时间线、血缘、长任务、LLM 追踪与科研问卷的强/中标杆。</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>参考项目（来源）</th>
+            <th>目标用户与核心对象</th>
+            <th>可借鉴交互</th>
+            <th>可借鉴视觉</th>
+            <th>与本项目差异</th>
+            <th>强度</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><a href="https://arena3d.org/" target="_blank" rel="noopener noreferrer">Arena3D 3.0</a></strong><br><span class="mono">用户列表</span></td>
+            <td>生物信息研究者；20 层多层网络、节点/边属性表、会话 JSON</td>
+            <td>画布与可编辑属性表双向同步、多行批量修改、折叠面板记忆展开态、全局 Undo/Redo</td>
+            <td>27 套主题含 Okabe–Ito / Paul Tol 色盲安全色板与色觉障碍实时预览</td>
+            <td>偏 3D 分子拓扑出图；本项目日常审阅应以 2D 时间线与档案为主，3D 仅作辅助探索</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://vueflow.dev/" target="_blank" rel="noopener noreferrer">Vue Flow v2</a></strong><br><span class="mono">用户列表</span></td>
+            <td>前端工程师；交互式节点图、Subflows 子流、边关系</td>
+            <td>嵌套子流分组、MiniMap、Helper Lines 对齐、完整键盘无障碍（Enter/方向键/Delete）</td>
+            <td>清晰连线端口与轻量悬浮控制栏（Panel/NodeToolbar）</td>
+            <td>绑定 Vue 3；本项目前端为 React（<code>App.tsx</code>），对应生态应评估同源 <code>@xyflow/react</code></td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://js.cytoscape.org/" target="_blank" rel="noopener noreferrer">Cytoscape.js</a></strong><br><span class="mono">独立调研</span></td>
+            <td>图谱工程师与科研分析员；多重图、复合嵌套节点（Compound Nodes）</td>
+            <td>类 CSS 图查询过滤、<code>eles.diff()</code> 集合差异比对、邻域/前驱遍历、无头图算法</td>
+            <td>数据驱动样式映射（<code>mapData</code>）、20+ 几何节点形状与线型区分事实/推断</td>
+            <td>纯 2D 图引擎，不含时间轴联动、长文本审阅与业务工作流外壳</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://openlineage.io/" target="_blank" rel="noopener noreferrer">OpenLineage</a> + <a href="https://marquezproject.ai/" target="_blank" rel="noopener noreferrer">Marquez</a></strong><br><span class="mono">独立调研</span></td>
+            <td>数据治理与科研审计员；Dataset—Job—Run 血缘与版本快照</td>
+            <td>血缘主图点击节点展开右侧元数据抽屉，串联输入数据集、运行实例与输出版本</td>
+            <td>清晰的资产/作业图标区分、状态徽章与左图右抽屉渐进披露</td>
+            <td>面向数据湖仓作业，缺少非结构化叙事片段与个体时间截点溯源</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://dagster.io/docs/guides/operate/webserver" target="_blank" rel="noopener noreferrer">Dagster UI</a></strong><br><span class="mono">独立调研</span></td>
+            <td>数据/ML 流水线研发；软件定义资产、分区、Asset Checks 校验</td>
+            <td>上游变更后定向重算受影响下游资产、运行详情“甘特图 + 结构化/原始日志分屏”、保存筛选视图</td>
+            <td>高密度资产摘要条（身份 + 健康度 + 校验通过率），细节下沉多标签页</td>
+            <td>偏工程运维术语，需转译为研究者可理解的“骨架/血肉/审查”语言</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://docs.temporal.io/web-ui" target="_blank" rel="noopener noreferrer">Temporal Web UI</a></strong><br><span class="mono">独立调研</span></td>
+            <td>分布式长流程工程师；持久化工作流、事件历史、挂起活动</td>
+            <td>事件历史 4 视图切换（Timeline / All / Compact 折叠 / JSON）、检查点 Reset、克隆重跑、UTC/本地时间切换</td>
+            <td>顶部固定元数据摘要条 + 高密度可折叠执行轨，显著压缩底层噪声</td>
+            <td>以排障和原始 JSON 为主，缺少富文本传记审阅与人工批注</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://langfuse.com/docs/observability/overview" target="_blank" rel="noopener noreferrer">Langfuse</a></strong><br><span class="mono">独立调研</span></td>
+            <td>AI 工程与评估员；嵌套 Trace、版本化 Prompt、实验对比与人工标注</td>
+            <td>左侧调用树 + 右侧输入/输出与检索证据 + 人工/自动评分联审，支持 Prompt 版本横向对比</td>
+            <td>Generation/Retrieval 微标签、等宽数字延迟/Token、默认折叠长系统提示词</td>
+            <td>偏单次/批量模型评测，不管理纵向人物生命周期档案</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://project-redcap.org/" target="_blank" rel="noopener noreferrer">REDCap</a></strong><br><span class="mono">独立调研</span></td>
+            <td>临床与社科纵向研究者；受试者档案、多波次量表、记录状态矩阵</td>
+            <td>“人物 × 波次/模块”二维完成度矩阵、WCAG 术语解释弹窗、修改问卷前的无污染 Draft Preview 沙箱</td>
+            <td>规整状态矩阵（需改进：不能仅靠红黄绿圆点，须叠加形状图标）</td>
+            <td>视觉陈旧，无 AI 叙事生成与事件图谱审阅能力</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://surveyjs.io/form-library/documentation/overview" target="_blank" rel="noopener noreferrer">SurveyJS</a></strong><br><span class="mono">独立调研</span></td>
+            <td>自主托管问卷开发团队；JSON Schema 问卷、动态面板、条件跳转</td>
+            <td>逻辑与渲染解耦、表达式分支跳转、前序答案带入（Piping）、断点续填与版本化 Schema</td>
+            <td>干净表单层级与清晰错误提示布局</td>
+            <td>面向真人填答表单，缺少模拟主体绑定、AAPOR 执行态与留出集效度分析</td>
+            <td><strong>强</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://github.com/GoogleChrome/modern-web-guidance-src" target="_blank" rel="noopener noreferrer">modern-web-guidance-src</a></strong><br><span class="mono">用户列表</span></td>
+            <td>Web 平台工程师与 AI 编码代理；262 项现代 Web 标准实践</td>
+            <td>中文 IME 安全回车提交（防选词误发）、原生 Popover/Dialog、<code>aria-invalid</code> 同步、INP 长任务切分</td>
+            <td>CSS 密度令牌（compact/comfortable/spacious）与尊重系统字号缩放</td>
+            <td>纯前端工程规范库，无业务 IA 或完整视觉皮肤</td>
+            <td><strong>中</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://timeline.knightlab.com/" target="_blank" rel="noopener noreferrer">TimelineJS</a></strong><br><span class="mono">独立调研</span></td>
+            <td>记者与数字人文研究者；大跨度年代事件卡片、主题泳道</td>
+            <td>上方详情卡 + 下方多刻度可缩放泳道时间轴联动、深链接直达单事件</td>
+            <td>大跨度年代刻度尺节奏清晰、提供高对比度主题</td>
+            <td>官方建议不超过 20 事件，面向线性阅读而非百级事件编辑与分支对比</td>
+            <td><strong>中</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.reactbits.dev/get-started/index" target="_blank" rel="noopener noreferrer">React Bits</a></strong><br><span class="mono">用户列表</span></td>
+            <td>创意前端；255+ React 动效与 WebGL 着色器背景</td>
+            <td>仅少数克制微交互（如轻量状态提示）可偶作参考</td>
+            <td>故障字、粒子光标、流体背景均不适合科研审阅台</td>
+            <td>营销展示特效库，高密度审阅中会引入严重视觉噪音与认知负荷</td>
+            <td><strong>弱</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.stylekit.top/zh/styles" target="_blank" rel="noopener noreferrer">StyleKit</a></strong><br><span class="mono">用户列表</span></td>
+            <td>AI 前端探索者；151 种页面视觉风格目录与提示词</td>
+            <td>设计 Token + Tailwind 预设的导出打包形式可借鉴</td>
+            <td>仅极少数“企业简洁/文档风”可作冷启动基调参考</td>
+            <td>缺少复杂工作台状态机、表格排版、证据编码与无障碍验收规范</td>
+            <td><strong>弱</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.aura.build/" target="_blank" rel="noopener noreferrer">Aura</a></strong><br><span class="mono">用户列表</span></td>
+            <td>营销页设计者；AI 落地页生成与 <code>DESIGN.md</code> 提取</td>
+            <td>用结构化 <code>DESIGN.md</code> 约束团队 AI 编码的一致性思路可侧面借鉴</td>
+            <td>模板集中于作品集与商业落地页，不适配高密度数据表与审阅台</td>
+            <td>产品定位为营销落地页构建器，无工作流与溯源能力</td>
+            <td><strong>弱</strong></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://motionsites.ai/" target="_blank" rel="noopener noreferrer">MotionSites AI</a></strong><br><span class="mono">用户列表</span></td>
+            <td>品牌站设计者；滚动 3D 与视频背景动效提示词</td>
+            <td>工作台核心界面无直接可借鉴交互</td>
+            <td>电影感与强动效与严谨可复核的研究工具目标背道而驰</td>
+            <td>纯营销转化导向，仅可能用于外部产品宣传页而非工作台内部</td>
+            <td><strong>弱</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. 推荐目标架构 -->
+  <section class="sec" id="sec-arch">
+    <h2>推荐目标架构：不可变修订账本 + 确定性仿真核 + 精确发布投影</h2>
+
+    <h3>两个候选架构方案对比与选型</h3>
+    <div class="split-2">
+      <div class="col-item">
+        <h4>方案 A：纯事件溯源 + 专用双时态图数据库（如 XTDB / TerminusDB）</h4>
+        <p><span class="tag tag-ext">外部研究</span> 以事件日志为唯一事实源，图谱修订依赖专用图数据库原生 Git 式分支或双时态引擎查询。<strong>优势：</strong>原生支持跨实体图遍历、历史任意事务时点回溯与自动分支合并。<strong>劣势：</strong>需推翻现有 PostgreSQL 17 + 16 张 ORM 表（<code>db.py</code>）和事务发件箱（<code>outbox.py</code>）；多引擎事务一致性运维成本高；对单案级（几十至数百事件）数字人图谱属于过度设计，且不利于 POC 快速交付与常规 SQL 统计聚合。</p>
+      </div>
+      <div class="col-item">
+        <h4>方案 B（推荐）：关系型不可变父子修订账本 + 事务发件箱 + 精确发布读模型</h4>
+        <p><span class="tag tag-rec">架构/设计建议</span> 以现有 PostgreSQL 17 为单一事务写库，保留 <code>GraphRevision</code>（父子指针 + 内容哈希）与 <code>DetailRevision</code> 不可变快照；确定性仿真核（CUE + OpenM++/ReferenceRunner）严格前置；LLM 仅作为受控、版本绑定的有界处理器运行于独立 Worker；发布通过 <code>PublishOutbox</code> 事务冻结四元组并异步投影至 <code>ExactEventProjection</code> 读模型，问答与未来问卷仅读取不可变发布快照。<strong>优势：</strong>与现有代码零冲突演进、ACID 幂等锁成熟、随时可平滑外挂 Temporal 处理未来千人级总体批次。</p>
+      </div>
+    </div>
+
+    <figure>
+      <div class="fig-title">目标分层架构以“确定性骨架边界”与“不可变发布边界”切分写态演进、受控 LLM 与只读消费</div>
+      <svg viewBox="0 0 960 540" width="100%" role="img" aria-label="数字人生生成工作台目标分层架构图">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L8,5 L0,9 z" fill="#1F2937"/>
+          </marker>
+          <marker id="arr-teal" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,1 L8,5 L0,9 z" fill="#0F766E"/>
+          </marker>
+        </defs>
+        <!-- Layer 1: Frontend -->
+        <rect x="16" y="14" width="928" height="72" fill="#F4F6F8" stroke="#111827" stroke-width="1.5"/>
+        <text x="32" y="38" font-size="14" font-weight="700" fill="#111827">前端研究工作台（React + TypeScript · 统一视觉令牌与上下文路由）</text>
+        <rect x="32" y="48" width="168" height="28" fill="#FFFFFF" stroke="#4B5563"/>
+        <text x="116" y="67" text-anchor="middle" font-size="12.5" fill="#111827">配置空状态与任务恢复</text>
+        <rect x="212" y="48" width="180" height="28" fill="#FFFFFF" stroke="#4B5563"/>
+        <text x="302" y="67" text-anchor="middle" font-size="12.5" fill="#111827">骨架/图谱/维度/Diff 审阅</text>
+        <rect x="404" y="48" width="168" height="28" fill="#FFFFFF" stroke="#4B5563"/>
+        <text x="488" y="67" text-anchor="middle" font-size="12.5" fill="#111827">血肉检查/审查修复/发布</text>
+        <rect x="584" y="48" width="168" height="28" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+        <text x="668" y="67" text-anchor="middle" font-size="12.5" font-weight="600" fill="#0B4F4A">档案库与时点限定问答</text>
+        <rect x="764" y="48" width="164" height="28" fill="#FFFFFF" stroke="#1D4ED8" stroke-dasharray="4 3" stroke-width="1.5"/>
+        <text x="846" y="67" text-anchor="middle" font-size="12.5" font-weight="600" fill="#1E3A8A">未来问卷施测与效度页</text>
+
+        <!-- Layer 2: API & Orchestration -->
+        <rect x="16" y="114" width="928" height="66" fill="#FFFFFF" stroke="#111827" stroke-width="1.5"/>
+        <text x="32" y="138" font-size="14" font-weight="700" fill="#111827">FastAPI 网关与工作流编排（Idempotency-Key + PG 咨询锁 + 阶段状态机 / 未来 Temporal 批次调度）</text>
+        <text x="32" y="162" font-size="12.5" fill="#4B5563">规格编译校验（Pydantic + CUE 0.17.1） · 修订命令总线（manual / llm / split / evolve / assertion） · 只读查询路由</text>
+
+        <!-- Arrows L1 -> L2 -->
+        <line x1="280" y1="86" x2="280" y2="112" stroke="#1F2937" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="668" y1="86" x2="668" y2="112" stroke="#0F766E" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+
+        <!-- Layer 3: Three Core Processing Domains -->
+        <!-- Left: Deterministic Kernel -->
+        <rect x="16" y="208" width="296" height="176" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/>
+        <text x="30" y="232" font-size="13.5" font-weight="700" fill="#0B4F4A">A. 确定性生成与领域账本（无 LLM 写权限）</text>
+        <rect x="30" y="246" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="40" y="269" font-size="12.5" fill="#111827">官方人口边际 + 合成过程率抽样</text>
+        <rect x="30" y="290" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="40" y="313" font-size="12.5" fill="#111827">OpenM++ / ReferenceRunner 骨架核</text>
+        <rect x="30" y="334" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="40" y="357" font-size="12.5" fill="#111827">维度台账(55/440) · 实体关系 · 状态投影</text>
+
+        <!-- Middle: Controlled LLM & Critic -->
+        <rect x="332" y="208" width="296" height="176" fill="#FFFFFF" stroke="#854D0E" stroke-width="2"/>
+        <text x="346" y="232" font-size="13.5" font-weight="700" fill="#854D0E">B. 受控 LLM 细节与独立审查隔离层</text>
+        <rect x="346" y="246" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="356" y="269" font-size="12.5" fill="#111827">细节填充（事件叙事/记忆/模拟状态）</text>
+        <rect x="346" y="290" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="356" y="313" font-size="12.5" fill="#111827">独立审查员（结构阻断退回 / 叙事局部修）</text>
+        <rect x="346" y="334" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="356" y="357" font-size="12.5" fill="#111827">版本绑定（model/prompt/schema/降级）</text>
+
+        <!-- Right: Read-Only Consumers -->
+        <rect x="648" y="208" width="296" height="176" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="2"/>
+        <text x="662" y="232" font-size="13.5" font-weight="700" fill="#1E3A8A">C. 只读发布消费层（严禁回写主档案）</text>
+        <rect x="662" y="246" width="268" height="36" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="672" y="269" font-size="12.5" fill="#111827">证据检索与时点问答（as_of / 3 级披露）</text>
+        <rect x="662" y="290" width="268" height="36" fill="#F4F6F8" stroke="#1D4ED8" stroke-dasharray="4 3"/>
+        <text x="672" y="313" font-size="12.5" fill="#1E3A8A">[未来] 问卷执行引擎（DDI/AAPOR 编码）</text>
+        <rect x="662" y="334" width="268" height="36" fill="#F4F6F8" stroke="#1D4ED8" stroke-dasharray="4 3"/>
+        <text x="672" y="357" font-size="12.5" fill="#1E3A8A">[未来] 离线 V4 留出集效度与批次评估</text>
+
+        <!-- Arrows L2 -> L3 -->
+        <line x1="164" y1="180" x2="164" y2="206" stroke="#1F2937" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="480" y1="180" x2="480" y2="206" stroke="#1F2937" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="796" y1="180" x2="796" y2="206" stroke="#0F766E" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+
+        <!-- Horizontal Boundaries -->
+        <line x1="312" y1="296" x2="330" y2="296" stroke="#1F2937" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="628" y1="296" x2="646" y2="296" stroke="#0F766E" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+
+        <!-- Layer 4: Persistence & Outbox -->
+        <rect x="16" y="416" width="928" height="106" fill="#F4F6F8" stroke="#111827" stroke-width="1.5"/>
+        <text x="32" y="440" font-size="14" font-weight="700" fill="#111827">PostgreSQL 17 持久化、不可变版本库与事务发件箱（实线为现有 16 表 · 虚线为未来扩展表）</text>
+        <rect x="32" y="454" width="278" height="52" fill="#FFFFFF" stroke="#4B5563"/>
+        <text x="44" y="476" font-size="12.5" font-weight="600" fill="#111827">不可变修订库（写模型）</text>
+        <text x="44" y="496" font-size="12" fill="#4B5563">Spec · Job · GraphRevision · Node/Edge · Detail</text>
+
+        <rect x="328" y="454" width="290" height="52" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+        <text x="340" y="476" font-size="12.5" font-weight="600" fill="#0B4F4A">发布冻结与精确读模型</text>
+        <text x="340" y="496" font-size="12" fill="#4B5563">Release · PublishOutbox · ExactEventProjection</text>
+
+        <rect x="636" y="454" width="292" height="52" fill="#FFFFFF" stroke="#1D4ED8" stroke-dasharray="4 3" stroke-width="1.5"/>
+        <text x="648" y="476" font-size="12.5" font-weight="600" fill="#1E3A8A">对话与独立问卷/评估库</text>
+        <text x="648" y="496" font-size="12" fill="#4B5563">ChatSession/Turn · [未来] SurveyRun/Response/Eval</text>
+
+        <!-- Arrows L3 -> L4 -->
+        <line x1="164" y1="384" x2="164" y2="414" stroke="#1F2937" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="480" y1="384" x2="480" y2="414" stroke="#1F2937" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="796" y1="414" x2="796" y2="386" stroke="#0F766E" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+      </svg>
+      <figcaption>图 1：推荐目标架构分层与写读边界（实线框代表仓库已验证的核心能力，虚线框代表 P3–P4 演进扩展；箭头指示数据流与只读约束）。</figcaption>
+    </figure>
+
+    <h4>可复制 Mermaid 架构源码（可直接嵌入仓库 <code>docs/v3/</code> 文档）</h4>
+<pre><code>flowchart TB
+  subgraph UI["前端研究工作台 (React + TypeScript)"]
+    U1["配置空状态 / 任务恢复"]
+    U2["骨架审阅 / 图谱时间线 / Diff / 维度账本"]
+    U3["血肉检查 / 审查修复 / 发布控制"]
+    U4["档案库 / 格式化档案 / 时点限定问答"]
+    U5["[未来] 问卷施测配置 / 结果与 V4 效度报告"]
+  end
+
+  subgraph API["FastAPI 编排与命令网关 (Idempotency-Key + Advisory Lock)"]
+    G1["规格编译与 CUE 0.17.1 校验"]
+    G2["图谱修订命令总线 (manual/llm/split/evolve/assertion)"]
+    G3["工作流状态机 &amp; 未来 Temporal 批次调度"]
+  end
+
+  subgraph DET["A. 确定性仿真与领域账本 (禁止 LLM 写入)"]
+    D1["官方人口边际 (population_evidence) + 合成过程率"]
+    D2["OpenM++ 1.17.15 / ReferenceRunner 骨架核"]
+    D3["LifeGraph 账本 · 55/440 维度 · 实体关系 · 状态投影"]
+  end
+
+  subgraph LLM["B. 受控 LLM 与独立审查隔离层"]
+    L1["细节填充 Worker (结构化输出 + 模型/提示版本绑定)"]
+    L2["独立审查员 (结构阻断退回骨架 / 叙事局部修复复验)"]
+  end
+
+  subgraph RO["C. 只读发布消费层 (严禁回写主档案)"]
+    R1["证据检索与时点问答 (as_of 截断 + 3 级披露 + Traces)"]
+    R2["[未来] 问卷执行引擎 (DDI 元数据 + AAPOR 处置编码)"]
+    R3["[未来] 离线留出集 V4 效度与群体切片评估"]
+  end
+
+  subgraph DB["PostgreSQL 17 持久化与事务发件箱"]
+    P1[("写模型: Spec / Job / GraphRevision / Node / Edge / Detail")]
+    P2[("发布冻结: Release / PublishOutbox / ExactEventProjection")]
+    P3[("独立消费库: ChatSession / ChatTurn / [未来] SurveyResponse")]
+  end
+
+  UI --&gt; API
+  G1 --&gt; D1 --&gt; D2 --&gt; D3 --&gt; P1
+  G2 --&gt; D3
+  P1 --&gt;|人工确认 graph_revision_id| L1 --&gt; L2
+  L2 --&gt;|结构阻断| G2
+  L2 --&gt;|审查通过| P2
+  P2 --&gt;|不可变 release_id + snapshot_id| R1
+  P2 -.->|不可变快照只读引用| R2 --&gt; P3
+  P3 -.-> R3
+  R1 --&gt; P3</code></pre>
+
+    <h3>四重时间语义、核心领域对象与幂等恢复契约</h3>
+    <figure>
+      <div class="fig-title">四重独立时间轴与不可变父子版本链共同阻断“未来泄漏”与“事后改写历史”</div>
+      <svg viewBox="0 0 960 250" width="100%" role="img" aria-label="四重时间语义与版本快照关系图">
+        <line x1="60" y1="68" x2="900" y2="68" stroke="#111827" stroke-width="2"/>
+        <text x="60" y="42" font-size="13" font-weight="700" fill="#111827">人生有效时间轴（valid_time &amp; known_at）</text>
+        <!-- Birth -->
+        <circle cx="110" cy="68" r="6" fill="#0F766E"/>
+        <text x="110" y="96" text-anchor="middle" font-size="12.5" fill="#111827">1985 出生</text>
+        <!-- Event 1 -->
+        <rect x="230" y="58" width="140" height="20" fill="#0F766E" opacity="0.2" stroke="#0F766E"/>
+        <text x="300" y="96" text-anchor="middle" font-size="12.5" fill="#111827">2003–2007 大学</text>
+        <text x="300" y="114" text-anchor="middle" font-size="12" fill="#4B5563">known_at: 2003-09</text>
+        <!-- as_of cutoff -->
+        <line x1="510" y1="26" x2="510" y2="136" stroke="#991B1B" stroke-width="2" stroke-dasharray="5 3"/>
+        <text x="518" y="42" font-size="12.5" font-weight="700" fill="#991B1B">问答/施测截点 as_of = 2012-06-30</text>
+        <!-- Unfinished event crossing cutoff -->
+        <rect x="440" y="58" width="150" height="20" fill="#854D0E" opacity="0.2" stroke="#854D0E"/>
+        <text x="515" y="128" text-anchor="middle" font-size="12" fill="#854D0E">跨截点未完结事件：partial_record（隐藏结局 notes）</text>
+        <!-- Future event -->
+        <rect x="690" y="58" width="150" height="20" fill="#991B1B" opacity="0.15" stroke="#991B1B" stroke-dasharray="3 2"/>
+        <text x="765" y="96" text-anchor="middle" font-size="12.5" fill="#991B1B">2018 职业变动</text>
+        <text x="765" y="114" text-anchor="middle" font-size="12" fill="#991B1B">points_to_hidden（严格屏蔽）</text>
+
+        <!-- Bottom: Record time & Release chain -->
+        <line x1="60" y1="186" x2="900" y2="186" stroke="#4B5563" stroke-width="1.5"/>
+        <text x="60" y="166" font-size="13" font-weight="700" fill="#111827">档案登记与版本演进轴（recorded_at · 不可变父子链）</text>
+        <rect x="90" y="172" width="160" height="28" fill="#FFFFFF" stroke="#111827"/>
+        <text x="170" y="191" text-anchor="middle" font-size="12" fill="#111827">graph_rev_1 (骨架初版)</text>
+        <line x1="250" y1="186" x2="294" y2="186" stroke="#111827" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="296" y="172" width="175" height="28" fill="#FFFFFF" stroke="#111827"/>
+        <text x="383" y="191" text-anchor="middle" font-size="12" fill="#111827">graph_rev_2 (拆分/断言)</text>
+        <line x1="471" y1="186" x2="515" y2="186" stroke="#111827" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="517" y="172" width="165" height="28" fill="#F4F6F8" stroke="#0F766E" stroke-width="1.5"/>
+        <text x="599" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#0B4F4A">release_id + snapshot_id</text>
+        <line x1="682" y1="186" x2="726" y2="186" stroke="#0F766E" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+        <rect x="728" y="172" width="165" height="28" fill="#FFFFFF" stroke="#1D4ED8" stroke-width="1.5"/>
+        <text x="810" y="191" text-anchor="middle" font-size="12" font-weight="600" fill="#1E3A8A">answered_at 只读记录</text>
+        <text x="90" y="226" font-size="12" fill="#4B5563">约束：后续演进产生 graph_rev_3 时，旧 release_id 与旧 snapshot_id 保持永久不可变；未改节点沿用原 recorded_at。</text>
+      </svg>
+      <figcaption>图 2：基于 <code>docs/v3/全链路设计复核与统一契约.md</code> 与 <code>backend/app/dialogue.py</code>、<code>artifacts.py</code> 实证机制绘制的四重时间与版本隔离模型。</figcaption>
+    </figure>
+
+    <div class="spec-row">
+      <div class="spec-key">核心领域对象与稳定标识</div>
+      <div class="spec-val">
+        <p><span class="tag tag-code">代码/测试证实</span> 现有稳定标识：<code>job_id</code>（生成任务）、<code>spec_id</code>（编译规格）、<code>person_id</code>（人物主体）、<code>graph_revision_id</code>（含 <code>parent_revision_id</code> 不可变骨架版本）、<code>event_id</code>（跨修订稳定事件 ID，拆分时原节点标 <code>summary_node=true</code> 并守恒分配 <code>state_delta</code> 与 <code>participant_deltas</code>）、<code>detail_revision_id</code>（血肉版本）、<code>release_id</code> 与 <code>snapshot_id</code>（发布冻结快照）。</p>
+        <p><span class="tag tag-rec">架构/设计建议</span> 需新增对象：<code>provenance_bundle_id</code>（W3C PROV 溯源包）、<code>perspective_view_id</code>（多角色可见性投影）、<code>instrument_version_id</code>（问卷/题项版次）、<code>survey_run_id</code>（单次或批次施测）、<code>survey_response_id</code>（独立回答记录）与 <code>eval_report_id</code>（留出集效度报告）。</p>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">受控 LLM 边界与隔离机制</div>
+      <div class="spec-val">
+        <p><span class="tag tag-rec">架构/设计建议</span> ① <strong>写权限隔离：</strong>LLM 绝不直接修改 <code>GraphNode</code> 骨架事实，自然语言修订仅生成结构化 <code>GraphOperation[]</code> 提案，经 <code>validate_graph</code> 领域约束与人工确认后落地新修订；② <strong>结构化契约与降级：</strong>细节填充与审查强制 JSON Schema 输出（参考 <a href="https://developers.openai.com/api/reference/responses/overview/" target="_blank" rel="noopener noreferrer">OpenAI Responses API</a> / Pydantic 校验），单事件解析失败最多重试 2 次并支持单节点降级标记而不污染整案；③ <strong>独立审查隔离：</strong>借鉴 <a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents" target="_blank" rel="noopener noreferrer">LangGraph Evaluator-Optimizer</a>，审查员不共享生成器推理上下文，只接收“骨架事实 + 待审细节 + 规则清单”，并经程序化引用核验（应对 <a href="https://aclanthology.org/2023.emnlp-main.398/" target="_blank" rel="noopener noreferrer">ALCE</a> 揭示的约 50% 幻觉引用风险）。</p>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">幂等、并发与失败恢复</div>
+      <div class="spec-val">
+        <p><span class="tag tag-code">代码/测试证实</span> 沿用 <code>Idempotency-Key</code> 请求头 + <code>lock_command</code> / <code>lock_job</code> PostgreSQL 咨询锁（<code>artifacts.py</code>），同 key 不同载荷返回 <code>409 Conflict</code>；发布阶段使用 <code>PublishOutbox</code> 事务发件箱，投影中断后可安全重试并复用 <code>ExactProjectionReceipt</code>，未完整投影前对外不可见。</p>
+        <p><span class="tag tag-rec">架构/设计建议</span> <strong>POC 必需项 vs 规模化扩展：</strong>当前单案/家庭工作台保持 FastAPI + PostgreSQL 同步/轻量后台任务即可；仅当进入百人/千人级并行总体批次、跨机复算与长时间排队时，再引入 Temporal 持久化工作流与对象存储归档，避免过早引入分布式运维复杂度。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 全前端信息架构和页面规范 -->
+  <section class="sec" id="sec-ia">
+    <h2>全前端信息架构、上下文契约与 13 页逐页规范</h2>
+    <p><span class="tag tag-rec">架构/设计建议</span> 全站采用<strong>“顶部全局工作区导航（工作台 / 档案库 / [未来] 问卷研究）+ 次级阶段步进条（配置 → 骨架 → 血肉 → 审查 → 发布）+ 固定版本/时点上下文条”</strong>的三层导航。所有路由必须显式携带并校验上下文标识，防止刷新或跨标签页审阅时发生版本串台。</p>
+
+    <figure>
+      <div class="fig-title">全站路由与阶段状态机通过显式版本与时点上下文防止跨修订误操作</div>
+      <svg viewBox="0 0 960 220" width="100%" role="img" aria-label="前端阶段状态机与上下文传递图">
+        <!-- Main Stage Nodes -->
+        <rect x="20" y="42" width="132" height="48" fill="#F4F6F8" stroke="#111827" stroke-width="1.5"/>
+        <text x="86" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">1. 生成配置</text>
+        <text x="86" y="81" text-anchor="middle" font-size="11.5" fill="#4B5563">零虚构空状态</text>
+
+        <line x1="152" y1="66" x2="180" y2="66" stroke="#111827" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="182" y="42" width="146" height="48" fill="#FFFFFF" stroke="#0F766E" stroke-width="2"/>
+        <text x="255" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#0B4F4A">2. 骨架审阅</text>
+        <text x="255" y="81" text-anchor="middle" font-size="11.5" fill="#4B5563">编辑/拆分/Diff/断言</text>
+
+        <line x1="328" y1="66" x2="356" y2="66" stroke="#111827" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="358" y="42" width="132" height="48" fill="#FFFFFF" stroke="#111827" stroke-width="1.5"/>
+        <text x="424" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#111827">3. 血肉检查</text>
+        <text x="424" y="81" text-anchor="middle" font-size="11.5" fill="#4B5563">锚点/来源/模型</text>
+
+        <line x1="490" y1="66" x2="518" y2="66" stroke="#111827" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="520" y="42" width="132" height="48" fill="#FFFFFF" stroke="#854D0E" stroke-width="1.5"/>
+        <text x="586" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#854D0E">4. 审查修复</text>
+        <text x="586" y="81" text-anchor="middle" font-size="11.5" fill="#4B5563">局部修/复验</text>
+
+        <line x1="652" y1="66" x2="680" y2="66" stroke="#111827" stroke-width="1.5" marker-end="url(#arr)"/>
+        <rect x="682" y="42" width="116" height="48" fill="#FFFFFF" stroke="#0F766E" stroke-width="1.5"/>
+        <text x="740" y="64" text-anchor="middle" font-size="13" font-weight="700" fill="#0B4F4A">5. 发布冻结</text>
+        <text x="740" y="81" text-anchor="middle" font-size="11.5" fill="#4B5563">Outbox 投影</text>
+
+        <line x1="798" y1="66" x2="826" y2="66" stroke="#0F766E" stroke-width="1.5" marker-end="url(#arr-teal)"/>
+        <rect x="828" y="20" width="118" height="44" fill="#F4F6F8" stroke="#0F766E" stroke-width="1.5"/>
+        <text x="887" y="46" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B4F4A">档案与问答</text>
+        <rect x="828" y="74" width="118" height="44" fill="#F4F6F8" stroke="#1D4ED8" stroke-dasharray="4 3" stroke-width="1.5"/>
+        <text x="887" y="100" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1E3A8A">[未来] 问卷</text>
+
+        <!-- Rollback arrow: Review blocked -> Skeleton -->
+        <path d="M586,90 L586,126 L255,126 L255,92" fill="none" stroke="#991B1B" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#arr)"/>
+        <text x="420" y="144" text-anchor="middle" font-size="12" font-weight="600" fill="#991B1B">结构阻断（blocked）自动退回骨架审阅，保留诊断上下文</text>
+
+        <!-- Context Bar -->
+        <rect x="20" y="164" width="926" height="42" fill="#F4F6F8" stroke="#D1D5DB"/>
+        <text x="34" y="190" font-size="12.5" font-family="IBM Plex Mono, Noto Sans SC, monospace" fill="#111827">URL/状态上下文：job_id · graph_revision_id · detail_revision_id · release_id · snapshot_id · role_scope="self" · as_of</text>
+      </svg>
+      <figcaption>图 3：5 阶段生成流水线与 2 个只读消费域的路由衔接及 URL 上下文契约。</figcaption>
+    </figure>
+
+    <h3>13 个核心页面与子页面规范</h3>
+    <div class="spec-row">
+      <div class="spec-key">1. 生成配置空状态页<br><span class="mono">stage=generate</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>左侧参数配置表单（抽样框/地域人口/参考日期/家庭范围/随机种子/细节深度），右侧“口径与边界说明板”（展示所选官方人口分母、缺失交叉表提示、合成参数声明）。<strong>关键动作：</strong>校验规格、提交生成、从历史任务克隆配置。<strong>硬约束：</strong>生成前严禁渲染虚构人物、假时间线或假进度条。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">2. 生成任务与恢复页<br><span class="mono">job_id=...</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>任务列表与阶段状态轨（排队/运行/待人工确认/校验失败/待修复/发布失败/就绪）、步骤耗时与错误日志折叠区（借鉴 Temporal Compact 视图）。<strong>关键动作：</strong>断线重连、幂等重试、从最近已持久化修订恢复、跳转当前阻塞阶段。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">3. 骨架审阅与事件详情<br><span class="mono">stage=skeleton&amp;graph_revision_id</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>顶栏（人物摘要、引擎版本、合成声明、确认骨架按钮）；左栏（筛选器与事件列表）；主区（2D 分类泳道时间线 / 关系图谱 / 可选 3D 视图切换）；右栏（选中事件详情：有效时间、获知时间、参与者增量、状态变化、历史候选分层与未知项）。<strong>关键动作：</strong>选取、编辑、拆分、导出当前修订 JSON、确认锁定骨架。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">4. 编辑、拆分与修订比较<br><span class="mono">sub=diff / split / evolve</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>上方版本树/父子修订选择器；主区并排 Diff（新增/修改/删除/重算四类高亮）；抽屉含手动编辑、LLM 自然语言修订提案预览（先审后提交）、事件拆分（强制 <code>state_delta</code> 守恒分配）与规则升级/在世续写。<strong>关键动作：</strong>对比任意两修订、基于旧修订创建回滚子版本。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">5. 维度账本与状态依据<br><span class="mono">sub=dimensions / state</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>55 族 440 项维度覆盖账本（标注“概念台账非已验证量表”）；按参照日期 <code>as_of</code> 与参与者切换的 <code>LifeStatePanel</code>（区分 <code>known</code>/<code>conflict</code>/<code>incomplete</code>）及外部历史断言提交/冲突裁决区。<strong>关键动作：</strong>点击任意状态事实反查来源事件与原始人口/规则依据。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">6. 血肉检查页<br><span class="mono">stage=flesh&amp;detail_revision_id</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>左栏绑定已确认的骨架事件目录；主区逐事件展示时间锚定人物状态、事件叙事与记忆片段；右栏展示生成元数据（<code>model_id</code>、<code>prompt_version</code>、模拟参数非心理量表说明、引用锚点列表）。<strong>关键动作：</strong>核对叙事与骨架事实偏移、触发独立审查。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">7. 独立审查与局部修复<br><span class="mono">stage=review</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>审查结论总览（按严重度分“结构阻断 / 叙事冲突 / 证据不足”）、问题清单与关联事件定位、局部修复前后 Diff 对比及复验（<code>recheck=True</code>）历史。<strong>关键动作：</strong>对叙事问题触发单事件局部修复并复验；遇结构阻断一键携诊断退回骨架审阅。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">8. 发布控制页<br><span class="mono">stage=publish</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>发布前不可变四元组核对单（<code>graph_revision_id</code>、<code>detail_revision_id</code>、审查通过回执、查询快照哈希）、<code>PublishOutbox</code> 投影状态与发布历史表。<strong>关键动作：</strong>执行发布、投影失败时安全重试、跳转已发布档案。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">9. 档案库索引页<br><span class="mono">stage=archive</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>按人物/发布版本/参考日期/地域筛选的档案索引表，展示最新版本、历史发布数、来源口径标签与合成标记。<strong>关键动作：</strong>进入格式化档案详情、发起时点问答、未来一键加入问卷施测队列。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">10. 格式化档案详情页<br><span class="mono">archive&amp;release_id&amp;profile</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>顶部不可变发布横幅（<code>release_id</code>、<code>snapshot_id</code>、合成来源与允许用途声明）；正文为可读传记式人生阶段摘要、关键事件卡、状态快照与维度摘要；次级入口提供“查看/下载原始 JSON”抽屉。<strong>硬约束：</strong>默认格式化阅读，不直接堆砌原始 JSON。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">11. 发布版本限定问答页<br><span class="mono">archive&amp;release_id&amp;session_id</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>顶部固定范围锁定栏（<code>release_id</code>、<code>snapshot_id</code>、<code>role_scope="self"</code>、<code>as_of</code> 截点日期选择器，范围限 <code>birth–latest</code>）；主区多轮对话流（标注披露级别 <code>brief/focused/expanded</code> 与追问锚点）；右侧可折叠“证据与检索过程抽屉”（展示命中事件、被截点屏蔽的未来事件计数、未完结 <code>partial_record</code> 提示与检索 <code>traces</code>）。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">12. [未来] 问卷配置与施测页<br><span class="mono">survey/run (独立任务域)</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>顶部显式标明“独立问卷施测任务（不修改人物主档案）”；配置区选择目标已发布快照（单人或未来批次）、主体/应答角色、<code>response_at</code> 与 <code>reference_window</code>、问卷版次/语言/模式与选项呈现顺序；右侧实时展示资格校验与 Draft Preview 逻辑流。</p></div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">13. [未来] 问卷结果与效度报告<br><span class="mono">survey/results &amp; eval</span></div>
+      <div class="spec-val"><p><strong>主要区域：</strong>上层展示 AAPOR 处置分布（有效作答/拒答/不知道/不适用/未呈现/无资格/阻断）与逐题回答-依据对照表；独立标签页展示“V4 效度评估报告”（强制按总体×波次×题组×语言×模式×模型版本列示留出集 TVD/JSD/Brier、真人重测基线与禁用声明）。</p></div>
+    </div>
+
+    <h3>全局异常与边界状态交互矩阵</h3>
+    <div class="split-3">
+      <div class="col-item">
+        <h4>加载、空与离线恢复</h4>
+        <ul>
+          <li><strong>加载态：</strong>保留顶栏上下文与骨架屏占位，长任务显示确定阶段与已耗时（秒），不使用虚假百分比进度条。</li>
+          <li><strong>空状态：</strong>按页面精准说明缺数原因（如“未发布前无档案可问答”）并提供唯一主恢复入口。</li>
+          <li><strong>断线/恢复：</strong>顶部非遮挡横幅提示“连接中断”，保留本地草稿并提供“重新连接并校验最新修订”。</li>
+        </ul>
+      </div>
+      <div class="col-item">
+        <h4>失败、冲突与范围不匹配</h4>
+        <ul>
+          <li><strong>409 冲突：</strong>并发修订或同幂等键不同载荷时，弹窗并排展示当前服务端最新修订号，禁止静默覆盖。</li>
+          <li><strong>权限/角色不匹配：</strong>请求非 <code>self</code> 角色或越界 <code>as_of</code> 时，行内提示合法边界（<code>birth–latest</code>）并拒绝静默降级。</li>
+          <li><strong>审查/发布失败：</strong>结构阻断直链退回骨架；Outbox 投影失败显示回执状态并提供幂等重试按钮。</li>
+        </ul>
+      </div>
+      <div class="col-item">
+        <h4>缺证据、未知值与旧版恢复</h4>
+        <ul>
+          <li><strong>缺少证据/未知值：</strong>显式渲染 <code>unknown</code> / <code>uncalibrated</code> 虚线标签与说明，绝不以空字符串或 0 混淆“未观测”与“无发生”。</li>
+          <li><strong>旧版恢复：</strong>打开历史 <code>graph_revision_id</code> 或历史 <code>release_id</code> 时，顶栏固定琥珀色“历史版本只读视图”标识，编辑动作自动标注“将从该版本分叉新修订”。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 完整视觉风格设计 -->
+  <section class="sec" id="sec-visual">
+    <h2>完整视觉风格设计：高密度科研纸墨系统与多端降级方案</h2>
+    <p><span class="tag tag-rec">架构/设计建议</span> 设计概念定为<strong>“可核验的科研档案台（Verifiable Archival Workbench）”</strong>：继承仓库现有 <code>styles.css</code> 的纸墨底色逻辑，吸收 <a href="https://www.edl.dk/articles/typography-tokens-for-b2b-saas" target="_blank" rel="noopener noreferrer">IBM Carbon 固定字阶体系</a>（确保高密度表格列对齐不随视口漂移）、<a href="https://arena3d.org/" target="_blank" rel="noopener noreferrer">Arena3D</a> 的色盲安全语义色板、<a href="https://github.com/GoogleChrome/modern-web-guidance-src" target="_blank" rel="noopener noreferrer">modern-web-guidance</a> 的密度令牌与中文 IME 安全提交，以及 <a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">WCAG 2.2 AA/AAA</a>（正文对比度 ≥ 7:1、非文本控件 ≥ 3:1、焦点不被遮挡 2.4.11、最小点击目标 24×24px）。任何证据层级均采用<strong>色彩 + 图标/形状 + 边框线型</strong>三重编码，绝不单靠颜色传递含义。</p>
+
+    <h3>可执行设计 Token 规范表</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Token 类别</th>
+            <th>Token 名称与推荐值</th>
+            <th>语义用途与可访问性约束</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>表面与边框</strong></td>
+            <td><code>--bg-canvas: #FFFFFF</code> <span class="swatch" style="background:#FFFFFF"></span> / <code>--bg-subtle: #F4F6F8</code> <span class="swatch" style="background:#F4F6F8"></span><br><code>--border-hair: #D1D5DB</code> / <code>--border-strong: #111827</code></td>
+            <td>纯白主画布 + 浅石板辅助栏，用 1px 细线替代重阴影卡片，降低长时间审阅视觉疲劳。</td>
+          </tr>
+          <tr>
+            <td><strong>文字与字体层级</strong></td>
+            <td>中文/UI：<code>"IBM Plex Sans", "Noto Sans SC", sans-serif</code><br>数字/ID/时间：<code>"IBM Plex Mono", monospace</code> + <code>tabular-nums</code><br>字阶：H1 28px / H2 20px / H3 15px / 正文 14px / 表格与辅助 12.5–13px（底线 ≥ 12px）</td>
+            <td><code>--ink: #111827</code>（对比度 17.7:1）、<code>--ink-2: #1F2937</code>、<code>--ink-mute: #4B5563</code>（7.5:1 AAA）；ID、日期、概率与年龄严格等宽对齐。</td>
+          </tr>
+          <tr>
+            <td><strong>间距与密度模式</strong></td>
+            <td>8px 基准网格（<code>4 / 8 / 12 / 16 / 24 / 32px</code>）<br>双密度令牌：<code>Comfortable</code>（行高 36px，默认审阅） / <code>Compact</code>（行高 28px，维度账本与批量核对）</td>
+            <td>提供顶栏一键密度切换（借鉴 Carbon 与 modern-web-guidance），表格单元格内边距随令牌联动。</td>
+          </tr>
+          <tr>
+            <td><strong>语义状态色</strong></td>
+            <td>主操作/已验证：<code>#0F766E</code> / 文案 <code>#0B4F4A</code> <span class="swatch" style="background:#0F766E"></span><br>信息/快照：<code>#1D4ED8</code> / 文案 <code>#1E3A8A</code> <span class="swatch" style="background:#1D4ED8"></span><br>警告/待修/冲突：<code>#B45309</code> / 文案 <code>#854D0E</code> <span class="swatch" style="background:#B45309"></span><br>阻断/失败/屏蔽：<code>#B91C1C</code> / 文案 <code>#991B1B</code> <span class="swatch" style="background:#B91C1C"></span></td>
+            <td>全部正文色满足 WCAG AAA ≥ 7:1；语义色始终配状态文字与几何图标（● 通过 / ▲ 警告 / ■ 阻断 / ◇ 未知）。</td>
+          </tr>
+          <tr>
+            <td><strong>证据类型编码</strong></td>
+            <td>官方边际源：实线深青边框 + <code>[官]</code> 标记<br>工程合成骨架：实线石板边框 + <code>[合]</code> 标记<br>历史背景候选：点线蓝灰边框 + <code>[候]</code> 标记<br>LLM 叙述细节：双线/左侧琥珀细条 + <code>[生]</code> 标记<br>外部研究员断言：左侧深蓝细条 + <code>[断]</code> 标记<br>未知/未校准：虚线灰框 + <code>[未知/未校准]</code> 标记</td>
+            <td>一眼区分事实与合成、背景与亲历、官方与夹具参数；禁止对未校准量表使用实心进度条或置信区间样式。</td>
+          </tr>
+          <tr>
+            <td><strong>交互与键盘焦点态</strong></td>
+            <td><code>:focus-visible { outline: 2px solid #1D4ED8; outline-offset: 2px; }</code><br>最小交互热区 <code>28×28px</code>（移动端 ≥ <code>44×44px</code>）</td>
+            <td>满足 WCAG 2.2 SC 2.4.11/2.4.13；所有图表节点与时间轴事件支持 <code>Tab</code>/方向键遍历，中文输入框使用 <code>compositionstart/end</code> 防 IME 误提交。</td>
+          </tr>
+          <tr>
+            <td><strong>版本与图表编码</strong></td>
+            <td>版本胶囊：等宽前缀（<code>rev:a9f2</code> / <code>rel:v3</code> / <code>as_of:2012-06-30</code>）<br>图表色板：采用 Okabe–Ito 色盲安全序列（<code>#0072B2</code>、<code>#009E73</code>、<code>#D55E00</code>、<code>#CC79A7</code>、<code>#E69F00</code>）</td>
+            <td>版本标签不可折行且支持一键复制完整 ID；时间线与关系图用节点形状区分实体类别（圆=个人事件、方=制度背景、菱=外部断言）。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>5 个代表性页面布局与多视口降级规范</h3>
+    <div class="split-2">
+      <div class="col-item">
+        <h4>桌面宽屏（≥1440px）与窄屏笔记本（1024–1280px）</h4>
+        <ul>
+          <li><strong>生成配置空状态：</strong>宽屏 7:5 双栏（左表单、右口径边界说明）；窄屏收紧内边距为 6:6，不折叠口径警示。</li>
+          <li><strong>骨架审阅与事件详情：</strong>宽屏三栏（左 260px 事件/筛选、中自适应泳道时间线/图、右 380px 事件详情与证据）；窄屏左栏收起为可固定抽屉，保持“主图 + 右侧证据详情”双栏同屏。</li>
+          <li><strong>编辑与修订比较：</strong>宽屏双栏并排 Diff + 顶部版本树；窄屏切换为统一行内 Diff（Unified Diff），完整保留增删与重算标记。</li>
+          <li><strong>格式化档案详情：</strong>宽屏居中 72ch 传记阅读主栏 + 右侧 300px 固定目录/发布快照摘要；窄屏目录折叠为顶部吸顶锚点条。</li>
+          <li><strong>发布限定问答 &amp; 未来问卷页：</strong>宽屏左 65% 对话/施测流 + 右 35% 证据轨迹/AAPOR 依据抽屉；窄屏右抽屉改为可切换滑出面板，每条回答下方保留行内引用计数徽章。</li>
+        </ul>
+      </div>
+      <div class="col-item">
+        <h4>平板与手机降级（≤768px / 390px / 320px）</h4>
+        <ul>
+          <li><strong>绝不以隐藏必要证据作为响应式方案：</strong>所有视口均保留顶栏 <code>release_id</code> / <code>as_of</code> / 合成来源标记（折行为紧凑两行摘要条）。</li>
+          <li><strong>时间线与图谱降级：</strong>≤768px 自动将横向泳道切换为纵向年代折叠时间线（保留完整分类标签、获知时间与状态增量），关系图提供“列表关系表”等价无障碍视图。</li>
+          <li><strong>高密度表格降级：</strong>采用首列固定（sticky）水平滚动或结构化键值堆叠行，禁止截断来源链接、错误码或 <code>conflict</code> 告警。</li>
+          <li><strong>底部操作栏：</strong>手机端将主操作（确认骨架 / 发送追问 / 提交断言）固定在安全区底部，点击热区 ≥ 44×44px，复用仓库 <code>browser_smoke.py</code> 的 <code>390x844</code> 与 <code>320x720</code> 无水平溢出回归门槛。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>低保真页面结构线框（标注“立即显示”与“渐进展开”）</h3>
+<pre><code>┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│ [立即] 全局导航: 工作台 | 档案库 | [未来]问卷    [立即] 状态: 骨架审阅  rev:g_04(父:g_03)  [密度:舒适] │
+│ [立即] 边界条: 引擎 reference-des · 人口源 mainland_2020 · ⚠ 含合成过程率(非总体推断)     │
+├──────────────────────┬───────────────────────────────────────────┬───────────────────────┤
+│ [立即] 筛选与事件目录 │ [立即] 视图切换: [2D泳道] [关系图] [Diff] │ [立即] 事件详情与证据 │
+│  搜索(IME安全)       │         [维度55/440] [状态快照] [3D辅助]   │  大学入学 (evt_012)   │
+│  类型: 个人/家庭/候  ├───────────────────────────────────────────┤  [合] 工程合成骨架    │
+│  ─────────────────── │  1985      2003      2012      2020       │  有效: 2003-09~2007-06│
+│  ● 1985 出生 [官/合] │  ─●────────[═══大学═══]──[═工作═]──       │  获知: 2003-09-01     │
+│  ● 2003 大学 [合] ◄  │  家庭: ────●(迁徙)────────────────        │  登记: rev g_01       │
+│  ◇ 2008 节点 [候]    │  背景: ──────◇(69项规则候选·未证实亲历)   │  ──────────────────── │
+│  ▲ 2012 冲突 [断]    │                                           │  [立即] 动作:         │
+│                      │                                           │  [编辑] [拆分] [断言] │
+│                      │  [渐进展开] 底部 LLM 修订建议抽屉 (默认折) │  ──────────────────── │
+│                      │  > 输入修订意图 → 预览 GraphOperation[]   │  [渐进展开] 折叠区:   │
+│                      │                                           │  ▸ 状态增量与参与者   │
+│                      │                                           │  ▸ 关联维度(8/440)    │
+│                      │                                           │  ▸ 历史背景分层依据   │
+│                      │                                           │  ▸ 原始 JSON 片段     │
+├──────────────────────┴───────────────────────────────────────────┴───────────────────────┤
+│ [立即] 底部操作栏: [导出当前修订 JSON] [升级/续写] [比较历史版本]    [主按钮: 确认骨架进入血肉] │
+└──────────────────────────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│ [立即] 发布限定问答 (只读 · 不改写主档案)   rel:r_09 · snap:s_8f2a · 视角:self · as_of:2012-06-30 │
+├──────────────────────────────────────────────────────────┬───────────────────────────────┤
+│ [立即] 多轮对话流                                        │ [立即/窄屏抽屉] 证据与检索轨迹│
+│  问: 你毕业后第一份工作怎么样？                          │  本次检索截点: 2012-06-30     │
+│  答: 2007 年毕业后我在本地一家制造企业做技术员...[生]    │  已屏蔽未来事件: 4 条         │
+│      [披露: focused] [引用: evt_015, evt_018]            │  未完结截断(partial): 1 条    │
+│  [引导追问] ▸ 具体哪件事让你决定换岗位？                 │  ───────────────────────────  │
+│                                                          │  [立即] 命中引用列表:         │
+│  [输入框: IME安全提交 · Ctrl+Enter/Enter] [发送]         │  • evt_015 毕业入职 (2007-07) │
+│                                                          │  • evt_018 岗位调整 (2010-04) │
+│                                                          │  [渐进展开] ▸ 检索 Traces 日志│
+└──────────────────────────────────────────────────────────┴───────────────────────────────┘</code></pre>
+    <h3>档案 3D 全景可视化重构规范（面向 <code>LifeGraph3D.tsx</code> 本地代码落地）</h3>
+    <p><span class="tag tag-rec">架构/设计建议</span> 针对现有 <code>frontend/src/LifeGraph3D.tsx</code> 与 <code>ArchiveProfilePage.tsx</code> 视觉表现力与数据层次不足的问题，结合 <a href="https://arena3d.org/" target="_blank" rel="noopener noreferrer">Arena3D 3.0</a> 多层网络、<a href="https://threejs.org/docs/pages/InstancedMesh.html" target="_blank" rel="noopener noreferrer">Three.js</a> 自定义 GLSL 着色器及 <a href="https://r3f.docs.pmnd.rs/" target="_blank" rel="noopener noreferrer">React Three Fiber</a> 工程实践，提出可直接交给本地 AI 代理重构的 3D 可视化规格。核心红线：<strong>真实档案节点必须居于绝对主视觉，背景与维度粒子仅作克制的上下文点云，严禁无关漂浮粒子掩盖真实节点。</strong></p>
+
+    <div class="spec-row">
+      <div class="spec-key">1. 五层数据流形与几何映射<br><span class="mono">Data → 3D Mapping</span></div>
+      <div class="spec-val">
+        <p><strong>L5 维度星云（<code>y = +12.8</code> · 青绿 <code>#2DD4BF</code>）：</strong>映射 <code>graph.dimensions</code> 的 55 族 × 8 = 440 项概念为极坐标螺旋点云。常态压低亮度与尺寸（<code>gl_PointSize ≤ 13px</code>、透明度 <code>0.42</code>），<strong>仅在选中某个真实节点时，动态放大并点亮其关联的 <code>familyIndices</code> 维度簇</strong>。</p>
+        <p><strong>L4 血肉叙事光环（<code>y = +6.2</code> · 琥珀 <code>#F59E0B</code>）：</strong>64 个紧凑微点环绕对应骨架节点上方（透明度 <code>0.34</code>），表达时间锚定叙事与模拟参数存在，但不遮挡主骨架。</p>
+        <p><strong>L3 确定性骨架与断言主层（<code>y = 0</code> · 亮蓝/青/琥珀）：</strong>占据视觉中央舞台。每个真实节点由<strong>发光白核 + 差异化几何测地线外壳 + 倾斜轨道环 + 柔和光晕精灵</strong>构成（里程碑/普通事件=二十面体、拆分摘要 <code>summary_node=true</code>=立方体、外部断言/冲突=八面体菱形）；节点间以发光二次贝塞尔样条及沿线流动光脉冲表达因果与参与者增量。</p>
+        <p><strong>L2 历史暴露候选（<code>y = -6.8</code> · 紫罗兰 <code>#A78BFA</code>）：</strong>映射 69 项 <code>history_mechanisms.json</code> 规则为微点云与菱形候选节点，以低透明弱连线指向骨架，严禁渲染为已证实个体亲历。</p>
+        <p><strong>L1 官方人口边际底座（<code>y = -12.8</code> · 翡翠 <code>#34D399</code>）：</strong>320 点极坐标波纹底座（透明度 <code>0.24</code>），用细极坐标同心圆环替代生硬矩形线框平面。</p>
+      </div>
+    </div>
+
+    <div class="spec-row">
+      <div class="spec-key">2. 真实节点可读性与粒子克制<br><span class="mono">Clarity Guardrails</span></div>
+      <div class="spec-val">
+        <p><strong>零无关星尘：</strong>移除纯装饰性漂浮背景星尘，确保画布中的每一个点都对应真实架构数据层。</p>
+        <p><strong>全量真实节点 3D 投影标签（<code>node-tag</code>）：</strong>将所有可见真实节点的 3D 坐标实时投影至 2D 屏幕层，渲染带<strong>证据色点 + 年份 + 精简标题</strong>的悬浮微胶囊；内置屏幕空间防碰撞去重（选中节点优先级最高）与侧栏安全边界裁切，支持直接点击标签平滑飞镜聚焦。</p>
+        <p><strong>三档粒子氛围开关：</strong>顶栏提供 <code>粒子:精简（默认） / 仅真实节点 / 粒子:标准</code> 一键切换，支持研究者在精查拓扑时一键将全部背景点云透明度归零。</p>
+      </div>
+    </div>
+
+    <div class="spec-row">
+      <div class="spec-key">3. 三形态形变与实时 <code>as_of</code> 切片<br><span class="mono">Morph &amp; Cutoff Plane</span></div>
+      <div class="spec-val">
+        <p><strong>三种 3D 空间形态平滑过渡（<code>lerp</code>）：</strong>① <code>五层星云 (strata)</code>（默认，展示五层架构与垂直溯源光束）；② <code>440维星图 (Fibonacci Sphere)</code>（球面点云星图，突出维度覆盖格局）；③ <code>时空螺旋 (Temporal Helix)</code>（按 <code>valid_time</code> 沿垂直螺旋展开人生轨迹）。</p>
+        <p><strong>实时 <code>as_of</code> 3D 红色切片平面：</strong>底部电影感时间滑块实时移动穿过 3D 空间的半透明绯红截平面；<code>startYear &gt; as_of</code> 的未来节点自动转为暗红虚线幽灵态（<code>points_to_hidden</code>），跨截点事件转为琥珀截断态（<code>partial_record</code>，隐藏结局 <code>notes</code>），顶栏 <code>snapshot_id</code> 与可见/截断/屏蔽计数同步重算。</p>
+      </div>
+    </div>
+
+    <div class="spec-row">
+      <div class="spec-key">4. 现代悬浮玻璃 HUD 与双主题<br><span class="mono">HUD &amp; Theme Spec</span></div>
+      <div class="spec-val">
+        <p><strong>悬浮胶囊架构：</strong>摒弃厚重方框边框，采用 <code>backdrop-filter: blur(26px)</code> 与 <code>1px solid rgba(255,255,255,0.09)</code> 细线高光；顶部三段式悬浮胶囊（身份与不可变四元组 / 三形态切换 / 粒子与主题控制），左窄（层开关与同步目录）右详（四重时间与后端契约映射）支持一键收起进入全屏沉浸态，底部居中时间轴滑块。</p>
+        <p><strong>双主题与无障碍落地：</strong>内置<strong>星渊暗色（Obsidian <code>#03060F</code>，AdditiveBlending）</strong>与<strong>霜白科研（Frost <code>#F1F5F9</code>，NormalBlending）</strong>一键切换；监听 <code>prefers-reduced-motion</code> 自动关闭自转；所有 3D 数据消费严格保持只读，并与 2D 泳道时间线、原始 JSON 导出并存互为无障碍等价视图。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 问卷与角色访问设计 -->
+  <section class="sec" id="sec-survey">
+    <h2>未来问卷运行、角色访问控制与研究效度分离设计</h2>
+    <p><span class="tag tag-doc">设计文档目标</span> <span class="tag tag-rec">架构/设计建议</span> 问卷模拟与日常档案问答在研究目的、数据契约和效度要求上完全不同：档案问答服务于探索性核查，而问卷模拟必须作为<strong>受版本冻结、可统计汇总、且与人物主档案物理隔离</strong>的独立研究任务。在工程实现与统计效度上必须严格二分：工程侧保证元数据完整、跳题确定、状态编码规范与全链路可复现；效度侧必须交由独立留出集验证，系统界面不得自动颁发“统计有效”背书。</p>
+
+    <h3>端到端问卷施测流程与七元组绑定</h3>
+    <ol>
+      <li><strong>主体与角色选择：</strong>从已发布档案库选取一个或多个 <code>release_id</code>，显式绑定 <code>subject_person_id</code>（被调查对象）与 <code>respondent_person_id</code>（实际应答者）。当前代码（<code>schemas.py</code>）仅支持 <code>role_scope="self"</code>（即主体与应答者为同一人）；未来扩展家庭成员代理应答（<code>proxy_family</code>）时，必须先经 <code>perspective_view</code> 过滤掉应答者在 <code>response_at</code> 时点不可获知的隐私事件。</li>
+      <li><strong>问卷版次与施测情境固定：</strong>参照 <a href="https://ddialliance.org/ddi-lifecycle" target="_blank" rel="noopener noreferrer">DDI-Lifecycle</a> 与 <a href="https://surveyjs.io/form-library/documentation/overview" target="_blank" rel="noopener noreferrer">SurveyJS</a> 元模型，锁定 <code>instrument_id</code>、<code>instrument_version</code>、<code>item_version</code>、选项编码及呈现顺序（支持随机化种子防顺序效应）、<code>language</code>、施测模式（如自填/面访/电话）以及 <code>response_at</code>（作答时点）与 <code>reference_window</code>（如“过去 12 个月”）。</li>
+      <li><strong>确定性资格与跳题引擎：</strong>由非 LLM 确定性规则引擎计算每题资格（<code>eligible / ineligible</code>）与分支跳转（skip logic），仅向 LLM 呈现符合条件且可见的题干、选项与截点内证据，杜绝模型擅自回答被跳过题目。</li>
+      <li><strong>受控作答与独立状态编码：</strong>每题回答强制输出结构化 JSON，参照 <a href="https://aapor.org/standards-and-ethics/standard-definitions/" target="_blank" rel="noopener noreferrer">AAPOR Standard Definitions（第 10 版）</a> 将<strong>回答状态</strong>与<strong>系统执行状态</strong>分开编码，并附带引用事件 ID 与证据强度。</li>
+      <li><strong>独立持久化与禁止回写：</strong>问卷回答仅写入独立 <code>survey_responses</code> 表，严禁默认写回 <code>GraphNode</code> 或 <code>LifeStateProjection</code>；所有导出文件头强制嵌入 <code>synthetic_source=true</code>、模型/提示/数据版本及允许用途声明（如“仅限问卷前测与假设探索，未经 V4 验收不得替代真人抽样推断”）。</li>
+    </ol>
+
+    <div class="band">
+      <h3>建议的问卷回答记录与状态编码核心字段</h3>
+      <div class="split-2">
+        <div class="col-item">
+          <h4>不可变绑定七元组与施测上下文</h4>
+          <p><code>graph_revision_id</code> · <code>release_id</code> · <code>snapshot_id</code>（按 <code>response_at</code> 与角色视角派生） · <code>subject_person_id</code> · <code>respondent_person_id</code>（当前仅 <code>self</code>） · <code>response_at</code> · <code>reference_window</code> · <code>instrument_version_id</code> · <code>item_id</code> · <code>option_order_seed</code> · <code>mode</code> · <code>language</code> · <code>model_id</code> · <code>prompt_version</code> · <code>population_data_version</code>。</p>
+        </div>
+        <div class="col-item">
+          <h4>分离式状态编码（严禁混为一类“空值”）</h4>
+          <p><strong>资格与呈现态：</strong><code>presented</code>（已呈现）、<code>not_presented_skip</code>（跳题未呈现）、<code>ineligible</code>（无资格）。<br>
+          <strong>实质与缺失回答态：</strong><code>valid_answer</code>（有效编码值）、<code>refused</code>（拒答）、<code>dont_know</code>（不知道）、<code>not_applicable</code>（不适用）、<code>cannot_recall</code>（记不清）。<br>
+          <strong>系统执行态：</strong><code>ok</code>、<code>timeout</code>（超时）、<code>guardrail_blocked</code>（安全/边界阻断）、<code>schema_error</code>（结构化解析失败）。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>独立于工程实现的 V4 研究效度评估框架</h3>
+    <p><span class="tag tag-doc">设计文档目标</span> <span class="tag tag-ext">外部研究</span> 遵循 <code>docs/v3/问卷模拟证据与验收方案.md</code> 与 <a href="https://www.cambridge.org/core/journals/political-analysis/article/synthetic-replacements-for-human-survey-data-the-perils-of-large-language-models/B92267DC26195C7F36E63EA04A47D2FE" target="_blank" rel="noopener noreferrer">Bisbee et al. (2024)</a>、<a href="https://proceedings.mlr.press/v202/santurkar23a.html" target="_blank" rel="noopener noreferrer">Santurkar et al. (2023)</a>、<a href="https://huggingface.co/papers/2411.10109" target="_blank" rel="noopener noreferrer">Park et al. (2024)</a> 的方法学要求：效度报告必须锁定具体的<strong>“目标总体 × 调查波次 × 题组 × 语言 × 施测模式 × 模型/数据版本”</strong>六维切片，使用独立真人留出集（Holdout）和真人重测基线计算分布差异（TVD / JSD）、方差比（检测方差坍缩）、校准度（Brier Score）与盲测区分度，并对照预注册阈值输出“通过 / 条件可用 / 未验证”结论；任何结构测试或单案审查通过均不得替代 V4 效度通过。</p>
+  </section>
+
+  <!-- 8. 分期路线、风险和验收 -->
+  <section class="sec" id="sec-roadmap">
+    <h2>分期演进路线、关键风险与可测验收标准</h2>
+    <p><span class="tag tag-rec">架构/设计建议</span> 按“先收敛单案研究工作台可用性与证据透明度 → 再补强版本图谱与断言闭环 → 后上线独立问卷 MVP → 最后推进留出集 V4 效度与总体批次”四阶段推进，每阶段均明确<strong>不可越界声称的能力</strong>。</p>
+
+    <div class="spec-row">
+      <div class="spec-key">P1 · 近期 UI 与信息架构收敛<br><span class="mono">先决：现有 POC 主链路</span></div>
+      <div class="spec-val">
+        <p><strong>交付边界：</strong>落地全站统一设计 Token（纸墨/石板色板、<code>tabular-nums</code>、双密度模式、三通道证据编码）；重构顶栏上下文条与 5 阶段步进；问答页增加可折叠“证据与检索轨迹抽屉”；接入中文 IME 安全提交与 WCAG 2.2 键盘焦点规范。</p>
+        <p><strong>可测验收项：</strong>Playwright 在 <code>1440×1000</code> / <code>1024×768</code> / <code>390×844</code> / <code>320×720</code> 无水平溢出且必要证据零隐藏；全站文本对比度 ≥ 7:1（自动化 axe-core 零 AA/AAA 违规）；中文输入法选词回车不误触发提交。</p>
+        <p><strong>禁止声称：</strong>不声称支持多角色问答、问卷模拟或总体统计代表性。</p>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">P2 · 版本图谱、Diff 与外部断言闭环<br><span class="mono">先决：P1 视觉与路由契约</span></div>
+      <div class="spec-val">
+        <p><strong>交付边界：</strong>上线版本分支树、并排结构化 Diff（节点/边/状态增量）与非破坏性回滚；将后端已实现的 <code>history_assertions.py</code> 接入前端完整录入与冲突裁决界面；导出 JSON 补全 W3C PROV 溯源头；按 6.4 节规范重构 <code>LifeGraph3D.tsx</code>（五层流形、GLSL 微点云、三档粒子开关、防重叠真实节点标签、双主题与实时 <code>as_of</code> 3D 切片平面），并与 2D 泳道及属性表保持双向联动与无障碍等价。</p>
+        <p><strong>数据迁移与验收：</strong>旧修订只读兼容；并发分叉编辑触发 409 冲突提示不静默覆盖；单测验证公共目录断言仍被拒绝写入个体观察；导出包 SHA-256 哈希与原修订严格一致。</p>
+        <p><strong>禁止声称：</strong>不声称 55/440 维度已通过心理测量效度或历史概率已校准。</p>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">P3 · 独立问卷执行 MVP 与角色扩展准备<br><span class="mono">先决：P2 不可变快照与 PROV 契约</span></div>
+      <div class="spec-val">
+        <p><strong>交付边界：</strong>新增独立 <code>survey_instruments</code> / <code>survey_runs</code> / <code>survey_responses</code> 表（物理隔离于主档案）；实现 DDI 风格题项版次、确定性资格与跳题引擎、AAPOR 分离式状态编码、单人/小规模队列施测与依据审阅界面；设计并预演多角色 <code>perspective_view</code> 过滤规则（默认仍锁定 <code>self</code> 直到权限单测通过）。</p>
+        <p><strong>数据迁移与验收：</strong>新增表不改动现有 16 张核心表；自动化测试验证 100% 问卷运行对 <code>GraphRevision</code>/<code>Release</code> 零写操作；被跳题与无资格题严禁触发 LLM 调用；所有导出自带 <code>synthetic_source</code> 标记。</p>
+        <p><strong>禁止声称：</strong>不声称问卷模拟结果具备真人调查外推效度。</p>
+      </div>
+    </div>
+    <div class="spec-row">
+      <div class="spec-key">P4 · V4 问卷效度评估与并行总体批次<br><span class="mono">先决：P3 问卷 MVP + 真实留出数据集</span></div>
+      <div class="spec-val">
+        <p><strong>交付边界：</strong>引入持久化批次调度（如 Temporal）处理百/千人级总体抽样、失败重抽审计与分层校准权重；上线离线 V4 留出集效度流水线（TVD/JSD/方差比/Brier/真人重测基线/盲测）与分切片效度报告页；探索受控错年回忆与旧问卷历史重放实验模式。</p>
+        <p><strong>数据迁移与验收：</strong>跨环境（OpenM++ 与 ReferenceRunner）复算差分通过统计界；每个效度结论强制绑定六维切片与预注册阈值；批次重抽失败率与校准权重完整入账可审计。</p>
+        <p><strong>禁止声称：</strong>严禁将单一总体/波次的 V4 通过结果泛化宣传为“通用真人替代模型”。</p>
+      </div>
+    </div>
+
+    <h3>最终核查与访问边界披露</h3>
+    <ul>
+      <li><strong>仓库访问边界：</strong>当前运行环境无法访问用户本地路径 <code>E:\project\Simulation Personal</code>；所有代码、测试与文档事实均来自 2026-11-24 对公开 GitHub 仓库 <a href="https://github.com/q2805187159/Simulation-Personal" target="_blank" rel="noopener noreferrer">q2805187159/Simulation-Personal</a>（<code>main</code> 分支）的在线只读核查。核查覆盖 README、全部 25 个前端文件、23 个后端模块、10 个核心测试文件（54 项测试）与 6 个脚本，未逐行展开剩余 12 个次要测试文件及超长 JSON 数据尾部，涉及之处已标注“需复核”；全程未读取、输出或引用任何密钥、私有服务地址或个人环境变量。</li>
+      <li><strong>数据与效度边界：</strong><code>process_parameters.json</code> 为工程测试夹具、<code>population.py</code> 含合成规则、<code>analysis_weight</code> 与历史路径概率均未校准；外部关于合成样本效度的学术结论主要基于英文/美国样本，迁移至中文两岸四地人群前必须经独立真人留出集实测。</li>
+    </ul>
+  </section>
+
+  <!-- Sources -->
+  <section class="sec" id="sec-sources">
+    <h2>参考来源清单</h2>
+    <ol class="sources-list">
+      <li><a href="https://github.com/q2805187159/Simulation-Personal" target="_blank" rel="noopener noreferrer">q2805187159/Simulation-Personal（公开仓库 main 分支）</a></li>
+      <li><a href="https://www.w3.org/TR/prov-o/" target="_blank" rel="noopener noreferrer">W3C PROV-O: The PROV Ontology (2013-04-30)</a></li>
+      <li><a href="https://www.w3.org/TR/prov-dm/" target="_blank" rel="noopener noreferrer">W3C PROV-DM: The PROV Data Model (2013-04-30)</a></li>
+      <li><a href="https://xtdb.com/" target="_blank" rel="noopener noreferrer">XTDB Bitemporal Database Documentation</a></li>
+      <li><a href="https://terminusdb.com/docs/terminusdb-explanation/" target="_blank" rel="noopener noreferrer">TerminusDB Git-like Knowledge Graph Versioning (2025)</a></li>
+      <li><a href="https://microservices.io/patterns/data/transactional-outbox.html" target="_blank" rel="noopener noreferrer">Chris Richardson — Pattern: Transactional Outbox</a></li>
+      <li><a href="https://docs.temporal.io/web-ui" target="_blank" rel="noopener noreferrer">Temporal Web UI Official Documentation</a></li>
+      <li><a href="https://docs.langchain.com/oss/python/langgraph/workflows-agents" target="_blank" rel="noopener noreferrer">LangGraph Workflows and Agents Documentation</a></li>
+      <li><a href="https://developers.openai.com/api/reference/responses/overview/" target="_blank" rel="noopener noreferrer">OpenAI Responses API Reference</a></li>
+      <li><a href="https://aclanthology.org/2023.emnlp-main.398/" target="_blank" rel="noopener noreferrer">Gao et al. (EMNLP 2023) — Enabling Large Language Models to Generate Text with Citations (ALCE)</a></li>
+      <li><a href="https://ddialliance.org/ddi-lifecycle" target="_blank" rel="noopener noreferrer">DDI Alliance — DDI-Lifecycle Specification</a></li>
+      <li><a href="https://aapor.org/standards-and-ethics/standard-definitions/" target="_blank" rel="noopener noreferrer">AAPOR — Standard Definitions (10th Edition, 2023)</a></li>
+      <li><a href="https://www.cambridge.org/core/journals/political-analysis/article/out-of-one-many-using-language-models-to-simulate-human-samples/035D7C8A55B237942FB6DBAD7CAA4E49" target="_blank" rel="noopener noreferrer">Argyle et al. (Political Analysis, 2023) — Out of One, Many</a></li>
+      <li><a href="https://proceedings.mlr.press/v202/santurkar23a.html" target="_blank" rel="noopener noreferrer">Santurkar et al. (ICML 2023) — Whose Opinions Do Language Models Reflect?</a></li>
+      <li><a href="https://www.cambridge.org/core/journals/political-analysis/article/synthetic-replacements-for-human-survey-data-the-perils-of-large-language-models/B92267DC26195C7F36E63EA04A47D2FE" target="_blank" rel="noopener noreferrer">Bisbee et al. (Political Analysis, 2024) — Synthetic Replacements for Human Survey Data?</a></li>
+      <li><a href="https://huggingface.co/papers/2411.10109" target="_blank" rel="noopener noreferrer">Park et al. (2024) — Generative Agent Simulations of 1,000 People</a></li>
+      <li><a href="https://arena3d.org/" target="_blank" rel="noopener noreferrer">Arena3D 3.0 Multilayer Network Workbench</a></li>
+      <li><a href="https://vueflow.dev/" target="_blank" rel="noopener noreferrer">Vue Flow v2 Interactive Node Graph Library</a></li>
+      <li><a href="https://js.cytoscape.org/" target="_blank" rel="noopener noreferrer">Cytoscape.js Graph Theory &amp; Visualization Library</a></li>
+      <li><a href="https://timeline.knightlab.com/" target="_blank" rel="noopener noreferrer">Knight Lab TimelineJS</a></li>
+      <li><a href="https://openlineage.io/" target="_blank" rel="noopener noreferrer">OpenLineage Open Standard for Data Lineage</a></li>
+      <li><a href="https://marquezproject.ai/" target="_blank" rel="noopener noreferrer">Marquez Metadata &amp; Lineage Service</a></li>
+      <li><a href="https://dagster.io/docs/guides/operate/webserver" target="_blank" rel="noopener noreferrer">Dagster UI &amp; Webserver Documentation</a></li>
+      <li><a href="https://langfuse.com/docs/observability/overview" target="_blank" rel="noopener noreferrer">Langfuse Open Source LLM Observability</a></li>
+      <li><a href="https://project-redcap.org/" target="_blank" rel="noopener noreferrer">REDCap Research Electronic Data Capture</a></li>
+      <li><a href="https://surveyjs.io/form-library/documentation/overview" target="_blank" rel="noopener noreferrer">SurveyJS Form Library Documentation</a></li>
+      <li><a href="https://github.com/GoogleChrome/modern-web-guidance-src" target="_blank" rel="noopener noreferrer">GoogleChrome/modern-web-guidance-src</a></li>
+      <li><a href="https://www.reactbits.dev/get-started/index" target="_blank" rel="noopener noreferrer">React Bits Animated Components</a></li>
+      <li><a href="https://www.stylekit.top/zh/styles" target="_blank" rel="noopener noreferrer">StyleKit 前端视觉风格目录</a></li>
+      <li><a href="https://www.aura.build/" target="_blank" rel="noopener noreferrer">Aura AI Landing Page Builder</a></li>
+      <li><a href="https://motionsites.ai/" target="_blank" rel="noopener noreferrer">MotionSites AI</a></li>
+      <li><a href="https://www.w3.org/TR/WCAG22/" target="_blank" rel="noopener noreferrer">W3C Web Content Accessibility Guidelines (WCAG) 2.2</a></li>
+      <li><a href="https://github.com/orgs/carbon-design-system/repositories" target="_blank" rel="noopener noreferrer">IBM Carbon Design System</a></li>
+      <li><a href="https://threejs.org/docs/pages/InstancedMesh.html" target="_blank" rel="noopener noreferrer">Three.js Documentation — InstancedMesh &amp; ShaderMaterial</a></li>
+      <li><a href="https://r3f.docs.pmnd.rs/" target="_blank" rel="noopener noreferrer">React Three Fiber Documentation</a></li>
+    </ol>
+  </section>
+
+</main>
+</body>
+</html>
